@@ -1,0 +1,333 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Study of car velocity and position</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-03-16"><meta name="DC.source" content="carr.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Study of car velocity and position</h1><!--introduction--><p>Here we evaluate a a physhical model of a car going forward taking in account different values of the contant of time which is given by the friction constant divided by mass</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load model</a></li><li><a href="#3">Variable Definition</a></li><li><a href="#4">First case of study: Velocity</a></li><li><a href="#5">First case of study: Position</a></li><li><a href="#6">Other Trials: Velocity</a></li><li><a href="#7">Other Trials: Position</a></li><li><a href="#9">Selector and Loop Code</a></li></ul></div><h2>Load model<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> carr
+</pre><pre class="codeinput">    close <span class="string">all</span>;
+
+    <span class="comment">%Load file in system memory</span>
+    file=<span class="string">'carro'</span>;
+    load_system(file);
+</pre><h2>Variable Definition<a name="3"></a></h2><pre class="codeinput">    m=[30 80 10];
+    beta=[5 10 11] ;
+    v0=3;
+    nv0=-v0;
+    y0=5;
+    <span class="comment">%Set Variables into strings (needed to set model parameters)</span>
+    v0str=num2str(v0);
+    nv0str=num2str(nv0);
+    y0str=num2str(y0);
+    StopTime=<span class="string">'8'</span>;
+</pre><h2>First case of study: Velocity<a name="4"></a></h2><p>Giving the mass, <img src="carr_eq04615602021317112039.png" alt="$m=30Kg$">, the friction coeficcient <img src="carr_eq10671306071777472544.png" alt="$$ \beta=5 Nm^{-1} $$"> , the initial value of position <img src="carr_eq14642649502351791725.png" alt="$$y_0 = 5m $$"> and its initial velocity <img src="carr_eq05651252638240732969.png" alt="$$v_0 = 3 m/s $$">, <img src="carr_eq04856052853607716455.png" alt="$$ v_o=-3 m/s $$"> we get</p><pre class="codeinput">   sim_and_plot(m,beta,1,v0str,y0str,nv0str,StopTime,1,file,0);
+   xlim([0 2]);
+   xlabel(<span class="string">'Time (s)'</span>);
+   ylabel(<span class="string">'Velocity (m/s)'</span>);
+   legend(<span class="string">'v_0=3m/s'</span>,<span class="string">'v_0=-3m/s'</span>);
+   title(<span class="string">'Velocity over time'</span>);
+</pre><img vspace="5" hspace="5" src="carr_01.png" alt=""> <h2>First case of study: Position<a name="5"></a></h2><p>Giving the same values as before we get</p><pre class="codeinput">    sim_and_plot(m,beta,1,v0str,y0str,nv0str,StopTime,2,file,0);
+    xlim([0 2]);
+    ylim([4 6]);
+    xlabel(<span class="string">'Time (s)'</span>);
+    ylabel(<span class="string">'Position (m)'</span>);
+    legend(<span class="string">'v_0=3m/s'</span>,<span class="string">'v_0=-3m/s'</span>);
+    title(<span class="string">'Position over time'</span>);
+</pre><img vspace="5" hspace="5" src="carr_02.png" alt=""> <h2>Other Trials: Velocity<a name="6"></a></h2><p>In this section we evaluate the velocity and position for two more different values of <img src="carr_eq17004699669797032699.png" alt="$$m $$"> and <img src="carr_eq12974784273567347411.png" alt="$$\beta $$">. So <img src="carr_eq03327842129833449376.png" alt="$$m=[30, 80, 10] Kg $$"> and <img src="carr_eq07400012303367956166.png" alt="$$\beta=[5, 10, 11]Nm^{-1}  $$">, and making <img src="carr_eq08211361035129023612.png" alt="$$\frac{m}{\beta} = cte = [0.9,6,8] s  $$"></p><pre class="codeinput">    sim_and_plot(m,beta,3,v0str,y0str,nv0str,StopTime,1,file,1);
+</pre><img vspace="5" hspace="5" src="carr_03.png" alt=""> <h2>Other Trials: Position<a name="7"></a></h2><p>In this section we evaluate the velocity and position for two more different values of <img src="carr_eq17004699669797032699.png" alt="$$m $$"> and <img src="carr_eq12974784273567347411.png" alt="$$\beta $$">. So <img src="carr_eq03327842129833449376.png" alt="$$m=[30, 80, 10] Kg $$"> and <img src="carr_eq07400012303367956166.png" alt="$$\beta=[5, 10, 11]Nm^{-1}  $$">, and making <img src="carr_eq08211361035129023612.png" alt="$$\frac{m}{\beta} = cte = [0.9,6,8] s  $$"></p><pre class="codeinput">    sim_and_plot(m,beta,3,v0str,y0str,nv0str,StopTime,2,file,1);
+</pre><img vspace="5" hspace="5" src="carr_04.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+</pre><h2>Selector and Loop Code<a name="9"></a></h2><p>inputs: m=mass, beta= friction cte, int i = how many sims you want, string v0str = initial velocity, string y0str = initial position, string nv0str = negtive value for v0, string StopTime = run time of simulation, int type = if you want velocity(1) or position(2) plots, string file = file of the model, int all = if you want all 3 sims (1) or just the first one (0),</p><pre class="codeinput"><span class="keyword">function</span> sim_and_plot(m,beta,i,v0str,y0str,nv0str,StopTime,type,file,all)
+    color=[<span class="string">'b'</span> <span class="string">'g'</span> <span class="string">'r'</span>]; <span class="comment">%Colors for plots</span>
+
+    <span class="comment">%Start loop with defined i</span>
+    <span class="keyword">for</span> j=1:i
+        <span class="comment">%Set Gain</span>
+        Gain=-m(j)/beta(j);
+        GainStr=num2str(Gain);
+        <span class="comment">%Set parameter in model</span>
+        set_param(<span class="string">'carro/Integrator'</span>,<span class="string">'InitialCondition'</span>,v0str);
+        set_param(<span class="string">'carro/Integrator1'</span>,<span class="string">'InitialCondition'</span>,y0str);
+        set_param(<span class="string">'carro/Gain'</span>,<span class="string">'Gain'</span>,GainStr);
+        set_param(file,<span class="string">'StopTime'</span>,StopTime);
+
+        <span class="comment">%Start sim and store data</span>
+        mod=sim(<span class="string">'carro'</span>,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+        time=mod.get(<span class="string">'clock'</span>);
+        vel=mod.get(<span class="string">'data'</span>);
+        pos=mod.get(<span class="string">'data1'</span>);
+
+        <span class="comment">%Start Sim with neg value and store data</span>
+        set_param(<span class="string">'carro/Integrator'</span>,<span class="string">'InitialCondition'</span>,nv0str);
+        mod=sim(<span class="string">'carro'</span>,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+        ntime=mod.get(<span class="string">'clock'</span>);
+        nvel=mod.get(<span class="string">'data'</span>);
+        npos=mod.get(<span class="string">'data1'</span>);
+
+        <span class="comment">%Plot</span>
+
+
+        <span class="keyword">if</span>(type==1)                     <span class="comment">%type=1 gets the velocity plots</span>
+            <span class="keyword">if</span>(j==1 &amp;&amp; all==0)          <span class="comment">%all=0 just gets the first plot of the m and beta defined</span>
+                plot(time,vel,<span class="string">'linewidth'</span>,2);
+                hold <span class="string">on</span>;
+                plot(ntime,nvel,<span class="string">'linewidth'</span>,2);
+                legend(<span class="string">'v_0=3m/s'</span>,<span class="string">'v_0=-3m/s'</span>);
+            <span class="keyword">elseif</span> (j==1 &amp;&amp; all==1)     <span class="comment">%all=1 gets all the plots</span>
+                h1=plot(time,vel,color(1),<span class="string">'linewidth'</span>,1);
+                hold <span class="string">on</span>;
+                plot(ntime,nvel,color(1),<span class="string">'linewidth'</span>,1);
+
+            <span class="keyword">elseif</span>(j==2 &amp;&amp; all==1)
+                h3=plot(time,vel,color(2),<span class="string">'linewidth'</span>,1);
+                plot(ntime,nvel,color(2),<span class="string">'linewidth'</span>,1);
+            <span class="keyword">else</span>
+                h5=plot(time,vel,color(3),<span class="string">'linewidth'</span>,1);
+                plot(ntime,nvel,color(3),<span class="string">'linewidth'</span>,1);
+                legend([h1,h3,h5],<span class="string">'cte=6s'</span>,<span class="string">'cte=8s'</span>,<span class="string">'cte=0.9s'</span>);
+                xlabel(<span class="string">'Time (s)'</span>);
+                ylabel(<span class="string">'Velocity (m/s)'</span>);
+                title(<span class="string">'Velocity over time'</span>);
+
+            <span class="keyword">end</span>
+        <span class="keyword">elseif</span>(type==2)             <span class="comment">%Gets the position plots</span>
+            <span class="keyword">if</span>(j==1 &amp;&amp; all==0)
+                plot(time,pos,<span class="string">'linewidth'</span>,2);
+                hold <span class="string">on</span>;
+                plot(ntime,npos,<span class="string">'linewidth'</span>,2);
+            <span class="keyword">elseif</span> (j==1 &amp;&amp; all==1)         <span class="comment">%all=1 gets all the plots</span>
+                h7=plot(time,pos,color(1),<span class="string">'linewidth'</span>,1);
+                hold <span class="string">on</span>;
+                plot(ntime,npos,color(1),<span class="string">'linewidth'</span>,1);
+
+            <span class="keyword">elseif</span>(j==2 &amp;&amp; all==1)
+                h9=plot(time,pos,color(2),<span class="string">'linewidth'</span>,1);
+                plot(ntime,npos,color(2),<span class="string">'linewidth'</span>,1);
+            <span class="keyword">else</span>
+                h11=plot(time,pos,color(3),<span class="string">'linewidth'</span>,1);
+                plot(ntime,npos,color(3),<span class="string">'linewidth'</span>,1);
+                legend([h7,h9,h11],<span class="string">'cte=6s'</span>,<span class="string">'cte=8s'</span>,<span class="string">'cte=0.9s'</span>);
+                xlabel(<span class="string">'Time (s)'</span>);
+                ylabel(<span class="string">'Position (m)'</span>);
+                title(<span class="string">'Position'</span>);
+            <span class="keyword">end</span>
+
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+hold <span class="string">off</span>;
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Study of car velocity and position 
+% Here we evaluate a a physhical model of a car going forward taking in
+% account different values of the contant of time which is given by the friction constant
+% divided by mass
+
+%% Load model
+function carr
+
+    close all;
+
+    %Load file in system memory
+    file='carro';
+    load_system(file);
+
+%% Variable Definition
+    m=[30 80 10];
+    beta=[5 10 11] ;
+    v0=3;
+    nv0=-v0;
+    y0=5;
+    %Set Variables into strings (needed to set model parameters)
+    v0str=num2str(v0);
+    nv0str=num2str(nv0);
+    y0str=num2str(y0);
+    StopTime='8';
+%% First case of study: Velocity
+% Giving the mass, $m=30Kg$, the friction coeficcient $$ \beta=5 Nm^{-1} $$
+% , the initial value of position $$y_0 = 5m $$ and its initial
+% velocity $$v_0 = 3 m/s $$, $$ v_o=-3 m/s $$ we get
+   sim_and_plot(m,beta,1,v0str,y0str,nv0str,StopTime,1,file,0);
+   xlim([0 2]);
+   xlabel('Time (s)');
+   ylabel('Velocity (m/s)');
+   legend('v_0=3m/s','v_0=-3m/s');
+   title('Velocity over time');
+  
+   
+%% First case of study: Position
+% Giving the same values as before we get
+    sim_and_plot(m,beta,1,v0str,y0str,nv0str,StopTime,2,file,0);
+    xlim([0 2]);
+    ylim([4 6]);
+    xlabel('Time (s)');
+    ylabel('Position (m)');
+    legend('v_0=3m/s','v_0=-3m/s');
+    title('Position over time');
+   
+    
+%% Other Trials: Velocity
+% In this section we evaluate the velocity and position for two more
+% different values of $$m $$ and $$\beta $$. So $$m=[30, 80, 10] Kg $$ and
+% $$\beta=[5, 10, 11]Nm^{-1}  $$, and making $$\frac{m}{\beta} = cte = [0.9,6,8] s  $$
+    sim_and_plot(m,beta,3,v0str,y0str,nv0str,StopTime,1,file,1);
+   
+%% Other Trials: Position
+% In this section we evaluate the velocity and position for two more
+% different values of $$m $$ and $$\beta $$. So $$m=[30, 80, 10] Kg $$ and
+% $$\beta=[5, 10, 11]Nm^{-1}  $$, and making $$\frac{m}{\beta} = cte = [0.9,6,8] s  $$
+    sim_and_plot(m,beta,3,v0str,y0str,nv0str,StopTime,2,file,1);
+    
+
+
+
+end
+
+%% Selector and Loop Code
+% inputs: m=mass, beta= friction cte, int i = how many sims you want, string v0str = initial velocity,
+% string y0str = initial position, string nv0str = negtive value for v0,
+% string StopTime = run time of simulation, int type = if you want
+% velocity(1) or position(2) plots, string file = file of the model, int
+% all = if you want all 3 sims (1) or just the first one (0), 
+function sim_and_plot(m,beta,i,v0str,y0str,nv0str,StopTime,type,file,all)
+    color=['b' 'g' 'r']; %Colors for plots
+    
+    %Start loop with defined i
+    for j=1:i
+        %Set Gain
+        Gain=-m(j)/beta(j);
+        GainStr=num2str(Gain);
+        %Set parameter in model
+        set_param('carro/Integrator','InitialCondition',v0str);
+        set_param('carro/Integrator1','InitialCondition',y0str);
+        set_param('carro/Gain','Gain',GainStr);
+        set_param(file,'StopTime',StopTime);
+        
+        %Start sim and store data
+        mod=sim('carro','SimulationMode','Normal');
+        time=mod.get('clock');
+        vel=mod.get('data');
+        pos=mod.get('data1');
+   
+        %Start Sim with neg value and store data
+        set_param('carro/Integrator','InitialCondition',nv0str);
+        mod=sim('carro','SimulationMode','Normal');
+        ntime=mod.get('clock');
+        nvel=mod.get('data');
+        npos=mod.get('data1');
+        
+        %Plot
+       
+        
+        if(type==1)                     %type=1 gets the velocity plots
+            if(j==1 && all==0)          %all=0 just gets the first plot of the m and beta defined
+                plot(time,vel,'linewidth',2);
+                hold on;
+                plot(ntime,nvel,'linewidth',2);
+                legend('v_0=3m/s','v_0=-3m/s');
+            elseif (j==1 && all==1)     %all=1 gets all the plots
+                h1=plot(time,vel,color(1),'linewidth',1);
+                hold on;
+                plot(ntime,nvel,color(1),'linewidth',1);
+                
+            elseif(j==2 && all==1)
+                h3=plot(time,vel,color(2),'linewidth',1);
+                plot(ntime,nvel,color(2),'linewidth',1);
+            else
+                h5=plot(time,vel,color(3),'linewidth',1);
+                plot(ntime,nvel,color(3),'linewidth',1);
+                legend([h1,h3,h5],'cte=6s','cte=8s','cte=0.9s');
+                xlabel('Time (s)');
+                ylabel('Velocity (m/s)');
+                title('Velocity over time');
+                
+            end
+        elseif(type==2)             %Gets the position plots
+            if(j==1 && all==0)
+                plot(time,pos,'linewidth',2);
+                hold on;
+                plot(ntime,npos,'linewidth',2);
+            elseif (j==1 && all==1)         %all=1 gets all the plots
+                h7=plot(time,pos,color(1),'linewidth',1);
+                hold on;
+                plot(ntime,npos,color(1),'linewidth',1);
+                
+            elseif(j==2 && all==1)
+                h9=plot(time,pos,color(2),'linewidth',1);
+                plot(ntime,npos,color(2),'linewidth',1);
+            else
+                h11=plot(time,pos,color(3),'linewidth',1);
+                plot(ntime,npos,color(3),'linewidth',1);
+                legend([h7,h9,h11],'cte=6s','cte=8s','cte=0.9s');
+                xlabel('Time (s)');
+                ylabel('Position (m)');
+                title('Position');
+            end
+            
+        end
+    end
+hold off;
+end
+##### SOURCE END #####
+--></body></html>
