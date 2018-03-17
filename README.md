@@ -1,7 +1,4 @@
-# MSIM Labs
-----------
-
-## Relevant files
+# MSIM Relevant files
 ----------
 
 ## Lab1
