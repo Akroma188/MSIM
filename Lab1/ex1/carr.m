@@ -96,9 +96,7 @@ function sim_and_plot(m,beta,i,v0str,y0str,nv0str,StopTime,type,file,all)
         nvel=mod.get('data');
         npos=mod.get('data1');
         
-        %Plot
-       
-        
+        %%Plot
         if(type==1)                     %type=1 gets the velocity plots
             if(j==1 && all==0)          %all=0 just gets the first plot of the m and beta defined
                 plot(time,vel,'linewidth',2);

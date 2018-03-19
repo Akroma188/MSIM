@@ -7,7 +7,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.2"
+    ComputedModelVersion    "1.4"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -57,8 +57,8 @@ Model {
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
 	Extents			[1566.0, 701.0]
-	ZoomFactor		[1.5]
-	Offset			[256.0, 101.33333333333334]
+	ZoomFactor		[1.75]
+	Offset			[377.33333333333343, 106.35532938331477]
       }
     }
   }
@@ -68,9 +68,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Dinis"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Sun Mar 18 02:12:34 2018"
-  RTWModifiedTimeStamp	  443239914
-  ModelVersionFormat	  "1.%<AutoIncrement:2>"
+  LastModifiedDate	  "Mon Mar 19 01:47:18 2018"
+  RTWModifiedTimeStamp	  443323629
+  ModelVersionFormat	  "1.%<AutoIncrement:4>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -121,7 +121,7 @@ Model {
     $ObjectID		    6
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "popul"
-    overrideMode_	    [0U]
+    overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
       Dimension		      1
@@ -171,7 +171,7 @@ Model {
 	  $ObjectID		  8
 	  Version		  "1.16.2"
 	  StartTime		  "0.0"
-	  StopTime		  "2"
+	  StopTime		  "10"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -819,6 +819,11 @@ Model {
       NonVirtualBus	      off
     }
     Block {
+      BlockType		      Clock
+      DisplayTime	      off
+      Decimation	      "10"
+    }
+    Block {
       BlockType		      Fcn
       Expr		      "sin(u[1])"
       SampleTime	      "-1"
@@ -867,9 +872,9 @@ Model {
     TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
     TiledPageScale	    1
     ShowPageBoundaries	    off
-    ZoomFactor		    "150"
+    ZoomFactor		    "175"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "8"
+    SIDHighWatermark	    "10"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -895,20 +900,39 @@ Model {
       InheritFromInputs	      on
     }
     Block {
-      BlockType		      Fcn
-      Name		      "Fcn"
-      SID		      "3"
-      Position		      [700, 220, 760, 250]
-      ZOrder		      3
-      Expr		      "-1*u(1)-2*u(1)*u(2)"
+      BlockType		      Clock
+      Name		      "Clock"
+      SID		      "9"
+      Position		      [985, 155, 1005, 175]
+      ZOrder		      9
     }
     Block {
       BlockType		      Fcn
       Name		      "Fcn1"
+      SID		      "3"
+      Position		      [700, 220, 760, 250]
+      ZOrder		      3
+      Expr		      "(2-1)*u(1)-1*u(1)*u(2)"
+      Port {
+	PortNumber		1
+	Name			"N1"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      Fcn
+      Name		      "Fcn2"
       SID		      "4"
       Position		      [715, 370, 775, 400]
       ZOrder		      4
-      Expr		      "1*u(2) +2*u(2)*u(1)"
+      Expr		      "(1-2)*u(2) +1*u(2)*u(1)"
+      Port {
+	PortNumber		1
+	Name			"N2"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
     }
     Block {
       BlockType		      Integrator
@@ -947,7 +971,7 @@ Model {
       Ports		      [1]
       Position		      [950, 220, 1010, 250]
       ZOrder		      7
-      VariableName	      "simout"
+      VariableName	      "dataN1"
       MaxDataPoints	      "inf"
       SaveFormat	      "Timeseries"
       Save2DSignal	      "3-D array (concatenate along third dimension)"
@@ -961,7 +985,21 @@ Model {
       Ports		      [1]
       Position		      [950, 370, 1010, 400]
       ZOrder		      8
-      VariableName	      "simout1"
+      VariableName	      "dataN2"
+      MaxDataPoints	      "inf"
+      SaveFormat	      "Timeseries"
+      Save2DSignal	      "3-D array (concatenate along third dimension)"
+      FixptAsFi		      on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace2"
+      SID		      "10"
+      Ports		      [1]
+      Position		      [1060, 150, 1120, 180]
+      ZOrder		      10
+      VariableName	      "clock"
       MaxDataPoints	      "inf"
       SaveFormat	      "Timeseries"
       Save2DSignal	      "3-D array (concatenate along third dimension)"
@@ -972,19 +1010,23 @@ Model {
       ZOrder		      1
       SrcBlock		      "Bus\nCreator1"
       SrcPort		      1
-      DstBlock		      "Fcn1"
+      DstBlock		      "Fcn2"
       DstPort		      1
     }
     Line {
+      Name		      "N2"
       ZOrder		      2
-      SrcBlock		      "Fcn1"
+      Labels		      [1, 1]
+      SrcBlock		      "Fcn2"
       SrcPort		      1
       DstBlock		      "Integrator1"
       DstPort		      1
     }
     Line {
+      Name		      "N1"
       ZOrder		      6
-      SrcBlock		      "Fcn"
+      Labels		      [1, 1]
+      SrcBlock		      "Fcn1"
       SrcPort		      1
       DstBlock		      "Integrator"
       DstPort		      1
@@ -993,7 +1035,7 @@ Model {
       ZOrder		      8
       SrcBlock		      "Bus\nCreator"
       SrcPort		      1
-      DstBlock		      "Fcn"
+      DstBlock		      "Fcn1"
       DstPort		      1
     }
     Line {
@@ -1052,6 +1094,13 @@ Model {
 	DstBlock		"To Workspace1"
 	DstPort			1
       }
+    }
+    Line {
+      ZOrder		      21
+      SrcBlock		      "Clock"
+      SrcPort		      1
+      DstBlock		      "To Workspace2"
+      DstPort		      1
     }
   }
 }
