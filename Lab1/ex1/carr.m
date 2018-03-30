@@ -144,5 +144,7 @@ function sim_and_plot(m,beta,i,v0str,y0str,nv0str,StopTime,type,file,all)
             
         end
     end
-hold off;
+    grid on;
+    grid minor;
+    hold off;
 end
