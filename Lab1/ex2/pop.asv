@@ -89,10 +89,6 @@ plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
 mod=sim_plot(alpha1,alpha2,'10','0.0001','1','3',file,3,-1);
 plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
 ylim([0 4]);
-%Por acabar
-%%
-% comentar que temos sempre o equilibrio se o ponto de equilibrio for
-% satisfeito
 
 %% 2.4 a)
 % Here we plot presas.mat togeter with our best guess of values for the
@@ -187,16 +183,16 @@ disp(message);
 N2_init=num2str(x(2));
 alpha_2=num2str(x(1));
 mod=sim_plot(1.4,alpha_2,'20','0.0001','4',N2_init,file,3.1,-1.5);
-N1_f=mod.get('dataN1');
-clk_f=mod.get('clock');
+N1=mod.get('dataN1');
+clk=mod.get('clock');
 figure
 h=plot(prey.tr,prey.yr,'linewidth',2);
 hold on
-h2=plot(clk_f,N1_f,'linewidth',2);
+h2=plot(clk,N1,'linewidth',2);
 xlabel('Time (s)');
 ylabel('N1 Population');
 title('Approximation by brute force','Interpreter','tex');
-legend([h,h2],'N1 given by file','N1 by approximation');
+legend([h,h1],'N1 given by file','N1 by approximation');
 grid on;
 grid minor;
 hold off;
@@ -216,9 +212,8 @@ end
 figure
 h=plot(prey.tr,prey.yr,'o','linewidth',2);;  %presas.mat plot
 hold on;
-h2=plot(clk_f,N1_f,'linewidth',2); %fminsearch plot
-h1=plot(clk,N1,'linewidth',2);; %brute force plot
-hold off
+h2=plot(clk,N1,'linewidth',2);; %brute force plot
+h1=plot(clk,N1,'linewidth',2);; %fminsearch plot
 
 
 

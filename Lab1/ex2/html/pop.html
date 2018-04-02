@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Study of populations</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-03-30"><meta name="DC.source" content="pop.m"><style type="text/css">
+      --><title>Study of populations</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-04-02"><meta name="DC.source" content="pop.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,11 +66,16 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Study of populations</h1><!--introduction--><p>Here we evaluate a a physhical model of a car going forward taking in account different values of the contant of time which is given by the friction constant divided by mass</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load model</a></li><li><a href="#3">Variable Definition</a></li><li><a href="#4">2.1</a></li><li><a href="#5">2.2</a></li><li><a href="#15">2.3</a></li><li><a href="#16">2.4 a)</a></li><li><a href="#18">2.4 b)</a></li><li><a href="#20">2.4 d)</a></li><li><a href="#22">2.4 c)</a></li></ul></div><h2>Load model<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> pop
+  </style></head><body><div class="content"><h1>Study of populations</h1><!--introduction--><p>Here we evaluate a a physhical model of a car going forward taking in account different values of the contant of time which is given by the friction constant divided by mass</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load model</a></li><li><a href="#3">Variable Definition</a></li><li><a href="#4">2.1</a></li><li><a href="#5">2.2</a></li><li><a href="#15">2.3</a></li><li><a href="#16">2.4 a)</a></li><li><a href="#18">2.4 b)</a></li><li><a href="#20">2.4 c)</a></li><li><a href="#21">2.4 c)</a></li><li><a href="#24">2.4 c)</a></li></ul></div><h2>Load model<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> pop
 </pre><pre class="codeinput">close <span class="string">all</span>;
 <span class="comment">%Load file in system memory</span>
 file=<span class="string">'popul'</span>;
-load_system(file);
+load_system(file);1
+</pre><pre class="codeoutput">
+ans =
+
+     1
+
 </pre><h2>Variable Definition<a name="3"></a></h2><pre class="codeinput">StopTime=<span class="string">'4'</span>;
 N1_init=<span class="string">'2'</span>;
 N2_init=<span class="string">'2'</span>;
@@ -128,25 +133,31 @@ ylabel(<span class="string">'N1 Population'</span>);
 title(<span class="string">'Approximation by visual guidance'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
 legend([h,h1],<span class="string">'N1 given by file'</span>,<span class="string">'N1 by visual approximation'</span>);
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="pop_11.png" alt=""> <p>We can see by the maximum values of presas.mat that our values for the predadator function are a good estimate of the real ones</p><h2>2.4 b)<a name="18"></a></h2><pre class="codeinput">alpha2_t=linspace(0.68,0.72,20);
+</pre><img vspace="5" hspace="5" src="pop_11.png" alt=""> <p>We can see by the maximum values of presas.mat that our values for the predadator function are a good estimate of the real ones</p><h2>2.4 b)<a name="18"></a></h2><pre class="codeinput"><span class="comment">%Get linear spaced values for variables (400 iterations using 20 by 20 linear spaced)</span>
+alpha2_t=linspace(0.68,0.72,20);
 N2_t=linspace(1.58,1.62,20);
 [X,Y]=meshgrid(alpha2_t,N2_t);
+<span class="comment">%Z matrix contains the total error for each point of the grid</span>
 Z = error_matrix(alpha2_t,N2_t);
 
+<span class="comment">%Plot mesh figure</span>
 h=figure;
 create_mesh(h,X,Y,Z);    <span class="comment">%made by righ clicking the figure (../get code) because i rotated it to get a better view</span>
 <span class="comment">%Get the min error value and index</span>
 I=find(Z==min(min(Z)));
+Zmin=min(min(Z));
 N2_init=num2str(Y(I));
 alpha_2=num2str(X(I));
 
-<span class="comment">%Plot bot prey evolution</span>
+<span class="comment">%Plot both prey evolution plot</span>
 mod=sim_plot(1.4,alpha_2,<span class="string">'20'</span>,<span class="string">'0.0001'</span>,<span class="string">'4'</span>,N2_init,file,3.1,-1.5);
 N1=mod.get(<span class="string">'dataN1'</span>);
 clk=mod.get(<span class="string">'clock'</span>);
 figure
+<span class="comment">%plot presas.mat</span>
 h=plot(prey.tr,prey.yr,<span class="string">'linewidth'</span>,2);
 hold <span class="string">on</span>;
+<span class="comment">%plot sim and label</span>
 h1=plot(clk,N1,<span class="string">'linewidth'</span>,2);
 xlabel(<span class="string">'Time (s)'</span>);
 ylabel(<span class="string">'N1 Population'</span>);
@@ -155,51 +166,74 @@ legend([h,h1],<span class="string">'N1 given by file'</span>,<span class="string
 grid <span class="string">on</span>;
 grid <span class="string">minor</span>;
 hold <span class="string">off</span>;
+<span class="comment">%Get min value of error and point X,Y</span>
 N2_init=num2str(Y(I));
 alpha_2=num2str(X(I));
-X = sprintf(<span class="string">'By this iteration we get N(0)=%s and alpha_2 =%s as our best values for aproximation'</span>,N2_init,alpha_2);
-disp(X)
-</pre><pre class="codeoutput">By this iteration we get N(0)=1.5968 and alpha_2 =0.70105 as our best values for aproximation
-</pre><img vspace="5" hspace="5" src="pop_12.png" alt=""> <img vspace="5" hspace="5" src="pop_13.png" alt=""> <p>Using brute force iterations we see that we can get a really good approximation. The time it takes</p><h2>2.4 d)<a name="20"></a></h2><p>Optimization usig fminunc</p><pre class="codeinput">fh=@algorithm1;
-x0=[0.60;1.50];
-[x, fval]=fminunc(fh,x0)
+Zmin_str=num2str(Zmin);
+message=sprintf(<span class="string">'By this method, using 400 iterations we get N(0)=%s and alpha_2 =%s as our best values for aproximation, with a total error of %s'</span>,N2_init,alpha_2,Zmin_str);
+disp(message);
+</pre><pre class="codeoutput">By this method, using 400 iterations we get N(0)=1.5968 and alpha_2 =0.70105 as our best values for aproximation, with a total error of 9.9726
+</pre><img vspace="5" hspace="5" src="pop_12.png" alt=""> <img vspace="5" hspace="5" src="pop_13.png" alt=""> <p>Using brute force iterations we see that we can get a really good approximation. But if we didnt knew the interval on where alpha2 and N2init were, we would get much more iteration. This method is not viable (continue)</p><h2>2.4 c)<a name="20"></a></h2><p>Optimization usig fminsearch</p><pre class="codeinput"><span class="comment">%x0 = initial values to begin optimization algorithm, fminsearch returns</span>
+<span class="comment">%the solution fval (error in our case), x(1) and x(2) corresponding to</span>
+<span class="comment">%N2_init and alpha_2</span>
+x0=[0.68;1.58];
+options=optimset(<span class="string">'Display'</span>,<span class="string">'final'</span>);
+[x,fval,exitflag,output]=fminsearch(@algorithm1,x0,options);
+<span class="comment">%get number of iterations it needed to find the min value</span>
+iterations=output.iterations
+fval_str=num2str(fval);
+
+message=sprintf(<span class="string">'By this method using 28 iterations we get N(0)=%s and alpha_2 =%s as our best values for aproximation, with a total error of %s'</span>,x(2),x(1),fval_str);
+disp(message);
+<span class="comment">%plot both prey evolution plots</span>
+N2_init=num2str(x(2));
+alpha_2=num2str(x(1));
 mod=sim_plot(1.4,alpha_2,<span class="string">'20'</span>,<span class="string">'0.0001'</span>,<span class="string">'4'</span>,N2_init,file,3.1,-1.5);
+N1_f=mod.get(<span class="string">'dataN1'</span>);
+clk_f=mod.get(<span class="string">'clock'</span>);
+figure
+h=plot(prey.tr,prey.yr,<span class="string">'linewidth'</span>,2);
+hold <span class="string">on</span>
+h2=plot(clk_f,N1_f,<span class="string">'linewidth'</span>,2);
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'N1 Population'</span>);
+title(<span class="string">'Approximation by brute force'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+legend([h,h2],<span class="string">'N1 given by file'</span>,<span class="string">'N1 by approximation'</span>);
+grid <span class="string">on</span>;
+grid <span class="string">minor</span>;
+hold <span class="string">off</span>;
 
-x
-fval
-</pre><pre class="codeoutput">Warning: Gradient must be provided for trust-region algorithm; using
-quasi-newton algorithm instead. 
-
-Initial point is a local minimum.
-
-Optimization completed because the size of the gradient at the initial point 
-is less than the default value of the optimality tolerance.
-
-
-
-
-x =
-
-    0.6000
-    1.5000
-
-
-fval =
-
-   73.7856
-
-
-x =
-
-    0.6000
-    1.5000
+result=Zmin-fval;
+<span class="keyword">if</span> result&lt;0
+    message=sprintf(<span class="string">'Brute force iteration gives a better result with a difference of %f on the total error'</span>,result)
+<span class="keyword">elseif</span> result &gt; 0
+    message=sprintf(<span class="string">'fminsearch gives a better result with a difference of %f on the total error'</span>,result)
+<span class="keyword">else</span>
+    message=sprintf(<span class="string">'Both methonds give the same result, given the %f difference on the total error'</span>,result)
+<span class="keyword">end</span>
+</pre><pre class="codeoutput"> 
+Optimization terminated:
+ the current x satisfies the termination criteria using OPTIONS.TolX of 1.000000e-04 
+ and F(X) satisfies the convergence criteria using OPTIONS.TolFun of 1.000000e-04 
 
 
-fval =
+iterations =
 
-   73.7856
+    28
 
-</pre><p>Comentar aqui BLA BLA BLA</p><h2>2.4 c)<a name="22"></a></h2><pre class="codeinput"><span class="keyword">end</span>
+By this method using 28 iterations we get N(0)=1.598157e+00 and alpha_2 =7.012891e-01 as our best values for aproximation, with a total error of 9.9689
+
+message =
+
+fminsearch gives a better result with a difference of 0.003666 on the total error
+
+</pre><img vspace="5" hspace="5" src="pop_14.png" alt=""> <h2>2.4 c)<a name="21"></a></h2><p>Comparing the 2 methods</p><pre class="codeinput">figure
+h=plot(prey.tr,prey.yr,<span class="string">'o'</span>,<span class="string">'linewidth'</span>,2);;  <span class="comment">%presas.mat plot</span>
+hold <span class="string">on</span>;
+h2=plot(clk_f,N1_f,<span class="string">'linewidth'</span>,2); <span class="comment">%fminsearch plot</span>
+h1=plot(clk,N1,<span class="string">'linewidth'</span>,2);; <span class="comment">%brute force plot</span>
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="pop_15.png" alt=""> <p>Using the optimization algorithm fminsearch we can get the same approximate values by apllying 14 times less iterations</p><p>Comentar aqui BLA BLA BLA</p><h2>2.4 c)<a name="24"></a></h2><pre class="codeinput"><span class="keyword">end</span>
 
 
 
@@ -260,7 +294,8 @@ h = waitbar(0,<span class="string">'Please wait...'</span>);
     <span class="keyword">for</span> j=1:sz(2)
         <span class="comment">%messagge box</span>
         msg1=num2str(j);
-        str=strcat(msg,<span class="string">'/'</span>);
+        msg1=strcat(msg1,<span class="string">' out of 20'</span>);
+        str=strcat(msg,<span class="string">' out of 20 / '</span>);
         str=strcat(str,msg1);
         waitbar(i/sz(1),h,str);
         <span class="comment">%sim and ge error</span>
@@ -286,6 +321,7 @@ close(h)
 <span class="keyword">end</span>
 
 
+<span class="comment">% function dispIteration()</span>
 <span class="keyword">function</span> create_mesh(Parent1, xdata1, ydata1, zdata1)
 <span class="comment">%CREATEAXES(PARENT1, XDATA1, YDATA1, ZDATA1)</span>
 <span class="comment">%  PARENT1:  axes parent</span>
@@ -303,7 +339,7 @@ hold(axes1,<span class="string">'on'</span>);
 mesh(xdata1,ydata1,zdata1,<span class="string">'Parent'</span>,axes1);
 
 <span class="comment">% Create xlabel</span>
-xlabel(<span class="string">'alpha1'</span>);
+xlabel(<span class="string">'alpha2'</span>);
 
 <span class="comment">% Create zlabel</span>
 zlabel(<span class="string">'Total Error(%)'</span>);
@@ -312,7 +348,7 @@ zlabel(<span class="string">'Total Error(%)'</span>);
 title(<span class="string">'Error calculation'</span>);
 
 <span class="comment">% Create ylabel</span>
-ylabel(<span class="string">'N1(0)'</span>);
+ylabel(<span class="string">'N2(0)'</span>);
 
 colorbar;
 
@@ -332,7 +368,7 @@ function pop
 close all;
 %Load file in system memory
 file='popul';
-load_system(file);
+load_system(file);1
 %% Variable Definition
 StopTime='4';
 N1_init='2';     
@@ -439,25 +475,31 @@ hold off
 %% 2.4 b)
 %
 
+%Get linear spaced values for variables (400 iterations using 20 by 20 linear spaced)
 alpha2_t=linspace(0.68,0.72,20);
 N2_t=linspace(1.58,1.62,20);
 [X,Y]=meshgrid(alpha2_t,N2_t);
+%Z matrix contains the total error for each point of the grid
 Z = error_matrix(alpha2_t,N2_t);
 
+%Plot mesh figure
 h=figure;
 create_mesh(h,X,Y,Z);    %made by righ clicking the figure (../get code) because i rotated it to get a better view
 %Get the min error value and index
 I=find(Z==min(min(Z)));
+Zmin=min(min(Z));
 N2_init=num2str(Y(I));
 alpha_2=num2str(X(I));
 
-%Plot bot prey evolution
+%Plot both prey evolution plot
 mod=sim_plot(1.4,alpha_2,'20','0.0001','4',N2_init,file,3.1,-1.5);
 N1=mod.get('dataN1');
 clk=mod.get('clock');
 figure
+%plot presas.mat
 h=plot(prey.tr,prey.yr,'linewidth',2);
 hold on;
+%plot sim and label
 h1=plot(clk,N1,'linewidth',2);
 xlabel('Time (s)');
 ylabel('N1 Population');
@@ -466,23 +508,79 @@ legend([h,h1],'N1 given by file','N1 by approximation');
 grid on;
 grid minor;
 hold off;
+%Get min value of error and point X,Y
 N2_init=num2str(Y(I));
 alpha_2=num2str(X(I));
-X = sprintf('By this iteration we get N(0)=%s and alpha_2 =%s as our best values for aproximation',N2_init,alpha_2);
-disp(X)
+Zmin_str=num2str(Zmin);
+message=sprintf('By this method, using 400 iterations we get N(0)=%s and alpha_2 =%s as our best values for aproximation, with a total error of %s',N2_init,alpha_2,Zmin_str);
+disp(message);
 
 %%
 % Using brute force iterations we see that we can get a really good
-% approximation. The time it takes
-%% 2.4 d)
-% Optimization usig fminunc
-fh=@algorithm1;
-x0=[0.60;1.50];
-[x, fval]=fminunc(fh,x0)
-mod=sim_plot(1.4,alpha_2,'20','0.0001','4',N2_init,file,3.1,-1.5);
+% approximation. But if we didnt knew the interval on where alpha2 and
+% N2init were, we would get much more iteration. This method is not viable
+% (continue)
 
-x
-fval
+
+
+%% 2.4 c)
+% Optimization usig fminsearch
+
+%x0 = initial values to begin optimization algorithm, fminsearch returns
+%the solution fval (error in our case), x(1) and x(2) corresponding to
+%N2_init and alpha_2
+x0=[0.68;1.58];
+options=optimset('Display','final');
+[x,fval,exitflag,output]=fminsearch(@algorithm1,x0,options);
+%get number of iterations it needed to find the min value
+iterations=output.iterations
+fval_str=num2str(fval);
+
+message=sprintf('By this method using 28 iterations we get N(0)=%s and alpha_2 =%s as our best values for aproximation, with a total error of %s',x(2),x(1),fval_str);
+disp(message);
+%plot both prey evolution plots
+N2_init=num2str(x(2));
+alpha_2=num2str(x(1));
+mod=sim_plot(1.4,alpha_2,'20','0.0001','4',N2_init,file,3.1,-1.5);
+N1_f=mod.get('dataN1');
+clk_f=mod.get('clock');
+figure
+h=plot(prey.tr,prey.yr,'linewidth',2);
+hold on
+h2=plot(clk_f,N1_f,'linewidth',2);
+xlabel('Time (s)');
+ylabel('N1 Population');
+title('Approximation by brute force','Interpreter','tex');
+legend([h,h2],'N1 given by file','N1 by approximation');
+grid on;
+grid minor;
+hold off;
+
+result=Zmin-fval;
+if result<0
+    message=sprintf('Brute force iteration gives a better result with a difference of %f on the total error',result)
+elseif result > 0
+    message=sprintf('fminsearch gives a better result with a difference of %f on the total error',result)
+else
+    message=sprintf('Both methonds give the same result, given the %f difference on the total error',result)
+end
+
+%% 2.4 c)
+% Comparing the 2 methods
+
+figure
+h=plot(prey.tr,prey.yr,'o','linewidth',2);;  %presas.mat plot
+hold on;
+h2=plot(clk_f,N1_f,'linewidth',2); %fminsearch plot
+h1=plot(clk,N1,'linewidth',2);; %brute force plot
+hold off
+
+
+
+%%
+% Using the optimization algorithm fminsearch we can get the same approximate values by
+% apllying 14 times less iterations 
+
 %%
 % Comentar aqui BLA BLA BLA
        
@@ -555,7 +653,8 @@ for i=1:sz(1)
     for j=1:sz(2)
         %messagge box
         msg1=num2str(j);
-        str=strcat(msg,'/');
+        msg1=strcat(msg1,' out of 20');
+        str=strcat(msg,' out of 20 / ');
         str=strcat(str,msg1);
         waitbar(i/sz(1),h,str);
         %sim and ge error
@@ -581,6 +680,7 @@ function total_error= algorithm1(x)
 end
 
 
+% function dispIteration()
 function create_mesh(Parent1, xdata1, ydata1, zdata1)
 %CREATEAXES(PARENT1, XDATA1, YDATA1, ZDATA1)
 %  PARENT1:  axes parent
@@ -598,7 +698,7 @@ hold(axes1,'on');
 mesh(xdata1,ydata1,zdata1,'Parent',axes1);
 
 % Create xlabel
-xlabel('alpha1');
+xlabel('alpha2');
 
 % Create zlabel
 zlabel('Total Error(%)');
@@ -607,7 +707,7 @@ zlabel('Total Error(%)');
 title('Error calculation');
 
 % Create ylabel
-ylabel('N1(0)');
+ylabel('N2(0)');
 
 colorbar;
 
