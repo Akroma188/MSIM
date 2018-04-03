@@ -214,26 +214,22 @@ end
 % Comparing the 2 methods
 
 figure
-h=plot(prey.tr,prey.yr,'o','linewidth',2);;  %presas.mat plot
+h=plot(prey.tr,prey.yr,'o','linewidth',2);  %presas.mat plot
 hold on;
 h2=plot(clk_f,N1_f,'linewidth',2); %fminsearch plot
-h1=plot(clk,N1,'linewidth',2);; %brute force plot
+h1=plot(clk,N1,'linewidth',2); %brute force plot
 hold off
-
 
 
 %%
 % Using the optimization algorithm fminsearch we can get the same approximate values by
 % apllying 14 times less iterations 
 
-%%
-% Comentar aqui BLA BLA BLA
+
        
 
 
 
-%% 2.4 c)
-%
 
 
 
