@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Study of populations</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-04-02"><meta name="DC.source" content="pop.m"><style type="text/css">
+      --><title>Study of populations</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-04-06"><meta name="DC.source" content="pop.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,16 +66,11 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Study of populations</h1><!--introduction--><p>Here we evaluate a a physhical model of a car going forward taking in account different values of the contant of time which is given by the friction constant divided by mass</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load model</a></li><li><a href="#3">Variable Definition</a></li><li><a href="#4">2.1</a></li><li><a href="#5">2.2</a></li><li><a href="#15">2.3</a></li><li><a href="#16">2.4 a)</a></li><li><a href="#18">2.4 b)</a></li><li><a href="#20">2.4 c)</a></li><li><a href="#21">2.4 c)</a></li><li><a href="#24">2.4 c)</a></li></ul></div><h2>Load model<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> pop
+  </style></head><body><div class="content"><h1>Study of populations</h1><!--introduction--><p>Here we evaluate a a physhical model of a car going forward taking in account different values of the contant of time which is given by the friction constant divided by mass</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load model</a></li><li><a href="#3">Variable Definition</a></li><li><a href="#4">2.1</a></li><li><a href="#5">2.2</a></li><li><a href="#15">2.3</a></li><li><a href="#17">2.4 a)</a></li><li><a href="#19">2.4 b)</a></li><li><a href="#21">2.4 c)</a></li><li><a href="#22">2.4 c)</a></li></ul></div><h2>Load model<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> pop
 </pre><pre class="codeinput">close <span class="string">all</span>;
 <span class="comment">%Load file in system memory</span>
 file=<span class="string">'popul'</span>;
-load_system(file);1
-</pre><pre class="codeoutput">
-ans =
-
-     1
-
+load_system(file);
 </pre><h2>Variable Definition<a name="3"></a></h2><pre class="codeinput">StopTime=<span class="string">'4'</span>;
 N1_init=<span class="string">'2'</span>;
 N2_init=<span class="string">'2'</span>;
@@ -114,10 +109,42 @@ plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
 </pre><img vspace="5" hspace="5" src="pop_08.png" alt=""> <p><img src="pop_eq11958663548107639564.png" alt="$$\delta_1 = 1 $$"> and <img src="pop_eq02228438658146341448.png" alt="$$\delta_2 = 0 $$"> equilibrium</p><pre class="codeinput">mod=sim_plot(alpha1,alpha2,<span class="string">'2'</span>,<span class="string">'0.0001'</span>,N1_init,N2_init,file,1,1);
 tittle=<span class="string">'Interaction between the two populations with \delta_1 = 1 and \delta_2 = 1'</span>;
 plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
-</pre><img vspace="5" hspace="5" src="pop_09.png" alt=""> <p><img src="pop_eq18324777375169989856.png" alt="$$\delta_1 = 1 $$ and $$\delta_2 = 1 $$"></p><h2>2.3<a name="15"></a></h2><p>To confirm equilibrium we need to assure that <img src="pop_eq10680663764354241954.png" alt="$$N_1 = -\frac{\delta_2}{\alpha_2} $$"> and <img src="pop_eq12002139907698268635.png" alt="$$\frac{\delta_1}{\alpha_1} $$">, so ploting the case where the populations osccilate i.e for every <img src="pop_eq07154945909053325366.png" alt="$$\delta_2 < 0 $$"></p><pre class="codeinput">mod=sim_plot(alpha1,alpha2,<span class="string">'10'</span>,<span class="string">'0.0001'</span>,<span class="string">'1'</span>,<span class="string">'3'</span>,file,3,-1);
-plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
-ylim([0 4]);
-</pre><img vspace="5" hspace="5" src="pop_10.png" alt=""> <h2>2.4 a)<a name="16"></a></h2><p>Here we plot presas.mat togeter with our best guess of values for the predadotr evolution</p><pre class="codeinput">mod=sim_plot(1.4,0.71,<span class="string">'20'</span>,<span class="string">'0.0001'</span>,<span class="string">'4'</span>,<span class="string">'1.47'</span>,file,3.1,-1.5);
+</pre><img vspace="5" hspace="5" src="pop_09.png" alt=""> <p><img src="pop_eq18324777375169989856.png" alt="$$\delta_1 = 1 $$ and $$\delta_2 = 1 $$"></p><h2>2.3<a name="15"></a></h2><p>To confirm equilibrium we need to assure that <img src="pop_eq10680663764354241954.png" alt="$$N_1 = -\frac{\delta_2}{\alpha_2} $$"> and <img src="pop_eq12002139907698268635.png" alt="$$\frac{\delta_1}{\alpha_1} $$">, so ploting the case where the populations osccilate i.e for every <img src="pop_eq07154945909053325366.png" alt="$$\delta_2 < 0 $$"> with <img src="pop_eq05673647097858741621.png" alt="$$\delta_1 &gt;0 $$"></p><pre class="codeinput">    n1V=[1 2 3 4 5 6]
+    n2V=[1 2 3 4 5 6]
+    [X,Y]=meshgrid(n1V,n2V);
+figure
+grid <span class="string">on</span>;
+grid <span class="string">minor</span>;
+<span class="keyword">for</span> k=1:6
+    <span class="keyword">for</span> j=1:6
+        mod=sim_plot(alpha1,alpha2,<span class="string">'10'</span>,<span class="string">'0.0001'</span>,X(k,j),Y(k,j),file,1,-1);
+        N2p=mod.get(<span class="string">'dataN2'</span>);
+        N1p=mod.get(<span class="string">'dataN1'</span>);
+        plot(N1p,N2p,<span class="string">'linewidth'</span>,2);
+        hold <span class="string">on</span>;
+        xlabel(<span class="string">'N2 Population'</span>);
+        ylabel(<span class="string">'N1 Population'</span>);
+        title(<span class="string">'Phase Space with \delta_1 = 1 and \delta_2 = -1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+mod=sim_plot(alpha1,alpha2,<span class="string">'10'</span>,<span class="string">'0.0001'</span>,1,1,file,1,-1);
+N2p=mod.get(<span class="string">'dataN2'</span>);
+N1p=mod.get(<span class="string">'dataN1'</span>);
+plot(N1p,N2p,<span class="string">'x'</span>,<span class="string">'linewidth'</span>,2);
+hold <span class="string">off</span>
+<span class="comment">%Por acabar</span>
+</pre><pre class="codeoutput">
+n1V =
+
+     1     2     3     4     5     6
+
+
+n2V =
+
+     1     2     3     4     5     6
+
+</pre><img vspace="5" hspace="5" src="pop_10.png" alt=""> <p>comentar que temos sempre o equilibrio se o ponto de equilibrio for satisfeito</p><h2>2.4 a)<a name="17"></a></h2><p>Here we plot presas.mat togeter with our best guess of values for the predadotr evolution</p><pre class="codeinput">mod=sim_plot(1.4,0.71,<span class="string">'20'</span>,<span class="string">'0.0001'</span>,<span class="string">'4'</span>,<span class="string">'1.47'</span>,file,3.1,-1.5);
 <span class="comment">%plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);</span>
 
 prey=load(<span class="string">'presas.mat'</span>);
@@ -133,7 +160,7 @@ ylabel(<span class="string">'N1 Population'</span>);
 title(<span class="string">'Approximation by visual guidance'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
 legend([h,h1],<span class="string">'N1 given by file'</span>,<span class="string">'N1 by visual approximation'</span>);
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="pop_11.png" alt=""> <p>We can see by the maximum values of presas.mat that our values for the predadator function are a good estimate of the real ones</p><h2>2.4 b)<a name="18"></a></h2><pre class="codeinput"><span class="comment">%Get linear spaced values for variables (400 iterations using 20 by 20 linear spaced)</span>
+</pre><img vspace="5" hspace="5" src="pop_11.png" alt=""> <p>We can see by the maximum values of presas.mat that our values for the predadator function are a good estimate of the real ones</p><h2>2.4 b)<a name="19"></a></h2><pre class="codeinput"><span class="comment">%Get linear spaced values for variables (400 iterations using 20 by 20 linear spaced)</span>
 alpha2_t=linspace(0.68,0.72,20);
 N2_t=linspace(1.58,1.62,20);
 [X,Y]=meshgrid(alpha2_t,N2_t);
@@ -173,7 +200,7 @@ Zmin_str=num2str(Zmin);
 message=sprintf(<span class="string">'By this method, using 400 iterations we get N(0)=%s and alpha_2 =%s as our best values for aproximation, with a total error of %s'</span>,N2_init,alpha_2,Zmin_str);
 disp(message);
 </pre><pre class="codeoutput">By this method, using 400 iterations we get N(0)=1.5968 and alpha_2 =0.70105 as our best values for aproximation, with a total error of 9.9726
-</pre><img vspace="5" hspace="5" src="pop_12.png" alt=""> <img vspace="5" hspace="5" src="pop_13.png" alt=""> <p>Using brute force iterations we see that we can get a really good approximation. But if we didnt knew the interval on where alpha2 and N2init were, we would get much more iteration. This method is not viable (continue)</p><h2>2.4 c)<a name="20"></a></h2><p>Optimization usig fminsearch</p><pre class="codeinput"><span class="comment">%x0 = initial values to begin optimization algorithm, fminsearch returns</span>
+</pre><img vspace="5" hspace="5" src="pop_12.png" alt=""> <img vspace="5" hspace="5" src="pop_13.png" alt=""> <p>Using brute force iterations we see that we can get a really good approximation. But if we didnt knew the interval on where alpha2 and N2init were, we would get much more iteration. This method is not viable (continue)</p><h2>2.4 c)<a name="21"></a></h2><p>Optimization usig fminsearch</p><pre class="codeinput"><span class="comment">%x0 = initial values to begin optimization algorithm, fminsearch returns</span>
 <span class="comment">%the solution fval (error in our case), x(1) and x(2) corresponding to</span>
 <span class="comment">%N2_init and alpha_2</span>
 x0=[0.68;1.58];
@@ -197,7 +224,7 @@ hold <span class="string">on</span>
 h2=plot(clk_f,N1_f,<span class="string">'linewidth'</span>,2);
 xlabel(<span class="string">'Time (s)'</span>);
 ylabel(<span class="string">'N1 Population'</span>);
-title(<span class="string">'Approximation by brute force'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+title(<span class="string">'Approximation using optimization algorithm'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
 legend([h,h2],<span class="string">'N1 given by file'</span>,<span class="string">'N1 by approximation'</span>);
 grid <span class="string">on</span>;
 grid <span class="string">minor</span>;
@@ -227,13 +254,15 @@ message =
 
 fminsearch gives a better result with a difference of 0.003666 on the total error
 
-</pre><img vspace="5" hspace="5" src="pop_14.png" alt=""> <h2>2.4 c)<a name="21"></a></h2><p>Comparing the 2 methods</p><pre class="codeinput">figure
-h=plot(prey.tr,prey.yr,<span class="string">'o'</span>,<span class="string">'linewidth'</span>,2);;  <span class="comment">%presas.mat plot</span>
+</pre><img vspace="5" hspace="5" src="pop_14.png" alt=""> <h2>2.4 c)<a name="22"></a></h2><p>Comparing the 2 methods</p><pre class="codeinput">figure
+h=plot(prey.tr,prey.yr,<span class="string">'o'</span>,<span class="string">'linewidth'</span>,2);  <span class="comment">%presas.mat plot</span>
 hold <span class="string">on</span>;
 h2=plot(clk_f,N1_f,<span class="string">'linewidth'</span>,2); <span class="comment">%fminsearch plot</span>
-h1=plot(clk,N1,<span class="string">'linewidth'</span>,2);; <span class="comment">%brute force plot</span>
+h1=plot(clk,N1,<span class="string">'linewidth'</span>,2); <span class="comment">%brute force plot</span>
+grid <span class="string">on</span>;
+grid <span class="string">minor</span>;
 hold <span class="string">off</span>
-</pre><img vspace="5" hspace="5" src="pop_15.png" alt=""> <p>Using the optimization algorithm fminsearch we can get the same approximate values by apllying 14 times less iterations</p><p>Comentar aqui BLA BLA BLA</p><h2>2.4 c)<a name="24"></a></h2><pre class="codeinput"><span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="pop_15.png" alt=""> <p>Using the optimization algorithm fminsearch we can get the same approximate values by apllying 14 times less iterations</p><pre class="codeinput"><span class="keyword">end</span>
 
 
 
@@ -368,7 +397,7 @@ function pop
 close all;
 %Load file in system memory
 file='popul';
-load_system(file);1
+load_system(file);
 %% Variable Definition
 StopTime='4';
 N1_init='2';     
@@ -443,11 +472,36 @@ plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
 %% 2.3
 % To confirm equilibrium we need to assure that $$N_1 =
 % -\frac{\delta_2}{\alpha_2} $$ and $$\frac{\delta_1}{\alpha_1} $$, so
-% ploting the case where the populations osccilate i.e for every $$\delta_2 < 0 $$
-
-mod=sim_plot(alpha1,alpha2,'10','0.0001','1','3',file,3,-1);
-plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
-ylim([0 4]);
+% ploting the case where the populations osccilate i.e for every $$\delta_2
+% < 0 $$ with $$\delta_1 >0 $$
+    n1V=[1 2 3 4 5 6]
+    n2V=[1 2 3 4 5 6]
+    [X,Y]=meshgrid(n1V,n2V);
+figure
+grid on;
+grid minor;
+for k=1:6
+    for j=1:6
+        mod=sim_plot(alpha1,alpha2,'10','0.0001',X(k,j),Y(k,j),file,1,-1);
+        N2p=mod.get('dataN2');
+        N1p=mod.get('dataN1');
+        plot(N1p,N2p,'linewidth',2);
+        hold on;
+        xlabel('N2 Population');
+        ylabel('N1 Population');
+        title('Phase Space with \delta_1 = 1 and \delta_2 = -1','Interpreter','tex');
+        
+    end
+end
+mod=sim_plot(alpha1,alpha2,'10','0.0001',1,1,file,1,-1);
+N2p=mod.get('dataN2');
+N1p=mod.get('dataN1');
+plot(N1p,N2p,'x','linewidth',2);
+hold off
+%Por acabar
+%%
+% comentar que temos sempre o equilibrio se o ponto de equilibrio for
+% satisfeito
 
 %% 2.4 a)
 % Here we plot presas.mat togeter with our best guess of values for the
@@ -550,7 +604,7 @@ hold on
 h2=plot(clk_f,N1_f,'linewidth',2);
 xlabel('Time (s)');
 ylabel('N1 Population');
-title('Approximation by brute force','Interpreter','tex');
+title('Approximation using optimization algorithm','Interpreter','tex');
 legend([h,h2],'N1 given by file','N1 by approximation');
 grid on;
 grid minor;
@@ -569,26 +623,24 @@ end
 % Comparing the 2 methods
 
 figure
-h=plot(prey.tr,prey.yr,'o','linewidth',2);;  %presas.mat plot
+h=plot(prey.tr,prey.yr,'o','linewidth',2);  %presas.mat plot
 hold on;
 h2=plot(clk_f,N1_f,'linewidth',2); %fminsearch plot
-h1=plot(clk,N1,'linewidth',2);; %brute force plot
+h1=plot(clk,N1,'linewidth',2); %brute force plot
+grid on;
+grid minor;
 hold off
-
 
 
 %%
 % Using the optimization algorithm fminsearch we can get the same approximate values by
 % apllying 14 times less iterations 
 
-%%
-% Comentar aqui BLA BLA BLA
+
        
 
 
 
-%% 2.4 c)
-%
 
 
 

@@ -9,7 +9,7 @@ function pop
 close all;
 %Load file in system memory
 file='popul';
-load_system(file);1
+load_system(file);
 %% Variable Definition
 StopTime='4';
 N1_init='2';     
@@ -84,15 +84,36 @@ plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
 %% 2.3
 % To confirm equilibrium we need to assure that $$N_1 =
 % -\frac{\delta_2}{\alpha_2} $$ and $$\frac{\delta_1}{\alpha_1} $$, so
-% ploting the case where the populations osccilate i.e for every $$\delta_2 < 0 $$
-
-mod=sim_plot(alpha1,alpha2,'10','0.0001','1','3',file,3,-1);
-plot_pop(mod,tittle,legenda1,legenda2,xaxe,yaxe);
-ylim([0 4]);
-%Por acabar
+% ploting the case where the populations osccilate i.e for every $$\delta_2
+% < 0 $$ with $$\delta_1 >0 $$
+    n1V=[1 2 3 4 5 6];
+    n2V=[1 2 3 4 5 6];
+    [X,Y]=meshgrid(n1V,n2V);
+figure
+for k=1:6
+    for j=1:6
+        mod=sim_plot(alpha1,alpha2,'10','0.0001',X(k,j),Y(k,j),file,1,-1);
+        N2p=mod.get('dataN2');
+        N1p=mod.get('dataN1');
+        plot(N1p,N2p,'linewidth',2);
+        hold on;
+        xlabel('N2 Population');
+        ylabel('N1 Population');
+        title('Phase Space with \delta_1 = 1 and \delta_2 = -1','Interpreter','tex');
+        
+    end
+end
+mod=sim_plot(alpha1,alpha2,'10','0.0001',1,1,file,1,-1);
+N2p=mod.get('dataN2');
+N1p=mod.get('dataN1');
+plot(N1p,N2p,'x','linewidth',2);
+grid on;
+grid minor;
+hold off
 %%
-% comentar que temos sempre o equilibrio se o ponto de equilibrio for
-% satisfeito
+% Marked with X is the point of equilibrium, in this case is with $$N_1(0)
+% = 1 $$ and $$N_2(0)=1 $$
+
 
 %% 2.4 a)
 % Here we plot presas.mat togeter with our best guess of values for the
@@ -195,7 +216,7 @@ hold on
 h2=plot(clk_f,N1_f,'linewidth',2);
 xlabel('Time (s)');
 ylabel('N1 Population');
-title('Approximation by brute force','Interpreter','tex');
+title('Approximation using optimization algorithm','Interpreter','tex');
 legend([h,h2],'N1 given by file','N1 by approximation');
 grid on;
 grid minor;
@@ -218,6 +239,8 @@ h=plot(prey.tr,prey.yr,'o','linewidth',2);  %presas.mat plot
 hold on;
 h2=plot(clk_f,N1_f,'linewidth',2); %fminsearch plot
 h1=plot(clk,N1,'linewidth',2); %brute force plot
+grid on;
+grid minor;
 hold off
 
 
