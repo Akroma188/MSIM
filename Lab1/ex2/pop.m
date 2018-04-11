@@ -377,6 +377,8 @@ colorbar;
 
 view(axes1,[130.5 8.4000000000001]);
 grid(axes1,'on');
+figure 
+pcolor(xdata1,ydata1,zdata1,'Parent',axes1)
 end
 
 
