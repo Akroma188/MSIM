@@ -8,7 +8,7 @@ function lab2
 
 close all;
 %Load file in system memory
-file='diska';
+file='disk';
 load_system(file);
 
 t=linspace(-1,1,1000);
@@ -48,14 +48,15 @@ grid minor
 % 
 some(1)
 %%
-% Phase model with $$ \beta=1$$ and $$ \alpha=1$$
+% Phase model with 
 some(2)
 %%
-% % Phase model with $$ \beta=0.7$$ and $$ \alpha=1$$
+% as 
 some(3)
 %% 
-% % Phase model with $$ \beta=0.3$$ and $$ \alpha=1$$
-
+% asdads
+%%
+% Disturbed variation with $$ \beta $$ = 0.025
 
     var=ex7(0.025,1);
     data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
@@ -83,8 +84,7 @@ some(3)
     title('Phase Model','Interpreter','tex');
     grid on 
     grid minor
-%%
-% Disturbed variation with $$ \beta $$ = 0.025
+
 
 %% P8 
 % 
@@ -116,17 +116,17 @@ xlim([1.5 3])
 
 %% P10 and P11 
 % 
-save_system('diska')
-close_system('diska');
+save_system('disk')
+close_system('disk');
 
 
-load_system('disk2a');
+load_system('disk2');
 StopTime='20';
 Step='0.001';
-set_param('disk2a','StopTime',StopTime);
-set_param('disk2a','FixedStep',Step);
+set_param('disk2','StopTime',StopTime);
+set_param('disk2','FixedStep',Step);
 
-mod=sim('disk2a','SimulationMode','Normal');
+mod=sim('disk2','SimulationMode','Normal');
 %ydot=mod.get('data1');
 y=mod.get('fcn');
 clk=mod.get('clock');
@@ -154,7 +154,7 @@ ylim([-1.5 1.5])
     data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
     u=data(:,2);
     t=data(:,1);
-    mod=sim('disk2a','SimulationMode','Normal');
+    mod=sim('disk2','SimulationMode','Normal');
     %ydot=mod.get('data1');
     y=mod.get('fcn');
     clk=mod.get('clock');

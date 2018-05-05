@@ -1,0 +1,576 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-05"><meta name="DC.source" content="lab2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</h1><!--introduction--><pre>For the 2nd Laboratory of MSIM</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">P2 -&gt; Pulse function</a></li><li><a href="#4">P3</a></li><li><a href="#5">P7</a></li><li><a href="#10">P8</a></li><li><a href="#12">P10 and P11</a></li><li><a href="#14">P12</a></li><li><a href="#17">Double Pulse Function</a></li><li><a href="#18">Aux Function</a></li><li><a href="#19">Pulse Function</a></li></ul></div><h2>P2 -&gt; Pulse function<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> lab2
+</pre><pre class="codeinput">close <span class="string">all</span>;
+<span class="comment">%Load file in system memory</span>
+file=<span class="string">'diska'</span>;
+load_system(file);
+
+t=linspace(-1,1,1000);
+t=t';
+b=0.5;
+y=pB(t,b);
+figure
+plot(t,y)
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'u'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+title(<span class="string">'Pulse'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+ylim([0 1.5])
+</pre><img vspace="5" hspace="5" src="lab2_01.png" alt=""> <p>With <img src="lab2_eq11472138166782619436.png" alt="$$ \beta = 0.5 $$"></p><h2>P3<a name="4"></a></h2><pre class="codeinput">data=U(1.5,1,0.5,-1,1,1000,1000);
+
+u=data(:,2);
+t=data(:,1);
+
+plot(t,u);
+ylim([-2 2])
+xlabel(<span class="string">'Time (s)'</span>);
+ylabel(<span class="string">'u'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+title(<span class="string">'Double pulse'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+</pre><img vspace="5" hspace="5" src="lab2_02.png" alt=""> <h2>P7<a name="5"></a></h2><pre class="codeinput">some(1)
+</pre><img vspace="5" hspace="5" src="lab2_03.png" alt=""> <p>Phase model with <img src="lab2_eq10056195270368209036.png" alt="$$ \beta=1$">$ and <img src="lab2_eq10029180029037744189.png" alt="$$ \alpha=1$">$</p><pre class="codeinput">some(2)
+</pre><img vspace="5" hspace="5" src="lab2_04.png" alt=""> <p>% Phase model with <img src="lab2_eq10857558019951257403.png" alt="$$ \beta=0.7$">$ and <img src="lab2_eq10029180029037744189.png" alt="$$ \alpha=1$">$</p><pre class="codeinput">some(3)
+</pre><img vspace="5" hspace="5" src="lab2_05.png" alt=""> <p>% Phase model with <img src="lab2_eq16595600043275137991.png" alt="$$ \beta=0.3$">$ and <img src="lab2_eq10029180029037744189.png" alt="$$ \alpha=1$">$</p><pre class="codeinput">    var=ex7(0.025,1);
+    data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
+
+    u=data(:,2);
+    t=data(:,1);
+    figure
+    plot(t,u)
+    ylim([-1.5 1.5])
+    xlabel(<span class="string">'Time (s)'</span>);
+    ylabel(<span class="string">'u'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    title(<span class="string">'Disturbed variation \beta=0.025 with \alpha=1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+    y1=zeros([length(u) 1]);
+    y1dot=zeros([length(u) 1]);
+    <span class="keyword">for</span> i=1 : length(t)
+        y1(i)=1*exp(t(i).^2/2);
+        y1dot(i)=u(i)*t(i);
+    <span class="keyword">end</span>
+    figure
+    plot(y1,y1dot)
+    xlabel(<span class="string">'y'</span>);
+    ylabel(<span class="string">'y_dot'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    title(<span class="string">'Phase Model'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+</pre><img vspace="5" hspace="5" src="lab2_06.png" alt=""> <img vspace="5" hspace="5" src="lab2_07.png" alt=""> <p>Disturbed variation with <img src="lab2_eq16707109699945609062.png" alt="$$ \beta $$"> = 0.025</p><h2>P8<a name="10"></a></h2><pre class="codeinput">StopTime=<span class="string">'5'</span>;
+Step=<span class="string">'0.001'</span>;
+set_param(file,<span class="string">'StopTime'</span>,StopTime);
+set_param(file,<span class="string">'FixedStep'</span>,Step);
+
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+<span class="comment">%ydot=mod.get('data1');</span>
+y=mod.get(<span class="string">'fcn'</span>);
+clk=mod.get(<span class="string">'clock'</span>);
+
+figure
+plot(clk,y);
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+xlabel(<span class="string">'u'</span>);
+ylabel(<span class="string">'Time (s)'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+title(<span class="string">'Dynamic actuaction with chattering'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+xlim([1.5 3])
+</pre><img vspace="5" hspace="5" src="lab2_08.png" alt=""> <p>We can see that the dynamic actuaction results in a similar result as before, the principle is the same nonetheless, we get signal chattering. This means that the signal is switching values at high frequency. When comparing the signal, as they are in near values at short distances, this will result in a noise output.</p><h2>P10 and P11<a name="12"></a></h2><pre class="codeinput">save_system(<span class="string">'diska'</span>)
+close_system(<span class="string">'diska'</span>);
+
+
+load_system(<span class="string">'disk2a'</span>);
+StopTime=<span class="string">'20'</span>;
+Step=<span class="string">'0.001'</span>;
+set_param(<span class="string">'disk2a'</span>,<span class="string">'StopTime'</span>,StopTime);
+set_param(<span class="string">'disk2a'</span>,<span class="string">'FixedStep'</span>,Step);
+
+mod=sim(<span class="string">'disk2a'</span>,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+<span class="comment">%ydot=mod.get('data1');</span>
+y=mod.get(<span class="string">'fcn'</span>);
+clk=mod.get(<span class="string">'clock'</span>);
+
+figure
+plot(clk,y);
+grid <span class="string">on</span>
+grid <span class="string">minor</span>
+xlabel(<span class="string">'u'</span>);
+ylabel(<span class="string">'Time (s)'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+title(<span class="string">'Dynamic actuaction without chattering'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+
+ylim([-1.5 1.5])
+</pre><pre class="codeoutput">A copy of the original file "diska" has been created because it was last saved in an earlier version of Simulink.  To recover the original version, rename the file "diska.r2015a" as "diska".
+
+You can turn this feature off using the &lt;a href="matlab:slprivate('showprefs')"&gt;Simulink Preferences&lt;/a&gt;.  Click &lt;a href="matlab:com.mathworks.services.Prefs.setBooleanPref('SimulinkShowPersistentBackupNotification',false)"&gt;here&lt;/a&gt; if you don't want to see this message again.
+Warning: Square root of a negative number in 'disk2a/Subsys/Fcn' 
+</pre><img vspace="5" hspace="5" src="lab2_09.png" alt=""> <p>Comparing this model with the previous one, we can see that we are producing stable square waves, it's not considered a chattered signal because they aren't at a high frequency, and if even they where, they are designed to preform as such. Observing this signal, we see that the response time is "instant" meanwhle, the previous model has a delay swithcing between values.</p><h2>P12<a name="14"></a></h2><pre class="codeinput">    var=ex7(0.025,1);
+    data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
+    u=data(:,2);
+    t=data(:,1);
+    mod=sim(<span class="string">'disk2a'</span>,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    <span class="comment">%ydot=mod.get('data1');</span>
+    y=mod.get(<span class="string">'fcn'</span>);
+    clk=mod.get(<span class="string">'clock'</span>);
+
+    figure
+    plot(clk,y);
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+    xlabel(<span class="string">'u'</span>);
+    ylabel(<span class="string">'Time (s)'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    title(<span class="string">'Dynamic actuaction without chattering'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    ylim([-1.5 1.5])
+
+    figure
+    plot(t,u)
+    ylim([-1.5 1.5])
+    xlabel(<span class="string">'Time (s)'</span>);
+    ylabel(<span class="string">'u'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    title(<span class="string">'Disturbed variation \beta=0.025 with \alpha=1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+</pre><pre class="codeoutput">Warning: Square root of a negative number in 'disk2a/Subsys/Fcn' 
+</pre><img vspace="5" hspace="5" src="lab2_10.png" alt=""> <img vspace="5" hspace="5" src="lab2_11.png" alt=""> <p>Observing this two methods we can say that they actuacte in a close relation, but if we evaluate closely the disturbed method, we can see that the time response doesn't get to the level we get in the dynamic method</p><pre class="codeinput"><span class="keyword">end</span>
+
+
+<span class="keyword">function</span> some(k)
+
+b=[1 0.7 0.3];
+a=[1 1 1];
+
+
+    var=ex7(b(k),a(k));
+    data=U(var(1),a(k),b(k),-var(2),var(3),1000,1000);
+
+    u=data(:,2);
+    t=data(:,1);
+
+    y1=zeros([length(u) 1]);
+    y1dot=zeros([length(u) 1]);
+    <span class="keyword">for</span> i=1 : length(t)
+        y1(i)=1*exp(t(i).^2/2);
+        y1dot(i)=u(i)*t(i);
+    <span class="keyword">end</span>
+    h=figure;
+    plot(y1,y1dot)
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+
+    xlabel(<span class="string">'Time (s)'</span>);
+    ylabel(<span class="string">'u'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    <span class="keyword">if</span> k==1
+        title(<span class="string">'Phase Model with \alpha=1 and \beta=1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    <span class="keyword">elseif</span> k==2
+        title(<span class="string">'Phase Model with \alpha=1 and \beta=0.7'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    <span class="keyword">else</span>
+        title(<span class="string">'Phase Model with \alpha=1 and \beta=0.3'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    <span class="keyword">end</span>
+    grid <span class="string">on</span>
+    grid <span class="string">minor</span>
+
+
+
+<span class="keyword">end</span>
+</pre><h2>Double Pulse Function<a name="17"></a></h2><pre class="codeinput"><span class="keyword">function</span> data = U(T,a,b,U1,U2,n1,n2)
+
+t1=linspace(-T/2,T/2,n1);
+t1=t1';
+t2=linspace(-a*T/2,a*T/2,n2);
+t2=t2';
+
+
+u1=U1*pB(t1,b);
+t1=(t1-T/2)/(T/(1+b));
+u2=U2*pB(t2,b);
+t2=(t2+a*T/2)/(a*T/(1+b));
+
+t=vertcat(t1,t2);
+u=vertcat(u1,u2);
+data=[t u];
+<span class="keyword">end</span>
+</pre><h2>Aux Function<a name="18"></a></h2><pre class="codeinput"><span class="keyword">function</span> var=ex7(b,a)
+
+T=sqrt((1+b)/a);
+U1=a;
+U2=U1/a;
+
+var=[T U1 U2];
+
+<span class="keyword">end</span>
+</pre><h2>Pulse Function<a name="19"></a></h2><pre class="codeinput"><span class="keyword">function</span> y=pB(t,b)
+
+    L=length(t);
+    y=zeros([L 1]);
+    <span class="comment">%Theoretical equations</span>
+    <span class="keyword">for</span> k=1:L
+        <span class="keyword">if</span> (t(k) &gt; b/2+0.5) || (t(k) &lt; (-b/2)-0.5)
+            y(k)=0;
+        <span class="keyword">elseif</span> (t(k) &lt;= 0.5+ b/2) &amp;&amp; (t(k) &gt;=0.5)<span class="comment">%quart</span>
+            y(k)=(4*t(k)^2 -(4*b+4)*t(k) + b^2 + 2*b +1)/(2*b^2);
+        <span class="keyword">elseif</span> (t(k) &gt;= -0.5) &amp;&amp; (t(k) &lt;= b/2 - 0.5)<span class="comment">%segunda</span>
+            y(k)=0.5-(4*t(k)^2 +(4-4*b)*t(k) - 2*b +1)/(2*b^2);
+        <span class="keyword">elseif</span> (t(k) &gt;= -b/2-0.5) &amp;&amp; (t(k) &lt;= -0.5)<span class="comment">%primeira</span>
+            y(k)=(4*t(k)^2 +(4*b+4)*t(k) + b^2 + 2*b +1)/(2*b^2);
+        <span class="keyword">elseif</span> t(k) &gt;=-b/2+0.5 &amp;&amp; t(k)&lt;=0.5<span class="comment">%terc</span>
+            y(k)=0.5-(4*t(k)^2 +(4*b-4)*t(k) - 2*b +1)/(2*b^2);
+        <span class="keyword">else</span>
+            y(k)=1;
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Project by Dinis Rodrigues nº79089 and José Fernandes nº82414
+%  For the 2nd Laboratory of MSIM    
+
+
+%% P2 -> Pulse function
+% 
+function lab2
+
+close all;
+%Load file in system memory
+file='diska';
+load_system(file);
+
+t=linspace(-1,1,1000);
+t=t';
+b=0.5;
+y=pB(t,b);
+figure
+plot(t,y)
+xlabel('Time (s)');
+ylabel('u','Interpreter','tex');
+title('Pulse','Interpreter','tex');
+grid on
+grid minor
+ylim([0 1.5])
+%%  
+% With $$ \beta = 0.5 $$
+
+%% P3 
+% 
+
+data=U(1.5,1,0.5,-1,1,1000,1000);
+
+u=data(:,2);
+t=data(:,1);
+
+plot(t,u);
+ylim([-2 2])
+xlabel('Time (s)');
+ylabel('u','Interpreter','tex');
+title('Double pulse','Interpreter','tex');
+grid on
+grid minor
+
+
+
+%% P7 
+% 
+some(1)
+%%
+% Phase model with $$ \beta=1$$ and $$ \alpha=1$$
+some(2)
+%%
+% % Phase model with $$ \beta=0.7$$ and $$ \alpha=1$$
+some(3)
+%% 
+% % Phase model with $$ \beta=0.3$$ and $$ \alpha=1$$
+
+
+    var=ex7(0.025,1);
+    data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
+    
+    u=data(:,2);
+    t=data(:,1);
+    figure
+    plot(t,u)
+    ylim([-1.5 1.5])
+    xlabel('Time (s)');
+    ylabel('u','Interpreter','tex');
+    title('Disturbed variation \beta=0.025 with \alpha=1','Interpreter','tex');
+    grid on
+    grid minor
+    y1=zeros([length(u) 1]);
+    y1dot=zeros([length(u) 1]);
+    for i=1 : length(t)
+        y1(i)=1*exp(t(i).^2/2);
+        y1dot(i)=u(i)*t(i);
+    end
+    figure
+    plot(y1,y1dot)
+    xlabel('y');
+    ylabel('y_dot','Interpreter','tex');
+    title('Phase Model','Interpreter','tex');
+    grid on 
+    grid minor
+%%
+% Disturbed variation with $$ \beta $$ = 0.025
+
+%% P8 
+% 
+StopTime='5';
+Step='0.001';
+set_param(file,'StopTime',StopTime);
+set_param(file,'FixedStep',Step);
+
+mod=sim(file,'SimulationMode','Normal');
+%ydot=mod.get('data1');
+y=mod.get('fcn');
+clk=mod.get('clock');
+
+figure
+plot(clk,y);
+grid on
+grid minor
+xlabel('u');
+ylabel('Time (s)','Interpreter','tex');
+title('Dynamic actuaction with chattering','Interpreter','tex');
+xlim([1.5 3])
+%%
+% We can see that the dynamic actuaction results in a similar result as
+% before, the principle is the same
+% nonetheless, we get signal chattering. This means that the signal is
+% switching values at high frequency. When comparing the signal, as they
+% are in near values at short distances, this will result in a noise
+% output. 
+
+%% P10 and P11 
+% 
+save_system('diska')
+close_system('diska');
+
+
+load_system('disk2a');
+StopTime='20';
+Step='0.001';
+set_param('disk2a','StopTime',StopTime);
+set_param('disk2a','FixedStep',Step);
+
+mod=sim('disk2a','SimulationMode','Normal');
+%ydot=mod.get('data1');
+y=mod.get('fcn');
+clk=mod.get('clock');
+
+figure
+plot(clk,y);
+grid on
+grid minor
+xlabel('u');
+ylabel('Time (s)','Interpreter','tex');
+title('Dynamic actuaction without chattering','Interpreter','tex');
+
+ylim([-1.5 1.5])
+%%
+% Comparing this model with the previous one, we can see that we are
+% producing stable square waves, it's not considered a chattered signal
+% because they aren't at a high frequency, and if even they where, they are designed to preform as such. Observing this
+% signal, we see that the response time is "instant" meanwhle, the previous
+% model has a delay swithcing between values.
+
+%% P12
+% 
+
+    var=ex7(0.025,1);
+    data=U(var(1),1,0.025,-var(2),var(3),1000,1000);
+    u=data(:,2);
+    t=data(:,1);
+    mod=sim('disk2a','SimulationMode','Normal');
+    %ydot=mod.get('data1');
+    y=mod.get('fcn');
+    clk=mod.get('clock');
+
+    figure
+    plot(clk,y);
+    grid on
+    grid minor
+    xlabel('u');
+    ylabel('Time (s)','Interpreter','tex');
+    title('Dynamic actuaction without chattering','Interpreter','tex');
+    ylim([-1.5 1.5])
+    
+    figure
+    plot(t,u)
+    ylim([-1.5 1.5])
+    xlabel('Time (s)');
+    ylabel('u','Interpreter','tex');
+    title('Disturbed variation \beta=0.025 with \alpha=1','Interpreter','tex');
+    grid on
+    grid minor
+    
+%%
+% Observing this two methods we can say that they actuacte in a close
+% relation, but if we evaluate closely the disturbed method, we can see
+% that the time response doesn't get to the level we get in the dynamic
+% method
+
+end
+
+
+function some(k)
+
+b=[1 0.7 0.3];
+a=[1 1 1];
+
+    
+    var=ex7(b(k),a(k));
+    data=U(var(1),a(k),b(k),-var(2),var(3),1000,1000);
+
+    u=data(:,2);
+    t=data(:,1);
+
+    y1=zeros([length(u) 1]);
+    y1dot=zeros([length(u) 1]);
+    for i=1 : length(t)
+        y1(i)=1*exp(t(i).^2/2);
+        y1dot(i)=u(i)*t(i);
+    end
+    h=figure;
+    plot(y1,y1dot)
+    grid on 
+    grid minor
+    
+    xlabel('Time (s)');
+    ylabel('u','Interpreter','tex');
+    if k==1
+        title('Phase Model with \alpha=1 and \beta=1','Interpreter','tex');
+    elseif k==2
+        title('Phase Model with \alpha=1 and \beta=0.7','Interpreter','tex');
+    else
+        title('Phase Model with \alpha=1 and \beta=0.3','Interpreter','tex');
+    end
+    grid on 
+    grid minor
+    
+
+
+end
+%% Double Pulse Function
+%
+function data = U(T,a,b,U1,U2,n1,n2)
+
+t1=linspace(-T/2,T/2,n1);
+t1=t1';
+t2=linspace(-a*T/2,a*T/2,n2);
+t2=t2';
+
+
+u1=U1*pB(t1,b);
+t1=(t1-T/2)/(T/(1+b));
+u2=U2*pB(t2,b);
+t2=(t2+a*T/2)/(a*T/(1+b));
+
+t=vertcat(t1,t2);
+u=vertcat(u1,u2);
+data=[t u];
+end
+
+%% Aux Function
+% 
+function var=ex7(b,a)
+
+T=sqrt((1+b)/a);
+U1=a;
+U2=U1/a;
+
+var=[T U1 U2];
+
+end
+%% Pulse Function
+% 
+function y=pB(t,b)
+
+    L=length(t);
+    y=zeros([L 1]);
+    %Theoretical equations
+    for k=1:L
+        if (t(k) > b/2+0.5) || (t(k) < (-b/2)-0.5)
+            y(k)=0;
+        elseif (t(k) <= 0.5+ b/2) && (t(k) >=0.5)%quart
+            y(k)=(4*t(k)^2 -(4*b+4)*t(k) + b^2 + 2*b +1)/(2*b^2);
+        elseif (t(k) >= -0.5) && (t(k) <= b/2 - 0.5)%segunda
+            y(k)=0.5-(4*t(k)^2 +(4-4*b)*t(k) - 2*b +1)/(2*b^2);
+        elseif (t(k) >= -b/2-0.5) && (t(k) <= -0.5)%primeira
+            y(k)=(4*t(k)^2 +(4*b+4)*t(k) + b^2 + 2*b +1)/(2*b^2);
+        elseif t(k) >=-b/2+0.5 && t(k)<=0.5%terc
+            y(k)=0.5-(4*t(k)^2 +(4*b-4)*t(k) - 2*b +1)/(2*b^2);
+        else
+            y(k)=1;
+        end
+    end
+end
+
+
+
+
+##### SOURCE END #####
+--></body></html>
