@@ -1,0 +1,1533 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-16"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</h1><!--introduction--><pre>For the 1st Laboratory of MSIM</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ex5</a></li><li><a href="#3">Ex6</a></li><li><a href="#4">Ex7</a></li><li><a href="#5"><img src="main_eq17073547038398085613.png" alt="$$ \beta = 1 $$"></a></li><li><a href="#6"><img src="main_eq10940211299257014292.png" alt="$$ \beta = 0 $$"></a></li><li><a href="#7">EigenVectors</a></li><li><a href="#8">Ex8</a></li><li><a href="#9">Ex9</a></li><li><a href="#10">Ex10</a></li><li><a href="#11">Ex11</a></li><li><a href="#12">Ex12</a></li></ul></div><h2>Ex5<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> main
+</pre><pre class="codeinput">close <span class="string">all</span>
+file=<span class="string">'ex5'</span>;
+load_system(<span class="string">'ex5'</span>);
+gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=0.1;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+set_param(<span class="string">'ex5/termoX1'</span>,<span class="string">'Gain'</span>,num2str(param1));
+set_param(<span class="string">'ex5/termoX2'</span>,<span class="string">'Gain'</span>,num2str(param2));
+set_param(file,<span class="string">'FixedStep'</span>,<span class="string">'0.001'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'10'</span>);
+set_param(<span class="string">'ex5/U'</span>,<span class="string">'Gain'</span>,<span class="string">'0'</span>);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+
+x1=mod.get(<span class="string">'x1'</span>);
+x2=mod.get(<span class="string">'x2'</span>);
+clk=mod.get(<span class="string">'clk'</span>);
+
+figure
+plot(clk,x1)
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'Angle(rad)'</span>);
+title(<span class="string">'Angle evolution'</span>)
+figure
+plot(clk,x2)
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'d theta'</span>);
+title(<span class="string">'Angle derivative evolution'</span>)
+
+figure
+plot(x1,x2)
+xlabel(<span class="string">'\beta'</span>, <span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'$$ {d\over dt }\theta $$'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Phase space'</span>);
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <img vspace="5" hspace="5" src="main_03.png" alt=""> <h2>Ex6<a name="3"></a></h2><pre class="codeinput">save_system(<span class="string">'ex5'</span>)
+close_system(<span class="string">'ex5'</span>);
+
+load_system(<span class="string">'ex6'</span>);
+file=<span class="string">'ex6'</span>;
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,<span class="string">'[0 1;-41.5393 -2.4719]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,<span class="string">'[0;2.4719]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,<span class="string">'[0 ;pi/4]'</span>);
+
+set_param(file,<span class="string">'FixedStep'</span>,<span class="string">'0.0001'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'10'</span>);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+
+yout=mod.get(<span class="string">'yout'</span>);
+clk=mod.get(<span class="string">'clk'</span>);
+
+
+figure
+plot(clk,yout.signals.values(:,1));
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'Angle(rad)'</span>);
+title(<span class="string">'Angle evolution'</span>)
+figure
+plot(clk,yout.signals.values(:,2));
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'d theta'</span>);
+title(<span class="string">'Angle derivative evolution'</span>)
+figure
+plot(yout.signals.values(:,1),yout.signals.values(:,2));
+xlabel(<span class="string">'\beta'</span>, <span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'$$ {d\over dt }\theta $$'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Phase space'</span>);
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><img vspace="5" hspace="5" src="main_04.png" alt=""> <img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <h2>Ex7<a name="4"></a></h2><h2><img src="main_eq17073547038398085613.png" alt="$$ \beta = 1 $$"><a name="5"></a></h2><pre class="codeinput">gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=[0 1];
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(1)/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat(<span class="string">'[0 1;'</span>,param1,32,param2,<span class="string">']'</span>);    <span class="comment">%32 is space bar in ASCII</span>
+paramB=strcat(<span class="string">'[0;'</span>,paramu,<span class="string">']'</span>);
+
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,paramA);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,paramB);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,<span class="string">'[0 ;pi/4]'</span>);
+
+set_param(file,<span class="string">'FixedStep'</span>,<span class="string">'0.0001'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'10'</span>);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+<span class="comment">%get values</span>
+yout=mod.get(<span class="string">'yout'</span>);
+y1=yout.signals.values(:,1);
+y2=yout.signals.values(:,2);
+clk=mod.get(<span class="string">'clk'</span>);
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%plot</span>
+figure
+plot(clk,y1);
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'Angle(rad)'</span>);
+title(<span class="string">'Angle evolution'</span>)
+figure
+plot(clk,y2);
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'d theta'</span>);
+title(<span class="string">'Angle derivative evolution'</span>)
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%quiver time</span>
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(1)/gamma2);
+x=linspace(min(y1),max(y1),20);
+y=linspace(min(y2),max(y2),20);
+[X,Y]=meshgrid(x,y);
+u=Y;
+v=param1.*X + param2.*Y;
+
+figure
+quiver(X,Y,u,v,0.5)
+hold <span class="string">on</span>
+plot(y1,y2);
+init=linspace(-pi/4,pi/4,10);
+<span class="keyword">for</span> i=1:10
+    some=num2str(init(i));
+    aux2=strcat(<span class="string">'[0 ;'</span>,some,<span class="string">']'</span>);
+    set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,aux2);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    yout=mod.get(<span class="string">'yout'</span>);
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    plot(y1,y2)
+<span class="keyword">end</span>
+xlabel(<span class="string">'\theta'</span>,<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+ylabel(<span class="string">'$$ {d\over dt }\theta $$'</span>,<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Espa&ccedil;o de Estados'</span>);
+</pre><img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <img vspace="5" hspace="5" src="main_09.png" alt=""> <h2><img src="main_eq10940211299257014292.png" alt="$$ \beta = 0 $$"><a name="6"></a></h2><pre class="codeinput">gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=[0 1];
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(2)/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat(<span class="string">'[0 1;'</span>,param1,32,param2,<span class="string">']'</span>);    <span class="comment">%32 is space bar in ASCII</span>
+paramB=strcat(<span class="string">'[0;'</span>,paramu,<span class="string">']'</span>);
+
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,paramA);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,paramB);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,<span class="string">'[0 ;pi/4]'</span>);
+
+set_param(file,<span class="string">'FixedStep'</span>,<span class="string">'0.0001'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'10'</span>);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+<span class="comment">%get values</span>
+yout=mod.get(<span class="string">'yout'</span>);
+y1=yout.signals.values(:,1);
+y2=yout.signals.values(:,2);
+clk=mod.get(<span class="string">'clk'</span>);
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%plot</span>
+figure
+plot(clk,y1);
+figure
+plot(clk,y2);
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%quiver time and convert from rad to degrees for better understanding</span>
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(2)/gamma2);
+x=linspace(-0.04,0.05,20);
+y=linspace(-0.9,0.9,20);
+[X,Y]=meshgrid(x,y);
+u=Y;
+v=param1.*X + param2.*Y;
+
+figure
+quiver(X,Y,u,v,0.5)
+hold <span class="string">on</span>
+plot(y1,y2);
+init=linspace(-pi/4,pi/4,10);
+<span class="keyword">for</span> i=1:10
+    some=num2str(init(i));
+    aux2=strcat(<span class="string">'[0 ;'</span>,some,<span class="string">']'</span>);
+    set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,aux2);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    yout=mod.get(<span class="string">'yout'</span>);
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    plot(y1,y2)
+<span class="keyword">end</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+</pre><img vspace="5" hspace="5" src="main_10.png" alt=""> <img vspace="5" hspace="5" src="main_11.png" alt=""> <img vspace="5" hspace="5" src="main_12.png" alt=""> <h2>EigenVectors<a name="7"></a></h2><pre class="codeinput">[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(1/gamma2)]);
+V=real(V);
+display(<span class="string">'For beta=1 we get the following eigenvectors:'</span>)
+display(V)
+display(<span class="string">'For beta=1 we get the following eigenvalues:'</span>)
+display(D)
+[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(0/gamma2)]);
+V=real(V);
+display(<span class="string">'For beta=0 we get the following eigenvectors:'</span>)
+display(V)
+display(<span class="string">'For beta=0 we get the following eigenvalues:'</span>)
+display(D)
+[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(0.1/gamma2)]);
+V=real(V);
+display(<span class="string">'For beta=0.1 we get the following eigenvectors:'</span>)
+display(V)
+display(<span class="string">'For beta=0.1 we get the following eigenvalues:'</span>)
+display(D)
+</pre><pre class="codeoutput">For beta=1 we get the following eigenvectors:
+
+V =
+
+    0.4415   -0.0489
+   -0.8973    0.9988
+
+For beta=1 we get the following eigenvalues:
+
+D =
+
+   -2.0323         0
+         0  -20.4396
+
+For beta=0 we get the following eigenvectors:
+
+V =
+
+         0         0
+    0.9882    0.9882
+
+For beta=0 we get the following eigenvalues:
+
+D =
+
+   0.0000 + 6.4451i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 - 6.4451i
+
+For beta=0.1 we get the following eigenvectors:
+
+V =
+
+   -0.0267   -0.0267
+    0.9882    0.9882
+
+For beta=0.1 we get the following eigenvalues:
+
+D =
+
+  -1.1236 + 6.3464i   0.0000 + 0.0000i
+   0.0000 + 0.0000i  -1.1236 - 6.3464i
+
+</pre><h2>Ex8<a name="8"></a></h2><pre class="codeinput">param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(1/gamma2);
+paramu=1/gamma2;
+
+A=[0 1;param1 param2];
+[V,D]=eig(A);
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat(<span class="string">'[0 1;'</span>,param1,32,param2,<span class="string">']'</span>);    <span class="comment">%32 is space bar in ASCII</span>
+paramB=strcat(<span class="string">'[0;'</span>,paramu,<span class="string">']'</span>);
+
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,paramA);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,paramB);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+
+<span class="keyword">for</span> i=1:2
+    some=num2str(V(1,i));
+    aux2=num2str(V(2,i));
+    init=strcat(<span class="string">'['</span>,some,<span class="string">';'</span>,aux2,<span class="string">']'</span>);
+    set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,init);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    yout=mod.get(<span class="string">'yout'</span>);
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    figure
+    plot(y1,y2);
+    xlabel(<span class="string">'\theta'</span>,<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'Interpreter'</span>,<span class="string">'tex'</span>);
+    ylabel(<span class="string">'$$ {d\over dt }\theta $$'</span>,<span class="string">'fontweight'</span>,<span class="string">'bold'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+    title(<span class="string">'Linear Phase space for $$ \beta = 1 $$'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="main_13.png" alt=""> <img vspace="5" hspace="5" src="main_14.png" alt=""> <h2>Ex9<a name="9"></a></h2><pre class="codeinput">m_t=linspace(0,0.2,100);
+l_t=linspace(0.05,0.25,100);
+grid=NaN(100,100);
+<span class="comment">%Variables</span>
+beta = 0.001;
+k=0.35;
+M=0.1;
+L=0.25;
+
+<span class="keyword">for</span> i=1:100
+    <span class="keyword">for</span> j=1:100
+        m=m_t(i);
+        l=l_t(j);
+        gamma1 = l*m + (L/2)*M;
+        gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+        wn = sqrt((k-gamma1*9.8)/gamma2);
+        dt = ((beta)/gamma2)*(1/(2*wn));
+
+        wa=wn*sqrt(1-dt^2);
+        fa=wa/(2*pi);
+        BPM=120*fa;
+        <span class="keyword">if</span> (real(BPM)~=0)
+            grid(i,j)=real(BPM);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+figure
+mesh(m_t,l_t,grid);
+xlabel(<span class="string">'Mass [m]'</span>);
+ylabel(<span class="string">'Length [l]'</span>);
+zlabel(<span class="string">'BPM'</span>);
+colormap
+colorbar
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%BPM given</span>
+bpm1=130; <span class="comment">%allegro</span>
+bpm2=64;   <span class="comment">%lento</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%Check if mass values correspond to what we want</span>
+<span class="keyword">for</span> i=1:100
+    some=0;
+    aux2=0;
+    <span class="keyword">if</span>(max(grid(i,:))&gt;=bpm1)
+        some=1;
+    <span class="keyword">end</span>
+    <span class="keyword">if</span>(min(grid(i,:))&lt;=bpm2)
+        aux2=1;
+    <span class="keyword">end</span>
+    <span class="keyword">if</span>(aux2==1 &amp;&amp;some==1)
+        THIS_M=m_t(i);
+        <span class="keyword">break</span>;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="comment">%Get length values</span>
+<span class="keyword">for</span> i=1:100
+        l=l_t(i);
+        gamma1 = l*m + (L/2)*M;
+        gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+
+        wn = sqrt((k-gamma1*9.8)/gamma2);
+        dt = ((beta)/gamma2)*(1/(2*wn));
+        wa=wn*sqrt(1-dt^2);
+        fa=wa/(2*pi);
+        BPM=120*fa;
+        <span class="keyword">if</span> (real(BPM)~=0)
+            vec_bpm(i)=real(BPM);
+        <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+
+err_a=abs(vec_bpm-bpm1);
+err_l=abs(vec_bpm-bpm2);
+
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%these are the values we want!!!!!!!!!!</span>
+[min_l,index_l]=min(err_l);
+[min_a,index_a]=min(err_a);
+THIS_M
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%Sim lento</span>
+xinit=<span class="string">'[pi/4;0]'</span>;
+l=l_t(index_l);
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(0.001/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat(<span class="string">'[0 1;'</span>,param1,32,param2,<span class="string">']'</span>);    <span class="comment">%32 is space bar in ASCII</span>
+paramB=strcat(<span class="string">'[0;'</span>,paramu,<span class="string">']'</span>);
+
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,paramA);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,paramB);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+set_param(file,<span class="string">'FixedStep'</span>,<span class="string">'0.001'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,xinit);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+yout=mod.get(<span class="string">'yout'</span>);
+y1=yout.signals.values(:,1);
+clk=mod.get(<span class="string">'clk'</span>);
+
+wn = sqrt((k-gamma1*9.8)/gamma2);
+dt = ((beta)/gamma2)*(1/(2*wn));
+time=linspace(0,60,120);
+env=(pi/4)*exp(-(dt*wn*time));
+
+[pks,locs] = findpeaks(y1);
+<span class="keyword">for</span> i=1:(length(pks)-1)
+   some(i)=clk(locs(i+1))-clk(locs(i));
+<span class="keyword">end</span>
+
+med=mean(some);
+aux_bpm=(1/med)*120;
+par1=num2str(bpm2);
+par2=num2str(aux_bpm);
+phrase=strcat(<span class="string">'Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+
+<span class="comment">%plot env and angle</span>
+figure
+plot(clk, y1);
+hold <span class="string">on</span>
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'Angle(rad)'</span>);
+plot(time,env,<span class="string">'m--'</span>);
+plot(time,-env,<span class="string">'y--'</span>,<span class="string">'color'</span>,<span class="string">'b'</span>);
+legend(<span class="string">'Angle evoluton'</span>,<span class="string">'Upper surrounding'</span>,<span class="string">'Lower surrounding'</span>);
+title(phrase);
+hold <span class="string">off</span>
+<span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+<span class="comment">%Sim alegro</span>
+xinit=<span class="string">'[pi/4;0]'</span>;
+l=l_t(index_a);
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(0.001/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat(<span class="string">'[0 1;'</span>,param1,32,param2,<span class="string">']'</span>);    <span class="comment">%32 is space bar in ASCII</span>
+paramB=strcat(<span class="string">'[0;'</span>,paramu,<span class="string">']'</span>);
+
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'A'</span>,paramA);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'B'</span>,paramB);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'C'</span>,<span class="string">'[1 0;0 1]'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'D'</span>,<span class="string">'[0;0]'</span>);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+set_param(<span class="string">'ex6/State-Space'</span>,<span class="string">'X0'</span>,xinit);
+mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+yout=mod.get(<span class="string">'yout'</span>);
+y1=yout.signals.values(:,1);
+clk=mod.get(<span class="string">'clk'</span>);
+
+wn = sqrt((k-gamma1*9.8)/gamma2);
+dt = ((beta)/gamma2)*(1/(2*wn));
+time=linspace(0,60,120);
+env=(pi/4)*exp(-(dt*wn*time));
+
+[pks,locs] = findpeaks(y1);
+<span class="keyword">for</span> i=1:(length(pks)-1)
+   some(i)=clk(locs(i+1))-clk(locs(i));
+<span class="keyword">end</span>
+
+med=mean(some);
+aux_bpm=(1/med)*120;
+par1=num2str(bpm1);
+par2=num2str(aux_bpm);
+phrase=strcat(<span class="string">'Allegro -&gt; Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+
+<span class="comment">%plot env and angle</span>
+figure
+plot(clk, y1);
+hold <span class="string">on</span>
+xlabel(<span class="string">'Time(s)'</span>);
+ylabel(<span class="string">'Angle(rad)'</span>);
+plot(time,env,<span class="string">'m--'</span>);
+plot(time,-env,<span class="string">'y--'</span>,<span class="string">'color'</span>,<span class="string">'b'</span>);
+legend(<span class="string">'Angle evoluton'</span>,<span class="string">'Upper surrounding'</span>,<span class="string">'Lower surrounding'</span>);
+title(phrase);
+</pre><pre class="codeoutput">
+ans =
+
+    0.2081    0.1663    0.5292
+    0.2116    0.1898    0.5777
+    0.2123    0.2138    0.6270
+    0.2081    0.2386    0.6771
+    0.1959    0.2645    0.7279
+    0.1707    0.2919    0.7792
+    0.1253    0.3242    0.8303
+    0.0591    0.3598    0.8683
+    0.0117    0.3875    0.8820
+    0.0060    0.4086    0.8828
+    0.0165    0.4266    0.8786
+    0.0329    0.4430    0.8720
+    0.0498    0.4586    0.8641
+    0.0629    0.4737    0.8554
+    0.0723    0.4887    0.8467
+    0.0779    0.5040    0.8384
+    0.0793    0.5200    0.8312
+    0.0749    0.5375    0.8263
+    0.0641    0.5570    0.8240
+    0.0488    0.5772    0.8228
+    0.0343    0.5966    0.8199
+    0.0265    0.6137    0.8135
+    0.0239    0.6287    0.8038
+    0.0231    0.6418    0.7913
+    0.0228    0.6535    0.7768
+    0.0267    0.6642    0.7607
+    0.0384    0.6743    0.7436
+    0.0590    0.6838    0.7254
+    0.0843    0.6928    0.7062
+    0.1133    0.7015    0.6859
+    0.1453    0.7098    0.6646
+    0.1801    0.7177    0.6424
+    0.2178    0.7250    0.6193
+    0.2586    0.7317    0.5954
+    0.3022    0.7376    0.5712
+    0.3482    0.7424    0.5473
+    0.3953    0.7459    0.5244
+    0.4420    0.7481    0.5033
+    0.4871    0.7491    0.4840
+    0.5300    0.7491    0.4661
+    0.5709    0.7485    0.4494
+    0.6099    0.7473    0.4337
+    0.6473    0.7456    0.4188
+    0.6834    0.7435    0.4044
+    0.7184    0.7411    0.3905
+    0.7525    0.7384    0.3768
+    0.7858    0.7356    0.3633
+    0.8185    0.7327    0.3498
+    0.8507    0.7299    0.3360
+    0.8824    0.7274    0.3217
+    0.9139    0.7258    0.3063
+    0.9450    0.7261    0.2886
+    0.9739    0.7314    0.2666
+    0.9938    0.7455    0.2403
+    0.9990    0.7653    0.2164
+    0.9955    0.7861    0.1967
+    0.9880    0.8066    0.1794
+    0.9789    0.8271    0.1633
+    0.9697    0.8481    0.1475
+    0.9626    0.8705    0.1309
+    0.9589    0.8949    0.1132
+    0.9598    0.9218    0.0948
+    0.9661    0.9514    0.0755
+    0.9763    0.9831    0.0538
+
+
+THIS_M =
+
+    0.0667
+
+</pre><img vspace="5" hspace="5" src="main_15.png" alt=""> <img vspace="5" hspace="5" src="main_16.png" alt=""> <img vspace="5" hspace="5" src="main_17.png" alt=""> <h2>Ex10<a name="10"></a></h2><pre class="codeinput">save_system(<span class="string">'ex6'</span>)
+close_system(<span class="string">'ex6'</span>);
+
+load_system(<span class="string">'ex5'</span>);
+file=<span class="string">'ex5'</span>;
+bpm_test=[bpm1 bpm2];
+l_test=[l_t(index_a) l_t(index_l)];
+beta = 0.001;
+k=0.35;
+M=0.1;
+L=0.25;
+
+<span class="keyword">for</span> i=1:2
+    l=l_test(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+    set_param(<span class="string">'ex5/termoX1'</span>,<span class="string">'Gain'</span>,num2str(param1));
+    set_param(<span class="string">'ex5/termoX2'</span>,<span class="string">'Gain'</span>,num2str(param2));
+    set_param(<span class="string">'ex5/Integrator'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'0'</span>);
+    set_param(<span class="string">'ex5/Integrator1'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'pi/4'</span>);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    y1=mod.get(<span class="string">'x1'</span>);
+    clk=mod.get(<span class="string">'clk'</span>);
+    figure;
+    plot(clk, y1);
+    [pks ,locs] = findpeaks(y1);
+    <span class="keyword">for</span> j=1:(length(pks)-1)
+        some(j)=clk(locs(j+1))-clk(locs(j));
+    <span class="keyword">end</span>
+    aux_med=mean(some);
+    aux_bpm(i)=(1/aux_med)*120;
+    par1=num2str(bpm_test(i));
+    par2=num2str(aux_bpm(i));
+    phrase=strcat(<span class="string">'Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+    title(phrase);
+    xlabel(<span class="string">'Time (s)'</span>);
+    ylabel(<span class="string">'Angle'</span>);
+<span class="keyword">end</span>
+    <span class="comment">%L Dimensioning</span>
+m1=linspace(-0.02,0,100);
+m2=linspace(0,0.02,100);
+ma=[m1,m2(2:end)];
+m_l=linspace(-0.08,0,100);
+m_l2=linspace(0,0.08,100);
+m_lf=[m_l,m_l2(2:end)];
+
+lent=m_lf+l_test(2);
+al=ma+l_test(1);
+dif_L=5;
+dif_A=5;
+<span class="comment">%Ritmo lento com massa Compensada</span>
+<span class="keyword">for</span> i=1:length(ma)
+    l=lent(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+    set_param(<span class="string">'ex5/termoX1'</span>,<span class="string">'Gain'</span>,num2str(param1));
+    set_param(<span class="string">'ex5/termoX2'</span>,<span class="string">'Gain'</span>,num2str(param2));
+    set_param(<span class="string">'ex5/Integrator'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'0'</span>);
+    set_param(<span class="string">'ex5/Integrator1'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'pi/4'</span>);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    y1=mod.get(<span class="string">'x1'</span>);
+    clk=mod.get(<span class="string">'clk'</span>);
+    [pks ,locs] = findpeaks(y1);
+    some=zeros(1,length(peaks)-1);
+    <span class="keyword">for</span> j=1:(length(pks)-1)
+        some(j)=clk(locs(j+1))-clk(locs(j));
+    <span class="keyword">end</span>
+    aux_med=mean(some);
+    aux_bpm=(1/aux_med)*120;
+    par1=num2str(bpm_test(2));
+    par2=num2str(aux_bpm);
+    <span class="keyword">if</span>(abs(aux_bpm-bpm_test(2))&lt;=dif_L)
+        figure;
+        plot(clk, y1);
+        bpm_lento=aux_bpm;
+        phrase=strcat(<span class="string">'Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+        title(phrase);
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+<span class="comment">%Ritmo r&aacute;pido com massa compensada</span>
+<span class="keyword">for</span> i=1:length(ma)
+    l=al(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+    set_param(<span class="string">'ex5/termoX1'</span>,<span class="string">'Gain'</span>,num2str(param1));
+    set_param(<span class="string">'ex5/termoX2'</span>,<span class="string">'Gain'</span>,num2str(param2));
+    set_param(<span class="string">'ex5/Integrator'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'0'</span>);
+    set_param(<span class="string">'ex5/Integrator1'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'pi/4'</span>);
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+
+    y1=mod.get(<span class="string">'x1'</span>);
+    clk=mod.get(<span class="string">'clk'</span>);
+    [pks ,locs] = findpeaks(y1);
+    some1=zeros(1,length(peaks)-1);
+    <span class="keyword">for</span> j=1:(length(pks)-1)
+        some1(j)=clk(locs(j+1))-clk(locs(j));
+    <span class="keyword">end</span>
+    aux_med=mean(some1);
+    aux_bpm=(1/aux_med)*120;
+    <span class="keyword">if</span>(abs(aux_med-bpm_test(1))&lt;=dif_A)
+        figure
+        plot(clk, y1);
+        par1=num2str(bpm_test(1));
+        par2=num2str(aux_bpm);
+        phrase=strcat(<span class="string">'Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+        title(phrase)
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="main_18.png" alt=""> <img vspace="5" hspace="5" src="main_19.png" alt=""> <h2>Ex11<a name="11"></a></h2><pre class="codeinput">save_system(<span class="string">'ex5'</span>)
+close_system(<span class="string">'ex5'</span>);
+
+load_system(<span class="string">'ex11'</span>);
+file=<span class="string">'ex11'</span>;
+
+l=l_test(1);
+k=0.35;
+M=0.1;
+L=0.25;
+T_teste=[0 0.1];
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+set_param(file,<span class="string">'StopTime'</span>,<span class="string">'60'</span>);
+set_param(<span class="string">'ex11/termoX1'</span>,<span class="string">'Gain'</span>,num2str(param1));
+set_param(<span class="string">'ex11/termoX2'</span>,<span class="string">'Gain'</span>,num2str(param2));
+set_param(<span class="string">'ex11/Integrator'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'0'</span>);
+set_param(<span class="string">'ex11/Integrator1'</span>,<span class="string">'InitialCondition'</span>,<span class="string">'pi/4'</span>);
+
+
+<span class="comment">%Without binary</span>
+	T=T_teste(1);
+    set_param(<span class="string">'ex11/Gain3'</span>,<span class="string">'Gain'</span>,num2str(T));
+    set_param(<span class="string">'ex11/Gain2'</span>,<span class="string">'Gain'</span>,num2str(T));
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    y1w=mod.get(<span class="string">'x1'</span>);
+    clkw=mod.get(<span class="string">'clk'</span>);
+    binw=mod.get(<span class="string">'bin'</span>);
+
+    [pks,locs] = findpeaks(y1);
+    <span class="keyword">for</span> k=1:(length(pks)-1)
+        som3(k)=clk(locs(k+1))-clk(locs(k));
+    <span class="keyword">end</span>
+    aux_med=mean(som3);
+    aux_bpm=(1/aux_med)*120;
+    par1=num2str(bpm_test(1));
+    par2=num2str(aux_bpm);
+    phrase=strcat(<span class="string">'Wanted BPM:'</span>,par1,<span class="string">', Real BPM:'</span>,par2);
+
+
+<span class="comment">%With binary</span>
+    T=T_teste(2);
+    set_param(<span class="string">'ex11/Gain3'</span>,<span class="string">'Gain'</span>,num2str(T));
+    set_param(<span class="string">'ex11/Gain2'</span>,<span class="string">'Gain'</span>,num2str(T));
+    mod=sim(file,<span class="string">'SimulationMode'</span>,<span class="string">'Normal'</span>);
+    y1b=mod.get(<span class="string">'x1'</span>);
+    clkb=mod.get(<span class="string">'clk'</span>);
+    binb=mod.get(<span class="string">'bin'</span>);
+
+
+figure
+plot(clkw,y1w,clkb,y1b)
+legend(<span class="string">'Without binary'</span>, <span class="string">'With'</span>);
+title(phrase)
+figure
+plot(clkw,binw,clkb,binb)
+ylabel(<span class="string">'Applied binary'</span>);
+xlabel(<span class="string">'Time'</span>);
+title(<span class="string">'Time evolution of binary'</span>);
+</pre><img vspace="5" hspace="5" src="main_20.png" alt=""> <img vspace="5" hspace="5" src="main_21.png" alt=""> <h2>Ex12<a name="12"></a></h2><pre class="codeinput">gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+
+figure
+<span class="keyword">for</span> i=1:2
+    l=l_test(i);
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    numerador=1/gamma2;
+    denominador=[1 beta/gamma2 (k-g*(m*l+M*L/2))/gamma2];
+
+    bode(tf(numerador, denominador));
+    hold <span class="string">on</span>;
+    grid;
+    title(sprintf(<span class="string">'Diagrama de Bode para l=%.4f'</span>,l));
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="main_22.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Project by Dinis Rodrigues nº79089 and José Fernandes nº82414
+%  For the 1st Laboratory of MSIM     
+
+
+%% Ex5
+% 
+function main
+
+close all
+file='ex5';
+load_system('ex5');
+gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=0.1;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+set_param(file,'StopTime','60');
+set_param('ex5/termoX1','Gain',num2str(param1));
+set_param('ex5/termoX2','Gain',num2str(param2));
+set_param(file,'FixedStep','0.001');
+set_param(file,'StopTime','10');
+set_param('ex5/U','Gain','0');
+mod=sim(file,'SimulationMode','Normal');
+
+x1=mod.get('x1');
+x2=mod.get('x2');
+clk=mod.get('clk');
+
+figure 
+plot(clk,x1)
+xlabel('Time(s)');
+ylabel('Angle(rad)');
+title('Angle evolution')
+figure 
+plot(clk,x2)
+xlabel('Time(s)');
+ylabel('d theta');
+title('Angle derivative evolution')
+
+figure 
+plot(x1,x2)
+xlabel('\beta', 'Interpreter','Latex');
+ylabel('$$ {d\over dt }\theta $$','Interpreter','Latex');
+title('Phase space');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ex6
+% 
+save_system('ex5')
+close_system('ex5');
+
+load_system('ex6');
+file='ex6';
+set_param('ex6/State-Space','A','[0 1;-41.5393 -2.4719]');
+set_param('ex6/State-Space','B','[0;2.4719]');
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+set_param('ex6/State-Space','X0','[0 ;pi/4]');
+
+set_param(file,'FixedStep','0.0001');
+set_param(file,'StopTime','10');
+mod=sim(file,'SimulationMode','Normal');
+
+yout=mod.get('yout');
+clk=mod.get('clk');
+
+
+figure 
+plot(clk,yout.signals.values(:,1));
+xlabel('Time(s)');
+ylabel('Angle(rad)');
+title('Angle evolution')
+figure 
+plot(clk,yout.signals.values(:,2));
+xlabel('Time(s)');
+ylabel('d theta');
+title('Angle derivative evolution')
+figure 
+plot(yout.signals.values(:,1),yout.signals.values(:,2));
+xlabel('\beta', 'Interpreter','Latex');
+ylabel('$$ {d\over dt }\theta $$','Interpreter','Latex');
+title('Phase space');
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ex7
+% 
+%% $$ \beta = 1 $$
+% 
+gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=[0 1];
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(1)/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat('[0 1;',param1,32,param2,']');    %32 is space bar in ASCII
+paramB=strcat('[0;',paramu,']');
+
+set_param('ex6/State-Space','A',paramA);
+set_param('ex6/State-Space','B',paramB);
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+set_param('ex6/State-Space','X0','[0 ;pi/4]');
+
+set_param(file,'FixedStep','0.0001');
+set_param(file,'StopTime','10');
+mod=sim(file,'SimulationMode','Normal');
+%get values
+yout=mod.get('yout');
+y1=yout.signals.values(:,1);
+y2=yout.signals.values(:,2);
+clk=mod.get('clk');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%plot
+figure 
+plot(clk,y1);
+xlabel('Time(s)');
+ylabel('Angle(rad)');
+title('Angle evolution')
+figure 
+plot(clk,y2);
+xlabel('Time(s)');
+ylabel('d theta');
+title('Angle derivative evolution')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%quiver time 
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(1)/gamma2);
+x=linspace(min(y1),max(y1),20);
+y=linspace(min(y2),max(y2),20);
+[X,Y]=meshgrid(x,y);
+u=Y;
+v=param1.*X + param2.*Y;
+
+figure
+quiver(X,Y,u,v,0.5)
+hold on
+plot(y1,y2);
+init=linspace(-pi/4,pi/4,10);
+for i=1:10
+    some=num2str(init(i));
+    aux2=strcat('[0 ;',some,']');
+    set_param('ex6/State-Space','X0',aux2);
+    mod=sim(file,'SimulationMode','Normal');
+    yout=mod.get('yout');
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    plot(y1,y2)
+end
+xlabel('\theta','fontweight','bold','Interpreter','tex');
+ylabel('$$ {d\over dt }\theta $$','fontweight','bold','Interpreter','Latex');
+title('Espaço de Estados');
+
+
+%% $$ \beta = 0 $$
+% 
+gamma1=0.1175;
+gamma2=0.0445;
+g=9.8;
+k=3;
+beta=[0 1];
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(2)/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat('[0 1;',param1,32,param2,']');    %32 is space bar in ASCII
+paramB=strcat('[0;',paramu,']');
+
+set_param('ex6/State-Space','A',paramA);
+set_param('ex6/State-Space','B',paramB);
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+set_param('ex6/State-Space','X0','[0 ;pi/4]');
+
+set_param(file,'FixedStep','0.0001');
+set_param(file,'StopTime','10');
+mod=sim(file,'SimulationMode','Normal');
+%get values
+yout=mod.get('yout');
+y1=yout.signals.values(:,1);
+y2=yout.signals.values(:,2);
+clk=mod.get('clk');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%plot
+figure 
+plot(clk,y1);
+figure 
+plot(clk,y2);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%quiver time and convert from rad to degrees for better understanding
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta(2)/gamma2);
+x=linspace(-0.04,0.05,20);
+y=linspace(-0.9,0.9,20);
+[X,Y]=meshgrid(x,y);
+u=Y;
+v=param1.*X + param2.*Y;
+
+figure
+quiver(X,Y,u,v,0.5)
+hold on
+plot(y1,y2);
+init=linspace(-pi/4,pi/4,10);
+for i=1:10
+    some=num2str(init(i));
+    aux2=strcat('[0 ;',some,']');
+    set_param('ex6/State-Space','X0',aux2);
+    mod=sim(file,'SimulationMode','Normal');
+    yout=mod.get('yout');
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    plot(y1,y2)
+end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% EigenVectors 
+%
+[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(1/gamma2)]);
+V=real(V);
+display('For beta=1 we get the following eigenvectors:')
+display(V)
+display('For beta=1 we get the following eigenvalues:')
+display(D)
+[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(0/gamma2)]);
+V=real(V);
+display('For beta=0 we get the following eigenvectors:')
+display(V)
+display('For beta=0 we get the following eigenvalues:')
+display(D)
+[V,D]=eig([0 1;(-(k/gamma2)+(gamma1/gamma2)*g) -(0.1/gamma2)]);
+V=real(V);
+display('For beta=0.1 we get the following eigenvectors:')
+display(V)
+display('For beta=0.1 we get the following eigenvalues:')
+display(D)
+
+%% Ex8
+% 
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(1/gamma2);
+paramu=1/gamma2;
+
+A=[0 1;param1 param2];
+[V,D]=eig(A);
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat('[0 1;',param1,32,param2,']');    %32 is space bar in ASCII
+paramB=strcat('[0;',paramu,']');
+
+set_param('ex6/State-Space','A',paramA);
+set_param('ex6/State-Space','B',paramB);
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+
+for i=1:2
+    some=num2str(V(1,i));
+    aux2=num2str(V(2,i));
+    init=strcat('[',some,';',aux2,']');
+    set_param('ex6/State-Space','X0',init);
+    mod=sim(file,'SimulationMode','Normal');
+    yout=mod.get('yout');
+    y1=yout.signals.values(:,1);
+    y2=yout.signals.values(:,2);
+    figure
+    plot(y1,y2);
+    xlabel('\theta','fontweight','bold','Interpreter','tex');
+    ylabel('$$ {d\over dt }\theta $$','fontweight','bold','Interpreter','Latex');
+    title('Linear Phase space for $$ \beta = 1 $$','Interpreter','Latex');
+end
+
+%% Ex9
+% 
+
+m_t=linspace(0,0.2,100);
+l_t=linspace(0.05,0.25,100);
+grid=NaN(100,100);
+%Variables
+beta = 0.001;
+k=0.35;
+M=0.1;
+L=0.25;
+
+for i=1:100
+    for j=1:100
+        m=m_t(i);
+        l=l_t(j);
+        gamma1 = l*m + (L/2)*M;
+        gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+        wn = sqrt((k-gamma1*9.8)/gamma2);
+        dt = ((beta)/gamma2)*(1/(2*wn));
+        
+        wa=wn*sqrt(1-dt^2);
+        fa=wa/(2*pi);
+        BPM=120*fa;
+        if (real(BPM)~=0)
+            grid(i,j)=real(BPM);
+        end
+    end
+end
+
+figure
+mesh(m_t,l_t,grid);
+xlabel('Mass [m]');
+ylabel('Length [l]');
+zlabel('BPM');
+colormap
+colorbar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%BPM given
+bpm1=130; %allegro
+bpm2=64;   %lento
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Check if mass values correspond to what we want
+for i=1:100
+    some=0;
+    aux2=0;
+    if(max(grid(i,:))>=bpm1)
+        some=1;
+    end
+    if(min(grid(i,:))<=bpm2)
+        aux2=1;
+    end
+    if(aux2==1 &&some==1)
+        THIS_M=m_t(i);
+        break;
+    end
+end
+%Get length values
+for i=1:100
+        l=l_t(i);
+        gamma1 = l*m + (L/2)*M;
+        gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+       
+        wn = sqrt((k-gamma1*9.8)/gamma2);
+        dt = ((beta)/gamma2)*(1/(2*wn));
+        wa=wn*sqrt(1-dt^2);
+        fa=wa/(2*pi);
+        BPM=120*fa;
+        if (real(BPM)~=0)
+            vec_bpm(i)=real(BPM);
+        end
+end
+
+
+
+err_a=abs(vec_bpm-bpm1);
+err_l=abs(vec_bpm-bpm2);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%these are the values we want!!!!!!!!!!
+[min_l,index_l]=min(err_l);
+[min_a,index_a]=min(err_a);
+THIS_M
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Sim lento
+xinit='[pi/4;0]';
+l=l_t(index_l);
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(0.001/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat('[0 1;',param1,32,param2,']');    %32 is space bar in ASCII
+paramB=strcat('[0;',paramu,']');
+
+set_param('ex6/State-Space','A',paramA);
+set_param('ex6/State-Space','B',paramB);
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+set_param(file,'FixedStep','0.001');
+set_param(file,'StopTime','60');
+set_param('ex6/State-Space','X0',xinit);
+mod=sim(file,'SimulationMode','Normal');
+yout=mod.get('yout');
+y1=yout.signals.values(:,1);
+clk=mod.get('clk');
+
+wn = sqrt((k-gamma1*9.8)/gamma2);
+dt = ((beta)/gamma2)*(1/(2*wn));
+time=linspace(0,60,120);
+env=(pi/4)*exp(-(dt*wn*time));
+
+[pks,locs] = findpeaks(y1);
+for i=1:(length(pks)-1)
+   some(i)=clk(locs(i+1))-clk(locs(i));
+end
+
+med=mean(some);
+aux_bpm=(1/med)*120;
+par1=num2str(bpm2);
+par2=num2str(aux_bpm);
+phrase=strcat('Wanted BPM:',par1,', Real BPM:',par2);
+
+%plot env and angle
+figure
+plot(clk, y1);
+hold on
+xlabel('Time(s)');
+ylabel('Angle(rad)');
+plot(time,env,'mREPLACE_WITH_DASH_DASH');
+plot(time,-env,'yREPLACE_WITH_DASH_DASH','color','b');
+legend('Angle evoluton','Upper surrounding','Lower surrounding');
+title(phrase);
+hold off
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Sim alegro
+xinit='[pi/4;0]';
+l=l_t(index_a);
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(0.001/gamma2);
+paramu=1/gamma2;
+
+param1=num2str(param1);
+param2=num2str(param2);
+paramu=num2str(paramu);
+
+paramA=strcat('[0 1;',param1,32,param2,']');    %32 is space bar in ASCII
+paramB=strcat('[0;',paramu,']');
+
+set_param('ex6/State-Space','A',paramA);
+set_param('ex6/State-Space','B',paramB);
+set_param('ex6/State-Space','C','[1 0;0 1]');
+set_param('ex6/State-Space','D','[0;0]');
+set_param(file,'StopTime','60');
+set_param('ex6/State-Space','X0',xinit);
+mod=sim(file,'SimulationMode','Normal');
+yout=mod.get('yout');
+y1=yout.signals.values(:,1);
+clk=mod.get('clk');
+
+wn = sqrt((k-gamma1*9.8)/gamma2);
+dt = ((beta)/gamma2)*(1/(2*wn));
+time=linspace(0,60,120);
+env=(pi/4)*exp(-(dt*wn*time));
+
+[pks,locs] = findpeaks(y1);
+for i=1:(length(pks)-1)
+   some(i)=clk(locs(i+1))-clk(locs(i));
+end
+
+med=mean(some);
+aux_bpm=(1/med)*120;
+par1=num2str(bpm1);
+par2=num2str(aux_bpm);
+phrase=strcat('Allegro -> Wanted BPM:',par1,', Real BPM:',par2);
+
+%plot env and angle
+figure
+plot(clk, y1);
+hold on
+xlabel('Time(s)');
+ylabel('Angle(rad)');
+plot(time,env,'mREPLACE_WITH_DASH_DASH');
+plot(time,-env,'yREPLACE_WITH_DASH_DASH','color','b');
+legend('Angle evoluton','Upper surrounding','Lower surrounding');
+title(phrase);
+
+
+%% Ex10
+% 
+save_system('ex6')
+close_system('ex6');
+
+load_system('ex5');
+file='ex5';
+bpm_test=[bpm1 bpm2];
+l_test=[l_t(index_a) l_t(index_l)];
+beta = 0.001;
+k=0.35;
+M=0.1;
+L=0.25;
+
+for i=1:2
+    l=l_test(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,'StopTime','60');
+    set_param('ex5/termoX1','Gain',num2str(param1));
+    set_param('ex5/termoX2','Gain',num2str(param2));
+    set_param('ex5/Integrator','InitialCondition','0');
+    set_param('ex5/Integrator1','InitialCondition','pi/4');
+    mod=sim(file,'SimulationMode','Normal');
+    y1=mod.get('x1');
+    clk=mod.get('clk');
+    figure;
+    plot(clk, y1);
+    [pks ,locs] = findpeaks(y1);
+    for j=1:(length(pks)-1)
+        some(j)=clk(locs(j+1))-clk(locs(j));
+    end
+    aux_med=mean(some);
+    aux_bpm(i)=(1/aux_med)*120;
+    par1=num2str(bpm_test(i));
+    par2=num2str(aux_bpm(i));
+    phrase=strcat('Wanted BPM:',par1,', Real BPM:',par2);
+    title(phrase);
+    xlabel('Time (s)');
+    ylabel('Angle');
+end
+    %L Dimensioning
+m1=linspace(-0.02,0,100);
+m2=linspace(0,0.02,100);
+ma=[m1,m2(2:end)];
+m_l=linspace(-0.08,0,100);
+m_l2=linspace(0,0.08,100);
+m_lf=[m_l,m_l2(2:end)];
+
+lent=m_lf+l_test(2);
+al=ma+l_test(1);
+dif_L=5;
+dif_A=5;
+%Ritmo lento com massa Compensada
+for i=1:length(ma)
+    l=lent(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,'StopTime','60');
+    set_param('ex5/termoX1','Gain',num2str(param1));
+    set_param('ex5/termoX2','Gain',num2str(param2));
+    set_param('ex5/Integrator','InitialCondition','0');
+    set_param('ex5/Integrator1','InitialCondition','pi/4');
+    mod=sim(file,'SimulationMode','Normal');
+    y1=mod.get('x1');
+    clk=mod.get('clk');
+    [pks ,locs] = findpeaks(y1);
+    some=zeros(1,length(peaks)-1);
+    for j=1:(length(pks)-1)
+        some(j)=clk(locs(j+1))-clk(locs(j));
+    end
+    aux_med=mean(some);
+    aux_bpm=(1/aux_med)*120;
+    par1=num2str(bpm_test(2));
+    par2=num2str(aux_bpm);
+    if(abs(aux_bpm-bpm_test(2))<=dif_L)
+        figure;
+        plot(clk, y1);
+        bpm_lento=aux_bpm;
+        phrase=strcat('Wanted BPM:',par1,', Real BPM:',par2);
+        title(phrase);  
+        break
+    end
+end
+
+
+%Ritmo rápido com massa compensada
+for i=1:length(ma)
+    l=al(i);
+    gamma1 = l*m + (L/2)*M;
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    param1=-(k/gamma2) + (gamma1/gamma2)*g;
+    param2=-(beta/gamma2);
+    set_param(file,'StopTime','60');
+    set_param('ex5/termoX1','Gain',num2str(param1));
+    set_param('ex5/termoX2','Gain',num2str(param2));
+    set_param('ex5/Integrator','InitialCondition','0');
+    set_param('ex5/Integrator1','InitialCondition','pi/4');
+    mod=sim(file,'SimulationMode','Normal');
+    
+    y1=mod.get('x1');
+    clk=mod.get('clk');
+    [pks ,locs] = findpeaks(y1);
+    some1=zeros(1,length(peaks)-1);
+    for j=1:(length(pks)-1)
+        some1(j)=clk(locs(j+1))-clk(locs(j));
+    end
+    aux_med=mean(some1);
+    aux_bpm=(1/aux_med)*120;
+    if(abs(aux_med-bpm_test(1))<=dif_A)
+        figure
+        plot(clk, y1);
+        par1=num2str(bpm_test(1));
+        par2=num2str(aux_bpm);
+        phrase=strcat('Wanted BPM:',par1,', Real BPM:',par2);
+        title(phrase)  
+        break
+    end
+end
+
+%% Ex11
+% 
+save_system('ex5')
+close_system('ex5');
+
+load_system('ex11');
+file='ex11';
+
+l=l_test(1);
+k=0.35;
+M=0.1;
+L=0.25;
+T_teste=[0 0.1];
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+set_param(file,'StopTime','60');
+set_param('ex11/termoX1','Gain',num2str(param1));
+set_param('ex11/termoX2','Gain',num2str(param2));
+set_param('ex11/Integrator','InitialCondition','0');
+set_param('ex11/Integrator1','InitialCondition','pi/4');
+
+
+%Without binary
+	T=T_teste(1);
+    set_param('ex11/Gain3','Gain',num2str(T));
+    set_param('ex11/Gain2','Gain',num2str(T));
+    mod=sim(file,'SimulationMode','Normal');
+    y1w=mod.get('x1');
+    clkw=mod.get('clk');
+    binw=mod.get('bin');
+    
+    [pks,locs] = findpeaks(y1);
+    for k=1:(length(pks)-1)
+        som3(k)=clk(locs(k+1))-clk(locs(k));
+    end
+    aux_med=mean(som3);
+    aux_bpm=(1/aux_med)*120;
+    par1=num2str(bpm_test(1));
+    par2=num2str(aux_bpm);
+    phrase=strcat('Wanted BPM:',par1,', Real BPM:',par2);
+    
+    
+%With binary
+    T=T_teste(2);
+    set_param('ex11/Gain3','Gain',num2str(T));
+    set_param('ex11/Gain2','Gain',num2str(T));
+    mod=sim(file,'SimulationMode','Normal');
+    y1b=mod.get('x1');
+    clkb=mod.get('clk');
+    binb=mod.get('bin');     
+   
+
+figure
+plot(clkw,y1w,clkb,y1b)
+legend('Without binary', 'With');
+title(phrase)
+figure
+plot(clkw,binw,clkb,binb)
+ylabel('Applied binary');
+xlabel('Time');
+title('Time evolution of binary');
+%% Ex12
+
+gamma1 = l*m + (L/2)*M;
+gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+param1=-(k/gamma2) + (gamma1/gamma2)*g;
+param2=-(beta/gamma2);
+
+figure
+for i=1:2
+    l=l_test(i);
+    gamma2 = (1/3)*M*(L.^2) + m *l.^2;
+    numerador=1/gamma2;
+    denominador=[1 beta/gamma2 (k-g*(m*l+M*L/2))/gamma2];
+    
+    bode(tf(numerador, denominador));
+    hold on;
+    grid;
+    title(sprintf('Diagrama de Bode para l=%.4f',l));
+end
+end
+##### SOURCE END #####
+--></body></html>

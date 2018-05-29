@@ -1,0 +1,644 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-29"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</h1><!--introduction--><pre>For the 1st Laboratory of MSIM</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ex2.a)</a></li><li><a href="#3">Ex2.b)</a></li><li><a href="#4">Ex2.c)</a></li><li><a href="#6">Ex2.d)</a></li><li><a href="#8">External Functions</a></li></ul></div><h2>Ex2.a)<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> main
+</pre><pre class="codeinput">close <span class="string">all</span>
+
+<span class="comment">%load file</span>
+var=load(<span class="string">'MarkovChain.mat'</span>);
+P=var.P;
+<span class="comment">%get eigenvalues and vectors</span>
+[V,D]=eig(P');
+
+<span class="keyword">for</span> i=1:20
+    <span class="keyword">for</span> j=1:20
+        <span class="keyword">if</span> i==j
+           vec=[i abs(1-D(i,j))];
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+[M,I]=min(vec); <span class="comment">%return index of eigenvector corresponding to the eigenvalue=1</span>
+
+<span class="comment">%transpose matrix for better understanding</span>
+V_t=V(:,I)'; <span class="comment">%find vector by D=1</span>
+<span class="comment">%theoretical equation for normalization</span>
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+
+<span class="comment">%plot figure</span>
+figure
+bar(V_norm)
+grid <span class="string">on</span>;grid <span class="string">minor</span>
+xlabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'State Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlim([0 21])
+
+<span class="comment">%prove the sum is 1</span>
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel(<span class="string">'Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Probability Sum'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+[M1,I1]=max(V_norm);
+[M2,I2]=min(V_norm);
+maximo=num2str(I1);
+minimo=num2str(I2);
+display(strcat(<span class="string">'The more likely state to happen is: '</span>,maximo))
+display(strcat(<span class="string">'The least likely state to happen is: '</span>,minimo))
+</pre><pre class="codeoutput">The more likely state to happen is:7
+The least likely state to happen is:17
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <img vspace="5" hspace="5" src="main_02.png" alt=""> <h2>Ex2.b)<a name="3"></a></h2><pre class="codeinput"><span class="comment">%given values</span>
+sigma2=0.01; <span class="comment">%deviation</span>
+QP=sigma2;
+P0=100;
+<span class="comment">%from file</span>
+anchor_X1=var.nodePos(:,2);
+anchor_X2=var.nodePos(:,3);
+anchors=[anchor_X1 anchor_X2]';
+
+token_X=var.sourcePos';
+X=[token_X zeros(size(token_X)) anchors]';
+
+D=pdist(X,<span class="string">'euclidean'</span>);
+square=squareform(D); <span class="comment">%norm values -&gt; ||x-ai||</span>
+
+distance = square(1,3:end);			<span class="comment">% Source-anchor distances -&gt; ||x-ai||^2</span>
+anch_norm = square(2,3:end);			<span class="comment">% Anchor norms -&gt; ai</span>
+
+n_trial=1000;     <span class="comment">%professor asked for 1000 trials</span>
+numero_ancora=V_norm*n_trial;
+numero_ancora=round(numero_ancora);
+
+n_anchor=1;
+<span class="keyword">for</span> i=1:20
+   <span class="keyword">for</span> j=1:numero_ancora(1,i)
+       di(n_anchor)=distance(i);
+       a(:,n_anchor)=[anchors(1,i), anchors(2,i)];
+       an(n_anchor)=anch_norm(i);
+       n_anchor=n_anchor+1;
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+Pot = P0./(di.^2);				<span class="comment">% Noiseless RSSI</span>
+stdev = 1e-1;				<span class="comment">% Log-noise standard deviation</span>
+<span class="comment">%stdev = 0;</span>
+Pot = Pot.*exp(stdev*randn(size(Pot)));	<span class="comment">% Introduce noise</span>
+Pot = QP*round(Pot/QP);			<span class="comment">% Quantize power measurements</span>
+n = 2;					<span class="comment">% Embedding dimension</span>
+
+<span class="comment">% Localize source by least-squares</span>
+A = [-2*repmat(Pot,[n 1]).*a; -ones(size(Pot)); Pot]';
+b = (-Pot.*(an.^2))';
+
+<span class="comment">% RLS formulation (one-shot)</span>
+RlsPar = struct(<span class="string">'lam'</span>,1);
+[e,w,RlsPar] = qrrls(A,b,RlsPar);
+
+figure
+scatter(anchors(1,:), anchors(2,:));
+hold <span class="string">on</span>
+<span class="comment">%plot real position</span>
+plot(token_X(1), token_X(2), <span class="string">'rx'</span>,<span class="string">'linewidth'</span>,2);
+<span class="comment">%plot measured position</span>
+plot(w(1),w(2), <span class="string">'cd'</span>,<span class="string">'linewidth'</span>,2);
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+hold <span class="string">off</span>
+<span class="comment">%plot description</span>
+title(<span class="string">'Source and Anchors position'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>)
+xlabel(<span class="string">'x1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'x2'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+legend(<span class="string">'Anchors Position'</span>,<span class="string">'Real Source Position'</span>,<span class="string">'Measured Source Position'</span>,<span class="string">'Location'</span>,<span class="string">'northoutside'</span>)
+
+
+<span class="comment">%plot a close look</span>
+figure
+<span class="comment">%plot real position</span>
+plot(token_X(1), token_X(2), <span class="string">'rx'</span>,<span class="string">'linewidth'</span>,2);
+hold <span class="string">on</span>
+<span class="comment">%plot measured position</span>
+plot(w(1),w(2), <span class="string">'d'</span>,<span class="string">'linewidth'</span>,2);
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+ylim([29 32])
+xlim([83 86])
+legend(<span class="string">'Real Position'</span>,<span class="string">'Measured Position'</span>)
+title(<span class="string">'Real and Measured Source position '</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>)
+xlabel(<span class="string">'x1'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'x2'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+hold <span class="string">off</span>
+
+fprintf(<span class="string">'Real Source Position -&gt; (%.2f,%.2f) \n'</span>,token_X(1), token_X(2));
+fprintf(<span class="string">'Source Measured Position -&gt; (%.2f,%-2f) \n'</span>,w(1),w(2));
+</pre><pre class="codeoutput">Real Source Position -&gt; (85.00,30.00) 
+Source Measured Position -&gt; (84.35,31.093254) 
+</pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2>Ex2.c)<a name="4"></a></h2><pre class="codeinput"><span class="comment">%make minitial conditions transponsed</span>
+Pi_init=[randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1)]'; <span class="comment">%see external functions</span>
+Pi_fin=zeros(20,3);
+
+<span class="comment">%set time</span>
+time=100;
+<span class="comment">%set variables</span>
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+P=var.P;
+<span class="keyword">for</span> i=1:3
+   Pi=zeros(time,20);
+   <span class="comment">%set initial conditions</span>
+   Pi(1,:)=Pi_init(i,:);
+   <span class="comment">%theorical equation</span>
+   <span class="keyword">for</span> j=2:time
+        Pi(j,:)=Pi(j-1,:)*P;
+   <span class="keyword">end</span>
+   <span class="comment">%Plot 3d figure</span>
+   figure
+   plot3(X,Y,Pi);
+   grid <span class="string">on</span>; grid <span class="string">minor</span>;
+   Pi_fin(:,i)=Pi(100,:);
+
+   aux=strcat(<span class="string">'Probability Evolution ('</span>,num2str(i),<span class="string">')'</span>);
+   title(aux,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+   xlabel(<span class="string">'Time'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+   ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+   zlabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+   zlim([0 0.2])
+<span class="keyword">end</span>
+Sum=[sum(Pi_init(1,:)) sum(Pi_init(2,:)) sum(Pi_init(3,:))];
+figure
+bar(Sum)
+ylim([0 1.2])
+title(<span class="string">'Probability Sum of the different graphs'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlabel(<span class="string">'Probability Evolution Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <p>Given the fact that the initial conditions must be stochastic and valid. We made 3 different sets of initial conditions where all of them had a total probability of 1. We can see that no matter the initial condition they all tend to the equilibrium point.</p><h2>Ex2.d)<a name="6"></a></h2><pre class="codeinput"><span class="keyword">end</span>
+</pre><h2>External Functions<a name="8"></a></h2><pre class="codeinput"><span class="comment">%This function was found on the internet to give an n by m array in which the sum</span>
+<span class="comment">%of all the elements is set by the user</span>
+<span class="keyword">function</span> [x,v] = randfixedsum(n,m,s,a,b)
+
+<span class="comment">% [x,v] = randfixedsum(n,m,s,a,b)</span>
+<span class="comment">%</span>
+<span class="comment">%   This generates an n by m array x, each of whose m columns</span>
+<span class="comment">% contains n random values lying in the interval [a,b], but</span>
+<span class="comment">% subject to the condition that their sum be equal to s.  The</span>
+<span class="comment">% scalar value s must accordingly satisfy n*a &lt;= s &lt;= n*b.  The</span>
+<span class="comment">% distribution of values is uniform in the sense that it has the</span>
+<span class="comment">% conditional probability distribution of a uniform distribution</span>
+<span class="comment">% over the whole n-cube, given that the sum of the x's is s.</span>
+<span class="comment">%</span>
+<span class="comment">%   The scalar v, if requested, returns with the total</span>
+<span class="comment">% n-1 dimensional volume (content) of the subset satisfying</span>
+<span class="comment">% this condition.  Consequently if v, considered as a function</span>
+<span class="comment">% of s and divided by sqrt(n), is integrated with respect to s</span>
+<span class="comment">% from s = a to s = b, the result would necessarily be the</span>
+<span class="comment">% n-dimensional volume of the whole cube, namely (b-a)^n.</span>
+<span class="comment">%</span>
+<span class="comment">%   This algorithm does no "rejecting" on the sets of x's it</span>
+<span class="comment">% obtains.  It is designed to generate only those that satisfy all</span>
+<span class="comment">% the above conditions and to do so with a uniform distribution.</span>
+<span class="comment">% It accomplishes this by decomposing the space of all possible x</span>
+<span class="comment">% sets (columns) into n-1 dimensional simplexes.  (Line segments,</span>
+<span class="comment">% triangles, and tetrahedra, are one-, two-, and three-dimensional</span>
+<span class="comment">% examples of simplexes, respectively.)  It makes use of three</span>
+<span class="comment">% different sets of 'rand' variables, one to locate values</span>
+<span class="comment">% uniformly within each type of simplex, another to randomly</span>
+<span class="comment">% select representatives of each different type of simplex in</span>
+<span class="comment">% proportion to their volume, and a third to perform random</span>
+<span class="comment">% permutations to provide an even distribution of simplex choices</span>
+<span class="comment">% among like types.  For example, with n equal to 3 and s set at,</span>
+<span class="comment">% say, 40% of the way from a towards b, there will be 2 different</span>
+<span class="comment">% types of simplex, in this case triangles, each with its own</span>
+<span class="comment">% area, and 6 different versions of each from permutations, for</span>
+<span class="comment">% a total of 12 triangles, and these all fit together to form a</span>
+<span class="comment">% particular planar non-regular hexagon in 3 dimensions, with v</span>
+<span class="comment">% returned set equal to the hexagon's area.</span>
+<span class="comment">%</span>
+<span class="comment">% Roger Stafford - Jan. 19, 2006</span>
+
+<span class="comment">% Check the arguments.</span>
+<span class="keyword">if</span> (m~=round(m))|(n~=round(n))|(m&lt;0)|(n&lt;1)
+ error(<span class="string">'n must be a whole number and m a non-negative integer.'</span>)
+<span class="keyword">elseif</span> (s&lt;n*a)|(s&gt;n*b)|(a&gt;=b)
+ error(<span class="string">'Inequalities n*a &lt;= s &lt;= n*b and a &lt; b must hold.'</span>)
+<span class="keyword">end</span>
+
+<span class="comment">% Rescale to a unit cube: 0 &lt;= x(i) &lt;= 1</span>
+s = (s-n*a)/(b-a);
+
+<span class="comment">% Construct the transition probability table, t.</span>
+<span class="comment">% t(i,j) will be utilized only in the region where j &lt;= i + 1.</span>
+k = max(min(floor(s),n-1),0); <span class="comment">% Must have 0 &lt;= k &lt;= n-1</span>
+s = max(min(s,k+1),k); <span class="comment">% Must have k &lt;= s &lt;= k+1</span>
+s1 = s - [k:-1:k-n+1]; <span class="comment">% s1 &amp; s2 will never be negative</span>
+s2 = [k+n:-1:k+1] - s;
+w = zeros(n,n+1); w(1,2) = realmax; <span class="comment">% Scale for full 'double' range</span>
+t = zeros(n-1,n);
+tiny = 2^(-1074); <span class="comment">% The smallest positive matlab 'double' no.</span>
+<span class="keyword">for</span> i = 2:n
+ tmp1 = w(i-1,2:i+1).*s1(1:i)/i;
+ tmp2 = w(i-1,1:i).*s2(n-i+1:n)/i;
+ w(i,2:i+1) = tmp1 + tmp2;
+ tmp3 = w(i,2:i+1) + tiny; <span class="comment">% In case tmp1 &amp; tmp2 are both 0,</span>
+ tmp4 = (s2(n-i+1:n) &gt; s1(1:i)); <span class="comment">% then t is 0 on left &amp; 1 on right</span>
+ t(i-1,1:i) = (tmp2./tmp3).*tmp4 + (1-tmp1./tmp3).*(~tmp4);
+<span class="keyword">end</span>
+
+<span class="comment">% Derive the polytope volume v from the appropriate</span>
+<span class="comment">% element in the bottom row of w.</span>
+v = n^(3/2)*(w(n,k+2)/realmax)*(b-a)^(n-1);
+
+<span class="comment">% Now compute the matrix x.</span>
+x = zeros(n,m);
+<span class="keyword">if</span> m == 0, <span class="keyword">return</span>, <span class="keyword">end</span> <span class="comment">% If m is zero, quit with x = []</span>
+rt = rand(n-1,m); <span class="comment">% For random selection of simplex type</span>
+rs = rand(n-1,m); <span class="comment">% For random location within a simplex</span>
+s = repmat(s,1,m);
+j = repmat(k+1,1,m); <span class="comment">% For indexing in the t table</span>
+sm = zeros(1,m); pr = ones(1,m); <span class="comment">% Start with sum zero &amp; product 1</span>
+<span class="keyword">for</span> i = n-1:-1:1  <span class="comment">% Work backwards in the t table</span>
+ e = (rt(n-i,:)&lt;=t(i,j)); <span class="comment">% Use rt to choose a transition</span>
+ sx = rs(n-i,:).^(1/i); <span class="comment">% Use rs to compute next simplex coord.</span>
+ sm = sm + (1-sx).*pr.*s/(i+1); <span class="comment">% Update sum</span>
+ pr = sx.*pr; <span class="comment">% Update product</span>
+ x(n-i,:) = sm + pr.*e; <span class="comment">% Calculate x using simplex coords.</span>
+ s = s - e; j = j - e; <span class="comment">% Transition adjustment</span>
+<span class="keyword">end</span>
+x(n,:) = sm + pr.*s; <span class="comment">% Compute the last x</span>
+
+<span class="comment">% Randomly permute the order in the columns of x and rescale.</span>
+rp = rand(n,m); <span class="comment">% Use rp to carry out a matrix 'randperm'</span>
+[ig,p] = sort(rp); <span class="comment">% The values placed in ig are ignored</span>
+x = (b-a)*x(p+repmat([0:n:n*(m-1)],n,1))+a; <span class="comment">% Permute &amp; rescale x</span>
+
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Project by Dinis Rodrigues nº79089 and José Fernandes nº82414
+%  For the 1st Laboratory of MSIM     
+
+
+%% Ex2.a)
+% 
+function main
+close all
+
+%load file
+var=load('MarkovChain.mat');
+P=var.P;
+%get eigenvalues and vectors
+[V,D]=eig(P');
+
+for i=1:20
+    for j=1:20
+        if i==j
+           vec=[i abs(1-D(i,j))];  
+        end
+    end
+end
+
+[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+
+%transpose matrix for better understanding
+V_t=V(:,I)'; %find vector by D=1
+%theoretical equation for normalization
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+
+%plot figure
+figure
+bar(V_norm)
+grid on;grid minor
+xlabel('Probability','Interpreter','Latex');
+ylabel('State','Interpreter','Latex');
+title('State Probability','Interpreter','Latex');
+xlim([0 21])
+
+%prove the sum is 1
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel('Graph','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+title('Probability Sum','Interpreter','Latex');
+[M1,I1]=max(V_norm);
+[M2,I2]=min(V_norm);
+maximo=num2str(I1);
+minimo=num2str(I2);
+display(strcat('The more likely state to happen is: ',maximo))
+display(strcat('The least likely state to happen is: ',minimo))
+
+
+%% Ex2.b)
+% 
+
+%given values
+sigma2=0.01; %deviation
+QP=sigma2;
+P0=100;         
+%from file
+anchor_X1=var.nodePos(:,2);
+anchor_X2=var.nodePos(:,3);
+anchors=[anchor_X1 anchor_X2]';
+
+token_X=var.sourcePos';
+X=[token_X zeros(size(token_X)) anchors]';
+
+D=pdist(X,'euclidean');
+square=squareform(D); %norm values -> ||x-ai||
+
+distance = square(1,3:end);			% Source-anchor distances -> ||x-ai||^2
+anch_norm = square(2,3:end);			% Anchor norms -> ai
+
+n_trial=1000;     %professor asked for 1000 trials
+numero_ancora=V_norm*n_trial;
+numero_ancora=round(numero_ancora);
+
+n_anchor=1;
+for i=1:20
+   for j=1:numero_ancora(1,i)
+       di(n_anchor)=distance(i);
+       a(:,n_anchor)=[anchors(1,i), anchors(2,i)];
+       an(n_anchor)=anch_norm(i);
+       n_anchor=n_anchor+1;
+   end
+end
+
+Pot = P0./(di.^2);				% Noiseless RSSI
+stdev = 1e-1;				% Log-noise standard deviation
+%stdev = 0;
+Pot = Pot.*exp(stdev*randn(size(Pot)));	% Introduce noise
+Pot = QP*round(Pot/QP);			% Quantize power measurements
+n = 2;					% Embedding dimension
+
+% Localize source by least-squares
+A = [-2*repmat(Pot,[n 1]).*a; -ones(size(Pot)); Pot]';
+b = (-Pot.*(an.^2))';
+
+% RLS formulation (one-shot)
+RlsPar = struct('lam',1);
+[e,w,RlsPar] = qrrls(A,b,RlsPar);
+
+figure
+scatter(anchors(1,:), anchors(2,:));
+hold on
+%plot real position
+plot(token_X(1), token_X(2), 'rx','linewidth',2);
+%plot measured position
+plot(w(1),w(2), 'cd','linewidth',2);
+grid on; grid minor;
+hold off
+%plot description
+title('Source and Anchors position','Interpreter','Latex')
+xlabel('x1','Interpreter','Latex');
+ylabel('x2','Interpreter','Latex');
+legend('Anchors Position','Real Source Position','Measured Source Position','Location','northoutside')
+
+
+%plot a close look
+figure
+%plot real position
+plot(token_X(1), token_X(2), 'rx','linewidth',2);
+hold on
+%plot measured position
+plot(w(1),w(2), 'd','linewidth',2);
+grid on; grid minor;
+ylim([29 32])
+xlim([83 86])
+legend('Real Position','Measured Position')
+title('Real and Measured Source position ','Interpreter','Latex')
+xlabel('x1','Interpreter','Latex');
+ylabel('x2','Interpreter','Latex');
+hold off
+
+fprintf('Real Source Position -> (%.2f,%.2f) \n',token_X(1), token_X(2));
+fprintf('Source Measured Position -> (%.2f,%-2f) \n',w(1),w(2));
+
+
+%% Ex2.c)
+% 
+
+%make minitial conditions transponsed
+Pi_init=[randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1)]'; %see external functions
+Pi_fin=zeros(20,3);
+
+%set time
+time=100;
+%set variables
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+P=var.P;
+for i=1:3
+   Pi=zeros(time,20);
+   %set initial conditions
+   Pi(1,:)=Pi_init(i,:);
+   %theorical equation
+   for j=2:time
+        Pi(j,:)=Pi(j-1,:)*P;
+   end
+   %Plot 3d figure
+   figure
+   plot3(X,Y,Pi);
+   grid on; grid minor;
+   Pi_fin(:,i)=Pi(100,:);
+   
+   aux=strcat('Probability Evolution (',num2str(i),')');
+   title(aux,'Interpreter','Latex');
+   xlabel('Time','Interpreter','Latex');
+   ylabel('State','Interpreter','Latex');
+   zlabel('Probability','Interpreter','Latex');
+   zlim([0 0.2])
+end
+Sum=[sum(Pi_init(1,:)) sum(Pi_init(2,:)) sum(Pi_init(3,:))];
+figure
+bar(Sum)
+ylim([0 1.2])
+title('Probability Sum of the different graphs','Interpreter','Latex');
+xlabel('Probability Evolution Graph','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+
+%%
+% Given the fact that the initial conditions must be stochastic and valid.
+% We made 3 different sets of initial conditions where all of them had a total
+% probability of 1. We can see that no matter the initial condition they
+% all tend to the equilibrium point.
+
+%% Ex2.d)
+% 
+
+
+end
+
+
+
+%% External Functions
+% 
+
+%This function was found on the internet to give an n by m array in which the sum
+%of all the elements is set by the user
+function [x,v] = randfixedsum(n,m,s,a,b)
+
+% [x,v] = randfixedsum(n,m,s,a,b)
+%
+%   This generates an n by m array x, each of whose m columns
+% contains n random values lying in the interval [a,b], but
+% subject to the condition that their sum be equal to s.  The
+% scalar value s must accordingly satisfy n*a <= s <= n*b.  The
+% distribution of values is uniform in the sense that it has the
+% conditional probability distribution of a uniform distribution
+% over the whole n-cube, given that the sum of the x's is s.
+%
+%   The scalar v, if requested, returns with the total
+% n-1 dimensional volume (content) of the subset satisfying
+% this condition.  Consequently if v, considered as a function
+% of s and divided by sqrt(n), is integrated with respect to s
+% from s = a to s = b, the result would necessarily be the
+% n-dimensional volume of the whole cube, namely (b-a)^n.
+%
+%   This algorithm does no "rejecting" on the sets of x's it
+% obtains.  It is designed to generate only those that satisfy all
+% the above conditions and to do so with a uniform distribution.
+% It accomplishes this by decomposing the space of all possible x
+% sets (columns) into n-1 dimensional simplexes.  (Line segments,
+% triangles, and tetrahedra, are one-, two-, and three-dimensional
+% examples of simplexes, respectively.)  It makes use of three
+% different sets of 'rand' variables, one to locate values
+% uniformly within each type of simplex, another to randomly
+% select representatives of each different type of simplex in
+% proportion to their volume, and a third to perform random
+% permutations to provide an even distribution of simplex choices
+% among like types.  For example, with n equal to 3 and s set at,
+% say, 40% of the way from a towards b, there will be 2 different
+% types of simplex, in this case triangles, each with its own
+% area, and 6 different versions of each from permutations, for
+% a total of 12 triangles, and these all fit together to form a
+% particular planar non-regular hexagon in 3 dimensions, with v
+% returned set equal to the hexagon's area.
+%
+% Roger Stafford - Jan. 19, 2006
+
+% Check the arguments.
+if (m~=round(m))|(n~=round(n))|(m<0)|(n<1)
+ error('n must be a whole number and m a non-negative integer.')
+elseif (s<n*a)|(s>n*b)|(a>=b)
+ error('Inequalities n*a <= s <= n*b and a < b must hold.')
+end
+
+% Rescale to a unit cube: 0 <= x(i) <= 1
+s = (s-n*a)/(b-a);
+
+% Construct the transition probability table, t.
+% t(i,j) will be utilized only in the region where j <= i + 1.
+k = max(min(floor(s),n-1),0); % Must have 0 <= k <= n-1
+s = max(min(s,k+1),k); % Must have k <= s <= k+1
+s1 = s - [k:-1:k-n+1]; % s1 & s2 will never be negative
+s2 = [k+n:-1:k+1] - s;
+w = zeros(n,n+1); w(1,2) = realmax; % Scale for full 'double' range
+t = zeros(n-1,n);
+tiny = 2^(-1074); % The smallest positive matlab 'double' no.
+for i = 2:n
+ tmp1 = w(i-1,2:i+1).*s1(1:i)/i;
+ tmp2 = w(i-1,1:i).*s2(n-i+1:n)/i;
+ w(i,2:i+1) = tmp1 + tmp2;
+ tmp3 = w(i,2:i+1) + tiny; % In case tmp1 & tmp2 are both 0,
+ tmp4 = (s2(n-i+1:n) > s1(1:i)); % then t is 0 on left & 1 on right
+ t(i-1,1:i) = (tmp2./tmp3).*tmp4 + (1-tmp1./tmp3).*(~tmp4);
+end
+
+% Derive the polytope volume v from the appropriate
+% element in the bottom row of w.
+v = n^(3/2)*(w(n,k+2)/realmax)*(b-a)^(n-1);
+
+% Now compute the matrix x.
+x = zeros(n,m);
+if m == 0, return, end % If m is zero, quit with x = []
+rt = rand(n-1,m); % For random selection of simplex type
+rs = rand(n-1,m); % For random location within a simplex
+s = repmat(s,1,m);
+j = repmat(k+1,1,m); % For indexing in the t table
+sm = zeros(1,m); pr = ones(1,m); % Start with sum zero & product 1
+for i = n-1:-1:1  % Work backwards in the t table
+ e = (rt(n-i,:)<=t(i,j)); % Use rt to choose a transition
+ sx = rs(n-i,:).^(1/i); % Use rs to compute next simplex coord.
+ sm = sm + (1-sx).*pr.*s/(i+1); % Update sum
+ pr = sx.*pr; % Update product
+ x(n-i,:) = sm + pr.*e; % Calculate x using simplex coords.
+ s = s - e; j = j - e; % Transition adjustment
+end
+x(n,:) = sm + pr.*s; % Compute the last x
+
+% Randomly permute the order in the columns of x and rescale.
+rp = rand(n,m); % Use rp to carry out a matrix 'randperm'
+[ig,p] = sort(rp); % The values placed in ig are ignored
+x = (b-a)*x(p+repmat([0:n:n*(m-1)],n,1))+a; % Permute & rescale x
+
+end
+
+##### SOURCE END #####
+--></body></html>
