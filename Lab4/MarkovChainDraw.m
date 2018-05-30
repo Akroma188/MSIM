@@ -10,7 +10,7 @@ nodePos=[ (1:nodes)' (rand(nodes,2)*sidelength) ];
 % loading the saved positions
 load MarkovChain
 nodes=20;
-figure
+figure;
 %plotting the nodes along with their id
 plot(nodePos(:,2),nodePos(:,3),'ob');
 text(nodePos(:,2),nodePos(:,3),num2str(nodePos(:,1)));

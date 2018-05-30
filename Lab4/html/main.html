@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-29"><meta name="DC.source" content="main.m"><style type="text/css">
+      --><title>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-05-30"><meta name="DC.source" content="main.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</h1><!--introduction--><pre>For the 1st Laboratory of MSIM</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ex2.a)</a></li><li><a href="#3">Ex2.b)</a></li><li><a href="#4">Ex2.c)</a></li><li><a href="#6">Ex2.d)</a></li><li><a href="#8">External Functions</a></li></ul></div><h2>Ex2.a)<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> main
+  </style></head><body><div class="content"><h1>Project by Dinis Rodrigues n&ordm;79089 and Jos&eacute; Fernandes n&ordm;82414</h1><!--introduction--><pre>For the 1st Laboratory of MSIM</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ex2.a)</a></li><li><a href="#3">Ex2.b)</a></li><li><a href="#4">Ex2.c)</a></li><li><a href="#6">Ex2.d)</a></li><li><a href="#14">External Functions</a></li></ul></div><h2>Ex2.a)<a name="1"></a></h2><pre class="codeinput"><span class="keyword">function</span> main
 </pre><pre class="codeinput">close <span class="string">all</span>
 
 <span class="comment">%load file</span>
@@ -78,7 +78,7 @@ P=var.P;
 <span class="keyword">for</span> i=1:20
     <span class="keyword">for</span> j=1:20
         <span class="keyword">if</span> i==j
-           vec=[i abs(1-D(i,j))];
+           vec(i)=abs(1-D(i,j));
         <span class="keyword">end</span>
     <span class="keyword">end</span>
 <span class="keyword">end</span>
@@ -108,6 +108,7 @@ xlim([0 2])
 xlabel(<span class="string">'Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
 ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
 title(<span class="string">'Probability Sum'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+<span class="comment">%get most and less likely to happen</span>
 [M1,I1]=max(V_norm);
 [M2,I2]=min(V_norm);
 maximo=num2str(I1);
@@ -135,16 +136,16 @@ distance = square(1,3:end);			<span class="comment">% Source-anchor distances -&
 anch_norm = square(2,3:end);			<span class="comment">% Anchor norms -&gt; ai</span>
 
 n_trial=1000;     <span class="comment">%professor asked for 1000 trials</span>
-numero_ancora=V_norm*n_trial;
-numero_ancora=round(numero_ancora);
+n_anchor=V_norm*n_trial;
+n_anchor=round(n_anchor);
 
-n_anchor=1;
+num=1;
 <span class="keyword">for</span> i=1:20
-   <span class="keyword">for</span> j=1:numero_ancora(1,i)
-       di(n_anchor)=distance(i);
-       a(:,n_anchor)=[anchors(1,i), anchors(2,i)];
-       an(n_anchor)=anch_norm(i);
-       n_anchor=n_anchor+1;
+   <span class="keyword">for</span> j=1:n_anchor(1,i)
+       di(num)=distance(i);
+       a(:,num)=[anchors(1,i), anchors(2,i)];
+       an(num)=anch_norm(i);
+       num=num+1;
    <span class="keyword">end</span>
 <span class="keyword">end</span>
 
@@ -198,7 +199,7 @@ hold <span class="string">off</span>
 fprintf(<span class="string">'Real Source Position -&gt; (%.2f,%.2f) \n'</span>,token_X(1), token_X(2));
 fprintf(<span class="string">'Source Measured Position -&gt; (%.2f,%-2f) \n'</span>,w(1),w(2));
 </pre><pre class="codeoutput">Real Source Position -&gt; (85.00,30.00) 
-Source Measured Position -&gt; (84.35,31.093254) 
+Source Measured Position -&gt; (83.91,31.176803) 
 </pre><img vspace="5" hspace="5" src="main_03.png" alt=""> <img vspace="5" hspace="5" src="main_04.png" alt=""> <h2>Ex2.c)<a name="4"></a></h2><pre class="codeinput"><span class="comment">%make minitial conditions transponsed</span>
 Pi_init=[randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1)]'; <span class="comment">%see external functions</span>
 Pi_fin=zeros(20,3);
@@ -237,8 +238,236 @@ ylim([0 1.2])
 title(<span class="string">'Probability Sum of the different graphs'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
 xlabel(<span class="string">'Probability Evolution Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
 ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
-</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <p>Given the fact that the initial conditions must be stochastic and valid. We made 3 different sets of initial conditions where all of them had a total probability of 1. We can see that no matter the initial condition they all tend to the equilibrium point.</p><h2>Ex2.d)<a name="6"></a></h2><pre class="codeinput"><span class="keyword">end</span>
-</pre><h2>External Functions<a name="8"></a></h2><pre class="codeinput"><span class="comment">%This function was found on the internet to give an n by m array in which the sum</span>
+</pre><img vspace="5" hspace="5" src="main_05.png" alt=""> <img vspace="5" hspace="5" src="main_06.png" alt=""> <img vspace="5" hspace="5" src="main_07.png" alt=""> <img vspace="5" hspace="5" src="main_08.png" alt=""> <p>Given the fact that the initial conditions must be stochastic and valid. We made 3 different sets of initial conditions where all of them had a total probability of 1. We can see that no matter the initial condition they all tend to the equilibrium point.</p><h2>Ex2.d)<a name="6"></a></h2><pre class="codeinput"><span class="comment">%plot subsets</span>
+createfigure(anchor_X1,anchor_X2)
+</pre><img vspace="5" hspace="5" src="main_09.png" alt=""> <p>There are 4 clusters in this figure, we chose only two where there is a greater possibility of the token spending more time on it. We chose the top left corner cluster (6-11-5-15) and the bottom righ one (12-10-17-9-8). Both of them have 80% chances of staying in. In this first trial we will try to improve the circulation of these two clusters, we need to better distribute manually the transition probabilities of the clusters.</p><pre class="codeinput">P=var.P;
+<span class="comment">%For anchor 1 (add more transition probability to go the the top left cluster)</span>
+P(1,6) = 0.3;
+P(1,7) = 0.3;
+P(1,20) = 0.4;
+<span class="comment">%For anchor 6 (improve trasition probability to get out of the top left cluster)</span>
+P(6,1) = 0.3;
+P(6,15) = 0.4;
+P(6,11) = 0.3;
+<span class="comment">%For anchor 3 (improve trasition probability to to the bottom right cluster)</span>
+P(3,12) = 0.5;
+P(3,19) = 0.5;
+<span class="comment">%For anchor 12 (improve trasition probability to get out of the bottom right cluster)</span>
+P(12,3) = 0.3;
+P(12,8) = 0.3;
+P(12,10) = 0.4;
+</pre><p>we felt no need to change connections between anchors, because if we distribute envenly the transition probabilities, it will cover all the anchors anyway. Only the time it spends on the anchor matters, not the connection between them.</p><pre class="codeinput">[V,D]=eig(P');
+<span class="keyword">for</span> i=1:20
+    <span class="keyword">for</span> j=1:20
+        <span class="keyword">if</span> i==j
+           vec(i)=abs(1-D(i,j));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+[M,I]=min(vec); <span class="comment">%return index of eigenvector corresponding to the eigenvalue=1</span>
+<span class="comment">%transpose matrix for better understanding</span>
+V_t=V(:,I)'; <span class="comment">%find vector by D=1</span>
+<span class="comment">%theoretical equation for normalization</span>
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+figure
+bar(V_norm)
+grid <span class="string">on</span>;grid <span class="string">minor</span>
+xlabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Improved State Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlim([0 21])
+
+<span class="comment">%prove the sum is 1</span>
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel(<span class="string">'Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Probability Sum'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylim([0 1.2])
+
+<span class="comment">%Convergence Plot</span>
+<span class="comment">%set variables</span>
+time=100;
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+
+Pi=zeros(time,20);
+<span class="comment">%set initial conditions</span>
+Pi(1,:)=randfixedsum(20,1,1,0,1)';
+<span class="comment">%theorical equation</span>
+<span class="keyword">for</span> j=2:time
+    Pi(j,:)=Pi(j-1,:)*P;
+<span class="keyword">end</span>
+<span class="comment">%Plot 3d figure</span>
+figure
+plot3(X,Y,Pi);
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+title(<span class="string">'Improved Probability Evolution'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlabel(<span class="string">'Time'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+zlabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+zlim([0 0.2])
+</pre><img vspace="5" hspace="5" src="main_10.png" alt=""> <img vspace="5" hspace="5" src="main_11.png" alt=""> <img vspace="5" hspace="5" src="main_12.png" alt=""> <p>Comparing this plot with the one of 2.a) we can see that this one is much better distributed. If we change the distribution of course the convergence will change, and that is what we see in the last figure. Now we will try harm the distribuition. We will make it so it stays much longer withint the clusters discussed above.</p><pre class="codeinput">P=var.P;
+
+<span class="comment">%For anchor 1 (add more transition probability to go the the top left cluster)</span>
+P(1,6) = 0.8;
+P(1,7) = 0.1;
+P(1,20) = 0.1;
+<span class="comment">%For anchor 6 (make it more difficult to go to anchor 1, so it stays in the cluster)</span>
+P(6,1) = 0.1;
+P(6,15) = 0.4;
+P(6,11) = 0.5;
+<span class="comment">%For anchor 3 (improve trasition probability to to the bottom right cluster)</span>
+P(3,12) = 0.5;
+P(3,19) = 0.5;
+<span class="comment">%For anchor 12 (make it more difficult to go to anchor 3, so it stays in the cluster)</span>
+P(12,3) = 0.1;
+P(12,8) = 0.4;
+P(12,10) = 0.5;
+</pre><p>We are changing the weigth of the connection so it goes either to the top or bottom cluster and stays there for a much longer period of time.</p><pre class="codeinput">[V,D]=eig(P');
+<span class="keyword">for</span> i=1:20
+    <span class="keyword">for</span> j=1:20
+        <span class="keyword">if</span> i==j
+           vec(i)=abs(1-D(i,j));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+[M,I]=min(vec); <span class="comment">%return index of eigenvector corresponding to the eigenvalue=1</span>
+<span class="comment">%transpose matrix for better understanding</span>
+V_t=V(:,I)'; <span class="comment">%find vector by D=1</span>
+<span class="comment">%theoretical equation for normalization</span>
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+figure
+bar(V_norm)
+grid <span class="string">on</span>;grid <span class="string">minor</span>
+xlabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Worsened State Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlim([0 21])
+
+<span class="comment">%prove the sum is 1</span>
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel(<span class="string">'Graph'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+title(<span class="string">'Probability Sum'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylim([0 1.2])
+
+<span class="comment">%Convergence Plot</span>
+<span class="comment">%set variables</span>
+time=200;
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+
+Pi=zeros(time,20);
+<span class="comment">%set initial conditions</span>
+Pi(1,:)=randfixedsum(20,1,1,0,1)';
+<span class="comment">%theorical equation</span>
+<span class="keyword">for</span> j=2:time
+    Pi(j,:)=Pi(j-1,:)*P;
+<span class="keyword">end</span>
+<span class="comment">%Plot 3d figure</span>
+figure
+plot3(X,Y,Pi);
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+title(<span class="string">'Probability Evolution'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+xlabel(<span class="string">'Time'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+ylabel(<span class="string">'State'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+zlabel(<span class="string">'Worsened Probability'</span>,<span class="string">'Interpreter'</span>,<span class="string">'Latex'</span>);
+zlim([0 0.2])
+</pre><img vspace="5" hspace="5" src="main_13.png" alt=""> <img vspace="5" hspace="5" src="main_14.png" alt=""> <img vspace="5" hspace="5" src="main_15.png" alt=""> <p>We can clearly see that the token is staying in the top left cluster (6-11-5-15), as expected. We changed the weigth of the connections so it stays in the cluster.</p><p>Of course the location precision of the source is affected by the fluidity of the token circulation. If, for example in this case (worsened) the source is located near the bottom cluster, by this example the token stays for long periods of time in the top cluster this will imply great error in the location estimation.</p><pre class="codeinput"><span class="keyword">end</span>
+</pre><h2>External Functions<a name="14"></a></h2><pre class="codeinput"><span class="comment">%code generated using 'Generate Code' option of figure</span>
+<span class="keyword">function</span> createfigure(X1, Y1)
+<span class="comment">%CREATEFIGURE(X1, Y1)</span>
+<span class="comment">%  X1:  vector of x data</span>
+<span class="comment">%  Y1:  vector of y data</span>
+
+<span class="comment">%  Auto-generated by MATLAB on 29-May-2018 23:03:43</span>
+<span class="comment">% Create figure</span>
+figure1 = figure;
+axes1 = axes(<span class="string">'Parent'</span>,figure1);
+hold(axes1,<span class="string">'on'</span>);
+plot(X1,Y1,<span class="string">'Marker'</span>,<span class="string">'o'</span>,<span class="string">'LineStyle'</span>,<span class="string">'none'</span>);
+box(axes1,<span class="string">'on'</span>);
+annotation(figure1,<span class="string">'line'</span>,[0.14609375 0.46484375],<span class="keyword">...</span>
+    [0.858977949283352 0.887541345093716]);
+annotation(figure1,<span class="string">'line'</span>,[0.14453125 0.2046875],<span class="keyword">...</span>
+    [0.857875413450937 0.825799338478501]);
+annotation(figure1,<span class="string">'line'</span>,[0.2046875 0.28203125],<span class="keyword">...</span>
+    [0.825901874310915 0.780595369349504]);
+annotation(figure1,<span class="string">'line'</span>,[0.28203125 0.46640625],<span class="keyword">...</span>
+    [0.777390297684675 0.88864388092613]);
+annotation(figure1,<span class="string">'line'</span>,[0.46640625 0.421875],<span class="keyword">...</span>
+    [0.886541345093716 0.700110253583241]);
+annotation(figure1,<span class="string">'line'</span>,[0.421875 0.42734375],<span class="keyword">...</span>
+    [0.698007717750827 0.514884233737597]);
+annotation(figure1,<span class="string">'line'</span>,[0.428125 0.23671875],<span class="keyword">...</span>
+    [0.514986769570011 0.448732083792723]);
+annotation(figure1,<span class="string">'line'</span>,[0.2375 0.184375],<span class="keyword">...</span>
+    [0.447732083792723 0.240352811466373]);
+annotation(figure1,<span class="string">'line'</span>,[0.184375 0.3375],<span class="keyword">...</span>
+    [0.237147739801544 0.24696802646086]);
+annotation(figure1,<span class="string">'line'</span>,[0.4734375 0.3375],<span class="keyword">...</span>
+    [0.335273428886439 0.248070562293275]);
+annotation(figure1,<span class="string">'line'</span>,[0.428125 0.47265625],<span class="keyword">...</span>
+    [0.514986769570011 0.337375964718853]);
+annotation(figure1,<span class="string">'line'</span>,[0.421875 0.23671875],<span class="keyword">...</span>
+    [0.696905181918412 0.448732083792723]);
+annotation(figure1,<span class="string">'line'</span>,[0.42734375 0.54765625],<span class="keyword">...</span>
+    [0.513884233737597 0.577728776185226]);
+annotation(figure1,<span class="string">'line'</span>,[0.54765625 0.60859375],<span class="keyword">...</span>
+    [0.575626240352812 0.757442116868798]);
+annotation(figure1,<span class="string">'line'</span>,[0.6078125 0.7421875],<span class="keyword">...</span>
+    [0.755339581036384 0.835722160970232]);
+annotation(figure1,<span class="string">'line'</span>,[0.7421875 0.72890625],<span class="keyword">...</span>
+    [0.832517089305402 0.650496141124587]);
+annotation(figure1,<span class="string">'line'</span>,[0.72890625 0.60859375],<span class="keyword">...</span>
+    [0.650598676957001 0.758544652701213]);
+annotation(figure1,<span class="string">'line'</span>,[0.703125 0.54765625],<span class="keyword">...</span>
+    [0.477500551267916 0.577728776185226]);
+annotation(figure1,<span class="string">'line'</span>,[0.72890625 0.5484375],<span class="keyword">...</span>
+    [0.650598676957001 0.575523704520397]);
+annotation(figure1,<span class="string">'line'</span>,[0.703125 0.628125],<span class="keyword">...</span>
+    [0.477500551267916 0.249173098125689]);
+annotation(figure1,<span class="string">'line'</span>,[0.63046875 0.6015625],<span class="keyword">...</span>
+    [0.249275633958104 0.143329658213892]);
+annotation(figure1,<span class="string">'line'</span>,[0.62890625 0.69375],<span class="keyword">...</span>
+    [0.247070562293275 0.253583241455347]);
+annotation(figure1,<span class="string">'line'</span>,[0.69453125 0.6546875],<span class="keyword">...</span>
+    [0.253685777287762 0.154355016538037]);
+annotation(figure1,<span class="string">'line'</span>,[0.6546875 0.6015625],<span class="keyword">...</span>
+    [0.152252480705623 0.144432194046307]);
+annotation(figure1,<span class="string">'line'</span>,[0.69375 0.87109375],<span class="keyword">...</span>
+    [0.251480705622933 0.19845644983462]);
+annotation(figure1,<span class="string">'line'</span>,[0.87109375 0.65390625],<span class="keyword">...</span>
+    [0.195251378169791 0.155457552370452]);
+annotation(figure1,<span class="string">'ellipse'</span>,<span class="keyword">...</span>
+    [0.12375 0.723140495867769 0.361875 0.264462809917356],<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.635294139385223 0.0784313753247261 0.184313729405403],<span class="keyword">...</span>
+    <span class="string">'LineWidth'</span>,1);
+annotation(figure1,<span class="string">'ellipse'</span>,<span class="keyword">...</span>
+    [0.5125 0.504132231404959 0.273125 0.419421487603306],<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.0784313753247261 0.168627455830574 0.549019634723663],<span class="keyword">...</span>
+    <span class="string">'LineWidth'</span>,1);
+annotation(figure1,<span class="string">'ellipse'</span>,<span class="keyword">...</span>
+    [0.5635 0.0743801652892562 0.3315 0.276859504132232],<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0 0.498039215803146 0],<span class="keyword">...</span>
+    <span class="string">'LineWidth'</span>,1);
+annotation(figure1,<span class="string">'ellipse'</span>,<span class="keyword">...</span>
+    [0.161 0.0495867768595041 0.353375000000001 0.708677685950413],<span class="keyword">...</span>
+    <span class="string">'Color'</span>,[0.749019622802734 0 0.749019622802734],<span class="keyword">...</span>
+    <span class="string">'LineWidth'</span>,1);
+<span class="keyword">end</span>
+
+<span class="comment">%This function was found on the internet to give an n by m array in which the sum</span>
 <span class="comment">%of all the elements is set by the user</span>
 <span class="keyword">function</span> [x,v] = randfixedsum(n,m,s,a,b)
 
@@ -357,7 +586,7 @@ P=var.P;
 for i=1:20
     for j=1:20
         if i==j
-           vec=[i abs(1-D(i,j))];  
+           vec(i)=abs(1-D(i,j));  
         end
     end
 end
@@ -387,6 +616,7 @@ xlim([0 2])
 xlabel('Graph','Interpreter','Latex');
 ylabel('Probability','Interpreter','Latex');
 title('Probability Sum','Interpreter','Latex');
+%get most and less likely to happen
 [M1,I1]=max(V_norm);
 [M2,I2]=min(V_norm);
 maximo=num2str(I1);
@@ -417,16 +647,16 @@ distance = square(1,3:end);			% Source-anchor distances -> ||x-ai||^2
 anch_norm = square(2,3:end);			% Anchor norms -> ai
 
 n_trial=1000;     %professor asked for 1000 trials
-numero_ancora=V_norm*n_trial;
-numero_ancora=round(numero_ancora);
+n_anchor=V_norm*n_trial;
+n_anchor=round(n_anchor);
 
-n_anchor=1;
+num=1;
 for i=1:20
-   for j=1:numero_ancora(1,i)
-       di(n_anchor)=distance(i);
-       a(:,n_anchor)=[anchors(1,i), anchors(2,i)];
-       an(n_anchor)=anch_norm(i);
-       n_anchor=n_anchor+1;
+   for j=1:n_anchor(1,i)
+       di(num)=distance(i);
+       a(:,num)=[anchors(1,i), anchors(2,i)];
+       an(num)=anch_norm(i);
+       num=num+1;
    end
 end
 
@@ -529,16 +759,280 @@ ylabel('Probability','Interpreter','Latex');
 % probability of 1. We can see that no matter the initial condition they
 % all tend to the equilibrium point.
 
+
+
 %% Ex2.d)
 % 
 
+%plot subsets
+createfigure(anchor_X1,anchor_X2)
 
+%% 
+% There are 4 clusters in this figure, we chose only two where there is a
+% greater possibility of the token spending more time on it. We chose the
+% top left corner cluster (6-11-5-15) and the bottom righ one
+% (12-10-17-9-8). Both of them have 80% chances of staying in.
+% In this first trial we will try to improve the circulation of these two clusters, we need
+% to better distribute manually the transition probabilities of the clusters.
+P=var.P;
+%For anchor 1 (add more transition probability to go the the top left cluster)
+P(1,6) = 0.3;
+P(1,7) = 0.3;
+P(1,20) = 0.4;
+%For anchor 6 (improve trasition probability to get out of the top left cluster)
+P(6,1) = 0.3;
+P(6,15) = 0.4;
+P(6,11) = 0.3;
+%For anchor 3 (improve trasition probability to to the bottom right cluster)
+P(3,12) = 0.5;
+P(3,19) = 0.5;
+%For anchor 12 (improve trasition probability to get out of the bottom right cluster)
+P(12,3) = 0.3;
+P(12,8) = 0.3;
+P(12,10) = 0.4;
+%%
+% we felt no need to change connections between anchors, because if we
+% distribute envenly the transition probabilities, it will cover all the
+% anchors anyway. Only the time it spends on the anchor matters, not the
+% connection between them.
+[V,D]=eig(P');
+for i=1:20
+    for j=1:20
+        if i==j
+           vec(i)=abs(1-D(i,j));  
+        end
+    end
+end
+
+[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+%transpose matrix for better understanding
+V_t=V(:,I)'; %find vector by D=1
+%theoretical equation for normalization
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+figure
+bar(V_norm)
+grid on;grid minor
+xlabel('Probability','Interpreter','Latex');
+ylabel('State','Interpreter','Latex');
+title('Improved State Probability','Interpreter','Latex');
+xlim([0 21])
+
+%prove the sum is 1
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel('Graph','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+title('Probability Sum','Interpreter','Latex');
+ylim([0 1.2])
+
+%Convergence Plot
+%set variables
+time=100;
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+
+Pi=zeros(time,20);
+%set initial conditions
+Pi(1,:)=randfixedsum(20,1,1,0,1)';
+%theorical equation
+for j=2:time
+    Pi(j,:)=Pi(j-1,:)*P;
+end
+%Plot 3d figure
+figure
+plot3(X,Y,Pi);
+grid on; grid minor;
+title('Improved Probability Evolution','Interpreter','Latex');
+xlabel('Time','Interpreter','Latex');
+ylabel('State','Interpreter','Latex');
+zlabel('Probability','Interpreter','Latex');
+zlim([0 0.2])
+%%
+% Comparing this plot with the one of 2.a) we can see that this one is much better
+% distributed. If we change the distribution of course the convergence will
+% change, and that is what we see in the last figure.
+% Now we will try harm the distribuition. We will make it so it stays much
+% longer withint the clusters discussed above.
+P=var.P;
+
+%For anchor 1 (add more transition probability to go the the top left cluster)
+P(1,6) = 0.8;
+P(1,7) = 0.1;
+P(1,20) = 0.1;
+%For anchor 6 (make it more difficult to go to anchor 1, so it stays in the cluster)
+P(6,1) = 0.1;
+P(6,15) = 0.4;
+P(6,11) = 0.5;
+%For anchor 3 (improve trasition probability to to the bottom right cluster)
+P(3,12) = 0.5;
+P(3,19) = 0.5;
+%For anchor 12 (make it more difficult to go to anchor 3, so it stays in the cluster)
+P(12,3) = 0.1;
+P(12,8) = 0.4;
+P(12,10) = 0.5;
+%%
+% We are changing the weigth of the connection so it goes either to the
+% top or bottom cluster and stays there for a much longer period of time.
+
+
+[V,D]=eig(P');
+for i=1:20
+    for j=1:20
+        if i==j
+           vec(i)=abs(1-D(i,j));  
+        end
+    end
+end
+
+[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+%transpose matrix for better understanding
+V_t=V(:,I)'; %find vector by D=1
+%theoretical equation for normalization
+norm=sum(V_t);
+v_param=1/norm;
+V_norm=V_t*v_param;
+figure
+bar(V_norm)
+grid on;grid minor
+xlabel('Probability','Interpreter','Latex');
+ylabel('State','Interpreter','Latex');
+title('Worsened State Probability','Interpreter','Latex');
+xlim([0 21])
+
+%prove the sum is 1
+figure
+bar(sum(V_norm))
+xlim([0 2])
+xlabel('Graph','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+title('Probability Sum','Interpreter','Latex');
+ylim([0 1.2])
+
+%Convergence Plot
+%set variables
+time=200;
+X = repmat((1:time)',[1 20]);
+Y = repmat(1:20,[time 1]);
+
+Pi=zeros(time,20);
+%set initial conditions
+Pi(1,:)=randfixedsum(20,1,1,0,1)';
+%theorical equation
+for j=2:time
+    Pi(j,:)=Pi(j-1,:)*P;
+end
+%Plot 3d figure
+figure
+plot3(X,Y,Pi);
+grid on; grid minor;
+title('Probability Evolution','Interpreter','Latex');
+xlabel('Time','Interpreter','Latex');
+ylabel('State','Interpreter','Latex');
+zlabel('Worsened Probability','Interpreter','Latex');
+zlim([0 0.2])
+
+%%
+% We can clearly see that the token is staying in the top left cluster (6-11-5-15), as
+% expected. We changed the weigth of the connections so it stays in the
+% cluster.
+%%
+% Of course the location precision of the source is affected by the
+% fluidity of the token circulation. If, for example in this case (worsened)
+% the source is located near the bottom cluster, by this example the token
+% stays for long periods of time in the top cluster this will
+% imply great error in the location estimation.
 end
 
 
 
 %% External Functions
 % 
+
+%code generated using 'Generate Code' option of figure
+function createfigure(X1, Y1)
+%CREATEFIGURE(X1, Y1)
+%  X1:  vector of x data
+%  Y1:  vector of y data
+
+%  Auto-generated by MATLAB on 29-May-2018 23:03:43
+% Create figure
+figure1 = figure;
+axes1 = axes('Parent',figure1);
+hold(axes1,'on');
+plot(X1,Y1,'Marker','o','LineStyle','none');
+box(axes1,'on');
+annotation(figure1,'line',[0.14609375 0.46484375],...
+    [0.858977949283352 0.887541345093716]);
+annotation(figure1,'line',[0.14453125 0.2046875],...
+    [0.857875413450937 0.825799338478501]);
+annotation(figure1,'line',[0.2046875 0.28203125],...
+    [0.825901874310915 0.780595369349504]);
+annotation(figure1,'line',[0.28203125 0.46640625],...
+    [0.777390297684675 0.88864388092613]);
+annotation(figure1,'line',[0.46640625 0.421875],...
+    [0.886541345093716 0.700110253583241]);
+annotation(figure1,'line',[0.421875 0.42734375],...
+    [0.698007717750827 0.514884233737597]);
+annotation(figure1,'line',[0.428125 0.23671875],...
+    [0.514986769570011 0.448732083792723]);
+annotation(figure1,'line',[0.2375 0.184375],...
+    [0.447732083792723 0.240352811466373]);
+annotation(figure1,'line',[0.184375 0.3375],...
+    [0.237147739801544 0.24696802646086]);
+annotation(figure1,'line',[0.4734375 0.3375],...
+    [0.335273428886439 0.248070562293275]);
+annotation(figure1,'line',[0.428125 0.47265625],...
+    [0.514986769570011 0.337375964718853]);
+annotation(figure1,'line',[0.421875 0.23671875],...
+    [0.696905181918412 0.448732083792723]);
+annotation(figure1,'line',[0.42734375 0.54765625],...
+    [0.513884233737597 0.577728776185226]);
+annotation(figure1,'line',[0.54765625 0.60859375],...
+    [0.575626240352812 0.757442116868798]);
+annotation(figure1,'line',[0.6078125 0.7421875],...
+    [0.755339581036384 0.835722160970232]);
+annotation(figure1,'line',[0.7421875 0.72890625],...
+    [0.832517089305402 0.650496141124587]);
+annotation(figure1,'line',[0.72890625 0.60859375],...
+    [0.650598676957001 0.758544652701213]);
+annotation(figure1,'line',[0.703125 0.54765625],...
+    [0.477500551267916 0.577728776185226]);
+annotation(figure1,'line',[0.72890625 0.5484375],...
+    [0.650598676957001 0.575523704520397]);
+annotation(figure1,'line',[0.703125 0.628125],...
+    [0.477500551267916 0.249173098125689]);
+annotation(figure1,'line',[0.63046875 0.6015625],...
+    [0.249275633958104 0.143329658213892]);
+annotation(figure1,'line',[0.62890625 0.69375],...
+    [0.247070562293275 0.253583241455347]);
+annotation(figure1,'line',[0.69453125 0.6546875],...
+    [0.253685777287762 0.154355016538037]);
+annotation(figure1,'line',[0.6546875 0.6015625],...
+    [0.152252480705623 0.144432194046307]);
+annotation(figure1,'line',[0.69375 0.87109375],...
+    [0.251480705622933 0.19845644983462]);
+annotation(figure1,'line',[0.87109375 0.65390625],...
+    [0.195251378169791 0.155457552370452]);
+annotation(figure1,'ellipse',...
+    [0.12375 0.723140495867769 0.361875 0.264462809917356],...
+    'Color',[0.635294139385223 0.0784313753247261 0.184313729405403],...
+    'LineWidth',1);
+annotation(figure1,'ellipse',...
+    [0.5125 0.504132231404959 0.273125 0.419421487603306],...
+    'Color',[0.0784313753247261 0.168627455830574 0.549019634723663],...
+    'LineWidth',1);
+annotation(figure1,'ellipse',...
+    [0.5635 0.0743801652892562 0.3315 0.276859504132232],...
+    'Color',[0 0.498039215803146 0],...
+    'LineWidth',1);
+annotation(figure1,'ellipse',...
+    [0.161 0.0495867768595041 0.353375000000001 0.708677685950413],...
+    'Color',[0.749019622802734 0 0.749019622802734],...
+    'LineWidth',1);
+end
 
 %This function was found on the internet to give an n by m array in which the sum
 %of all the elements is set by the user
