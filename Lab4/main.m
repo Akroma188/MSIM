@@ -1,5 +1,5 @@
 %% Project by Dinis Rodrigues nº79089 and José Fernandes nº82414
-%  For the 1st Laboratory of MSIM     
+%  For the 4th Laboratory of MSIM     
 
 
 %% Ex2.a)
@@ -13,15 +13,13 @@ P=var.P;
 %get eigenvalues and vectors
 [V,D]=eig(P');
 
+vec=zeros(1,20);
 for i=1:20
-    for j=1:20
-        if i==j
-           vec(i)=abs(1-D(i,j));  
-        end
-    end
+   j=i;
+   vec(i)=abs(1-D(i,j));      
 end
 
-[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue closer to 1
 
 %transpose matrix for better understanding
 V_t=V(:,I)'; %find vector by D=1
@@ -33,66 +31,68 @@ V_norm=V_t*v_param;
 %plot figure
 figure
 bar(V_norm)
-grid on;grid minor
-xlabel('Probability','Interpreter','Latex');
-ylabel('State','Interpreter','Latex');
-title('State Probability','Interpreter','Latex');
+grid on;grid minor;
+xlabel('State','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+title('Equilibrium State Probability','Interpreter','Latex');
 xlim([0 21])
 
-%prove the sum is 1
-figure
-bar(sum(V_norm))
-xlim([0 2])
-xlabel('Graph','Interpreter','Latex');
-ylabel('Probability','Interpreter','Latex');
-title('Probability Sum','Interpreter','Latex');
-%get most and less likely to happen
-[M1,I1]=max(V_norm);
-[M2,I2]=min(V_norm);
-maximo=num2str(I1);
-minimo=num2str(I2);
-display(strcat('The more likely state to happen is: ',maximo))
-display(strcat('The least likely state to happen is: ',minimo))
+%most and less likely to happen
+display('The more likely state to happen is: 7 and 19');
+display('The least likely state to happen is: 8 and 17');
 
 
-%% Ex2.b)
+%% Ex2.b) Markov
 % 
 
-%given values
-sigma2=0.01; %deviation
-QP=sigma2;
-P0=100;         
 %from file
+source_X=var.sourcePos';
 anchor_X1=var.nodePos(:,2);
 anchor_X2=var.nodePos(:,3);
 anchors=[anchor_X1 anchor_X2]';
 
-token_X=var.sourcePos';
-X=[token_X zeros(size(token_X)) anchors]';
+%given values
+sigma2=0.01; %deviation
+QP=sigma2;
+P0=100;   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%from rssiloc script
+X=[source_X zeros(size(source_X)) anchors]';
 
 D=pdist(X,'euclidean');
-square=squareform(D); %norm values -> ||x-ai||
+all_norms=squareform(D); %norm values -> ||x-ai||
 
-distance = square(1,3:end);			% Source-anchor distances -> ||x-ai||^2
-anch_norm = square(2,3:end);			% Anchor norms -> ai
+distance = all_norms(1,3:end);			% Source-anchor distances -> ||x-ai||^2
+anch_norm = all_norms(2,3:end);			% Anchor norms -> ||ai||
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-n_trial=1000;     %professor asked for 1000 trials
-n_anchor=V_norm*n_trial;
-n_anchor=round(n_anchor);
+%number of times it has been on the anchor
+n_anchor=round(V_norm*1000); %professor asked for M=1000 trials and it needs to be an integer
 
-num=1;
+%For Theoretical equation 
+di=[];
+a=[];
+an=[];
+%make arrays with M measures
 for i=1:20
-   for j=1:n_anchor(1,i)
-       di(num)=distance(i);
-       a(:,num)=[anchors(1,i), anchors(2,i)];
-       an(num)=anch_norm(i);
-       num=num+1;
-   end
+   di_aux=ones(1,n_anchor(i))*distance(i);
+   di=horzcat(di,di_aux);            %for power equation
+   
+   a_aux=ones(2,n_anchor(i));
+   a_aux(1,:)=a_aux(1,:)*anchors(1,i);
+   a_aux(2,:)=a_aux(2,:)*anchors(2,i);
+   a=horzcat(a,a_aux);              %for A matrix
+   
+   an_aux=ones(1,n_anchor(i))*anch_norm(i); %for b matrix
+   an=horzcat(an,an_aux);
 end
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%from rssiloc script
 Pot = P0./(di.^2);				% Noiseless RSSI
 stdev = 1e-1;				% Log-noise standard deviation
-%stdev = 0;
+
 Pot = Pot.*exp(stdev*randn(size(Pot)));	% Introduce noise
 Pot = QP*round(Pot/QP);			% Quantize power measurements
 n = 2;					% Embedding dimension
@@ -104,30 +104,14 @@ b = (-Pot.*(an.^2))';
 % RLS formulation (one-shot)
 RlsPar = struct('lam',1);
 [e,w,RlsPar] = qrrls(A,b,RlsPar);
-
-figure
-scatter(anchors(1,:), anchors(2,:));
-hold on
-%plot real position
-plot(token_X(1), token_X(2), 'rx','linewidth',2);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %plot measured position
-plot(w(1),w(2), 'cd','linewidth',2);
-grid on; grid minor;
-hold off
-%plot description
-title('Source and Anchors position','Interpreter','Latex')
-xlabel('x1','Interpreter','Latex');
-ylabel('x2','Interpreter','Latex');
-legend('Anchors Position','Real Source Position','Measured Source Position','Location','northoutside')
-
-
-%plot a close look
 figure
 %plot real position
-plot(token_X(1), token_X(2), 'rx','linewidth',2);
+plot(source_X(1), source_X(2), 'x','linewidth',2);
 hold on
 %plot measured position
-plot(w(1),w(2), 'd','linewidth',2);
+plot(w(1),w(2), 'x','linewidth',2);
 grid on; grid minor;
 ylim([29 32])
 xlim([83 86])
@@ -137,51 +121,112 @@ xlabel('x1','Interpreter','Latex');
 ylabel('x2','Interpreter','Latex');
 hold off
 
-fprintf('Real Source Position -> (%.2f,%.2f) \n',token_X(1), token_X(2));
-fprintf('Source Measured Position -> (%.2f,%-2f) \n',w(1),w(2));
+err=sqrt((source_X(1)-w(1)).^2 + (source_X(2)-w(2)).^2)
 
+sourceX1pos=num2str(source_X(1),4);
+sourceX2pos=num2str(source_X(2),4);
+toprint1=strcat('Real Source Position -> (',sourceX1pos,', ',sourceX2pos,')');
+
+MsourceX1pos=num2str(w(1),4);
+MsourceX2pos=num2str(w(2),4);
+toprint2=strcat('Source Measured Position -> (',MsourceX1pos,', ',MsourceX2pos,')        ',toprint1);
+display(toprint2);
+
+%Error calc
+display(strcat('Measured root mean square error -> ', num2str(err)));
 
 %% Ex2.c)
 % 
 
-%make minitial conditions transponsed
-Pi_init=[randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1) randfixedsum(20,1,1,0,1)]'; %see external functions
-Pi_fin=zeros(20,3);
+%make initial conditions transponsed
+%see external functions
+Uniform=ones(20,1)*1/20;    %save for future analysis
+random1=randfixedsum(20,1,1,0,1);%save for future analysis
+random2=randfixedsum(20,1,1,0,1);%save for future analysis
 
-%set time
-time=100;
-%set variables
-X = repmat((1:time)',[1 20]);
-Y = repmat(1:20,[time 1]);
+init=[Uniform random1 random2]'; 
+%%
+% We chose to use as initial conditions a uniform probability distribution
+% and two other random distributions to show what happens.
+
+time=linspace(1,100,100);
+Pi=zeros(length(time),20);
 P=var.P;
 for i=1:3
-   Pi=zeros(time,20);
-   %set initial conditions
-   Pi(1,:)=Pi_init(i,:);
-   %theorical equation
-   for j=2:time
-        Pi(j,:)=Pi(j-1,:)*P;
-   end
+   %set initial condition
+   Pi(1,:)=init(i,:);
+   %theorical equation (see external functions)
+   Pi = MarkovEquation(Pi,P,time);
+   
+    [V,D]=eig(var.P');
+    vec=zeros(1,20);
+    for j=1:20
+       k=j;
+       vec(j)=abs(1-D(j,k));      
+    end
+
+    [M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+    %transpose matrix for better understanding
+    V_t=V(:,I)'; %find vector by D=1
+    %theoretical equation for normalization
+    norm=sum(V_t);
+    v_param=1/norm;
+    V_norm=V_t*v_param;
+
+
+    if i==1
+      uniform_equilibrium=Pi(end,:); %Save equilibrium for future analysis on 3a)
+      Normal_eq=V_norm; %save for 3.a)
+    end
+   
+   %Save sum of elements to prove it's equal to 1
+   sum_of_elements(:,i)=sum(Pi,2);
+   
    %Plot 3d figure
+   [Y,X]=meshgrid(linspace(1,20,20),time);
    figure
    plot3(X,Y,Pi);
    grid on; grid minor;
-   Pi_fin(:,i)=Pi(100,:);
-   
-   aux=strcat('Probability Evolution (',num2str(i),')');
-   title(aux,'Interpreter','Latex');
+   compare=strcat('Probability Evolution (',num2str(i),')');
+   title(compare,'Interpreter','Latex');
    xlabel('Time','Interpreter','Latex');
    ylabel('State','Interpreter','Latex');
    zlabel('Probability','Interpreter','Latex');
-   zlim([0 0.2])
+   zlim([0 0.2]);
+   
+   %Plot equilibrium point
+   figure
+   bar([V_norm; Pi(end,:)]')
+   compare=strcat('Equilibrium (',num2str(i),')');
+   title(compare,'Interpreter','Latex');
+   legend('Theoretical','Measured');
+   xlabel('State','Interpreter','Latex');
+   ylabel('Probability','Interpreter','Latex');
+   xlim([0 21]);
 end
-Sum=[sum(Pi_init(1,:)) sum(Pi_init(2,:)) sum(Pi_init(3,:))];
+
+%Plot Sum to prove it's always equal to one
 figure
-bar(Sum)
-ylim([0 1.2])
-title('Probability Sum of the different graphs','Interpreter','Latex');
-xlabel('Probability Evolution Graph','Interpreter','Latex');
+subplot(2,2,[1,2]);
+plot(sum_of_elements(:,1));
+title('Probability Sum through Time (1)','Interpreter','Latex')
+xlabel('Time','Interpreter','Latex');
 ylabel('Probability','Interpreter','Latex');
+grid on; grid minor;
+
+subplot(2,2,3);
+plot(sum_of_elements(:,2));
+title('Probability Sum (2)','Interpreter','Latex')
+xlabel('Time','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+grid on; grid minor;
+
+subplot(2,2,4);
+plot(sum_of_elements(:,3))
+title('Probability Sum(3)','Interpreter','Latex')
+xlabel('Time','Interpreter','Latex');
+ylabel('Probability','Interpreter','Latex');
+grid on; grid minor;
 
 %%
 % Given the fact that the initial conditions must be stochastic and valid.
@@ -196,22 +241,22 @@ ylabel('Probability','Interpreter','Latex');
 
 %plot subsets
 createfigure(anchor_X1,anchor_X2)
-
+title('Clusters','Interpreter','Latex');
 %% 
 % There are 4 clusters in this figure, we chose only two where there is a
 % greater possibility of the token spending more time on it. We chose the
-% top left corner cluster (6-11-5-15) and the bottom righ one
-% (12-10-17-9-8). Both of them have 80% chances of staying in.
-% In this first trial we will try to improve the circulation of these two clusters, we need
-% to better distribute manually the transition probabilities of the clusters.
+% top left corner cluster and the bottom righ one.
+% Both of them have 80% chances of staying in.
+% In this first trial we will try to improve the circulation on these two clusters, we need
+% to better distribute the transition probabilities of the clusters so that
+% the token spens equally more time in every anchor.
+%%%%%%%%%%%%%%%%%% Improved  %%%%%%%%%%%%%%%%%%%%%
 P=var.P;
 %For anchor 1 (add more transition probability to go the the top left cluster)
 P(1,6) = 0.3;
-P(1,7) = 0.3;
-P(1,20) = 0.4;
+P(1,20) = 0.3;
 %For anchor 6 (improve trasition probability to get out of the top left cluster)
 P(6,1) = 0.3;
-P(6,15) = 0.4;
 P(6,11) = 0.3;
 %For anchor 3 (improve trasition probability to to the bottom right cluster)
 P(3,12) = 0.5;
@@ -219,75 +264,15 @@ P(3,19) = 0.5;
 %For anchor 12 (improve trasition probability to get out of the bottom right cluster)
 P(12,3) = 0.3;
 P(12,8) = 0.3;
-P(12,10) = 0.4;
+%save improved matrix
+P_imp=P;
 %%
 % we felt no need to change connections between anchors, because if we
 % distribute envenly the transition probabilities, it will cover all the
 % anchors anyway. Only the time it spends on the anchor matters, not the
 % connection between them.
-[V,D]=eig(P');
-for i=1:20
-    for j=1:20
-        if i==j
-           vec(i)=abs(1-D(i,j));  
-        end
-    end
-end
-
-[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
-%transpose matrix for better understanding
-V_t=V(:,I)'; %find vector by D=1
-%theoretical equation for normalization
-norm=sum(V_t);
-v_param=1/norm;
-V_norm=V_t*v_param;
-figure
-bar(V_norm)
-grid on;grid minor
-xlabel('Probability','Interpreter','Latex');
-ylabel('State','Interpreter','Latex');
-title('Improved State Probability','Interpreter','Latex');
-xlim([0 21])
-
-%prove the sum is 1
-figure
-bar(sum(V_norm))
-xlim([0 2])
-xlabel('Graph','Interpreter','Latex');
-ylabel('Probability','Interpreter','Latex');
-title('Probability Sum','Interpreter','Latex');
-ylim([0 1.2])
-
-%Convergence Plot
-%set variables
-time=100;
-X = repmat((1:time)',[1 20]);
-Y = repmat(1:20,[time 1]);
-
-Pi=zeros(time,20);
-%set initial conditions
-Pi(1,:)=randfixedsum(20,1,1,0,1)';
-%theorical equation
-for j=2:time
-    Pi(j,:)=Pi(j-1,:)*P;
-end
-%Plot 3d figure
-figure
-plot3(X,Y,Pi);
-grid on; grid minor;
-title('Improved Probability Evolution','Interpreter','Latex');
-xlabel('Time','Interpreter','Latex');
-ylabel('State','Interpreter','Latex');
-zlabel('Probability','Interpreter','Latex');
-zlim([0 0.2])
-%%
-% Comparing this plot with the one of 2.a) we can see that this one is much better
-% distributed. If we change the distribution of course the convergence will
-% change, and that is what we see in the last figure.
-% Now we will try harm the distribuition. We will make it so it stays much
-% longer withint the clusters discussed above.
 P=var.P;
-
+%%%%%%%%%%%%%%%%%% Worsened case  %%%%%%%%%%%%%%%%%%%%%
 %For anchor 1 (add more transition probability to go the the top left cluster)
 P(1,6) = 0.8;
 P(1,7) = 0.1;
@@ -296,76 +281,87 @@ P(1,20) = 0.1;
 P(6,1) = 0.1;
 P(6,15) = 0.4;
 P(6,11) = 0.5;
-%For anchor 3 (improve trasition probability to to the bottom right cluster)
-P(3,12) = 0.5;
-P(3,19) = 0.5;
-%For anchor 12 (make it more difficult to go to anchor 3, so it stays in the cluster)
-P(12,3) = 0.1;
-P(12,8) = 0.4;
-P(12,10) = 0.5;
+%save worsened matrix
+P_w=P;
 %%
-% We are changing the weigth of the connection so it goes either to the
-% top or bottom cluster and stays there for a much longer period of time.
-
-
-[V,D]=eig(P');
-for i=1:20
-    for j=1:20
-        if i==j
-           vec(i)=abs(1-D(i,j));  
-        end
-    end
-end
-
-[M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
-%transpose matrix for better understanding
-V_t=V(:,I)'; %find vector by D=1
-%theoretical equation for normalization
-norm=sum(V_t);
-v_param=1/norm;
-V_norm=V_t*v_param;
-figure
-bar(V_norm)
-grid on;grid minor
-xlabel('Probability','Interpreter','Latex');
-ylabel('State','Interpreter','Latex');
-title('Worsened State Probability','Interpreter','Latex');
-xlim([0 21])
-
-%prove the sum is 1
-figure
-bar(sum(V_norm))
-xlim([0 2])
-xlabel('Graph','Interpreter','Latex');
-ylabel('Probability','Interpreter','Latex');
-title('Probability Sum','Interpreter','Latex');
-ylim([0 1.2])
-
+% We are changing the weigth of the connection so it goes to the
+% top cluster and stays there for a much longer period of time.
 %Convergence Plot
 %set variables
-time=200;
-X = repmat((1:time)',[1 20]);
-Y = repmat(1:20,[time 1]);
+for k=1:2
+    if k==1
+        P_matrix=P_imp;  %improved matrox
+    else
+        P_matrix=P_w;    %worsened matrix
+    end
+    Pi=zeros(100,20);
+    %set initial condition
+    Pi(1,:)=Uniform;
+    %theorical equation
+    time=linspace(1,100,100);
+    Pi = MarkovEquation(Pi,P_matrix,time);
+    %Plot 3d figure
+    figure
+    [Y,X]=meshgrid(linspace(1,20,20),time);
+    plot3(X,Y,Pi);
+    grid on; grid minor;
+    if k==1
+        title('Improved Probability Evolution','Interpreter','Latex');
+    else
+        title('Worsened Probability Evolution','Interpreter','Latex');
+    end
+    
+    xlabel('Time','Interpreter','Latex');
+    ylabel('State','Interpreter','Latex');
+    zlabel('Probability','Interpreter','Latex');
+    zlim([0 0.2])
 
-Pi=zeros(time,20);
-%set initial conditions
-Pi(1,:)=randfixedsum(20,1,1,0,1)';
-%theorical equation
-for j=2:time
-    Pi(j,:)=Pi(j-1,:)*P;
+    
+    [V,D]=eig(P_matrix');
+    vec=zeros(1,20);
+    for i=1:20
+       j=i;
+       vec(i)=abs(1-D(i,j));      
+    end
+
+    [M,I]=min(vec); %return index of eigenvector corresponding to the eigenvalue=1
+    %transpose matrix for better understanding
+    V_t=V(:,I)'; %find vector by D=1
+    %theoretical equation for normalization
+    norm=sum(V_t);
+    v_param=1/norm;
+    V_norm=V_t*v_param;
+    
+    %Plot measured equilibrium
+    figure
+    bar([V_norm; Pi(end,:)]')
+    grid on;grid minor
+    legend('Equilibrium','Measured')
+    xlabel('Probability','Interpreter','Latex');
+    ylabel('State','Interpreter','Latex');
+    state2='Improved State Probability';
+    state3='Worsened State Probability';
+    if k==1
+        title(state2,'Interpreter','Latex');
+        Improved_bar=Pi(end,:);
+        Improved_eq=V_norm;
+    else
+        title(state3,'Interpreter','Latex');
+        Worsened_bar=Pi(end,:);
+        Worsened_eq=V_norm;
+    end
+    xlim([0 21])
 end
-%Plot 3d figure
-figure
-plot3(X,Y,Pi);
-grid on; grid minor;
-title('Probability Evolution','Interpreter','Latex');
-xlabel('Time','Interpreter','Latex');
-ylabel('State','Interpreter','Latex');
-zlabel('Worsened Probability','Interpreter','Latex');
-zlim([0 0.2])
 
 %%
-% We can clearly see that the token is staying in the top left cluster (6-11-5-15), as
+% Comparing this plot with the one of 2.a) we can see that this one is much better
+% distributed. If we change the distribution of course the convergence evolution will
+% change, and that is what we see in the last figure.
+% Now we will try harm the distribuition. We will make it so it stays much
+% longer within the clusters discussed above.
+
+%%
+% We can clearly see that the token is staying in the top left cluster, as
 % expected. We changed the weigth of the connections so it stays in the
 % cluster.
 %%
@@ -375,16 +371,207 @@ zlim([0 0.2])
 % stays for long periods of time in the top cluster this will
 % imply great error in the location estimation.
 
-%% Ex3.a)
+%% Ex3.a) MonteCarlo
 % 
 
+%set variable
+p=Uniform; %(uniform distribution)
+n_runs=100;     %number of runs, the bigger the beter but takes more time
+points=100;  %time -> points to look at inside each monte run
 
+for n_case=1:3
+    Monte.anchor_database=zeros(points,20); %saves how many times the token has been in each anchor in each point of time
+    Monte.get_error=zeros(n_runs,points); %saves the error
+    %get transition probability
+    if n_case ==1
+        P=var.P;    %normal transition probability
+    elseif n_case==2;
+        P=P_imp; %improved transition probability
+    else
+        P=P_w;  %worsened transition probability
+    end
+    msg=strcat('Current Trial -> ',num2str(n_case),' of 3:');
+    %Preform Monte runs
+    for current_run=1:n_runs
+        RlsPar = struct('lam',1);
+        Monte=MonteRun(var,points,p,Monte.anchor_database,all_norms,current_run,RlsPar,Monte.get_error,QP,stdev,P0,P);     
+    end
+    
+    %Save error
+        error_evolution=Monte.get_error;
+        if n_case ==1
+        	monte_equilibrium_error=sum(error_evolution,1)/n_runs;     %save for 3.b)
+        elseif n_case==2;
+            monte_improved_equilibrium_error=sum(error_evolution,1)/n_runs;        %save for 3.b)
+        else
+            monte_worsened_equilibrium_error=sum(error_evolution,1)/n_runs;        %save for 3.b)
+        end
+        
+        %save database
+        anchor_database=Monte.anchor_database;
+    for m=2:points
+        anchor_database(m,:)=anchor_database(m,:)+anchor_database(m-1,:);
+        anchor_database(m-1,:)=anchor_database(m-1,:)/((m-1)*n_runs);
+    end
+    anchor_database(end,:)=anchor_database(end,:)/(points*n_runs);
+    
+    if n_case ==1
+        tittle_ev='Normal Probability Evolution';    
+        tittle_eq='Normal Equilibrium Anchor Probability';
+        prev_bar=Normal_eq;
+        markov_bar=uniform_equilibrium;
+    elseif n_case==2;
+        tittle_ev='Improved Probability Evolution';        
+        tittle_eq='Improved Equilibrium Anchor Probability';
+        prev_bar=Improved_eq;
+        markov_bar=Improved_bar;
+    else
+        tittle_ev='Worsened Probability Evolution';        
+        tittle_eq='Worsened Equilibrium Anchor Probability';
+        prev_bar=Worsened_eq;
+        markov_bar=Worsened_bar;
+    end
+    
+    
+    [Y,X]=meshgrid(1:20,1:points);
+    %Plot Evolution
+    figure
+    plot3(X,Y,anchor_database);
+    grid on; grid minor; zlim([0 0.2])
+    title(tittle_ev,'Interpreter','Latex');
+    xlabel('Time','Interpreter','Latex');
+    ylabel('State','Interpreter','Latex');
+    zlabel('Probability','Interpreter','Latex');
+    %Plot Equilibrium
+    figure
+    compare=[prev_bar; markov_bar; anchor_database(end,:)]';
+    bar(compare);
+    title(tittle_eq,'Interpreter','Latex');
+    xlabel('Anchor','Interpreter','Latex');
+    ylabel('Probability','Interpreter','Latex');
+    legend('T. Equilibrium','Markov','MonteCarlo')
+    if n_case==3
+        xlim([0 21]); ylim([0 0.25]);
+    else
+        xlim([0 21]); ylim([0 0.12]);
+    end
 end
 
 
+%% 3.b) 
+%
+
+figure
+hold on
+plot(monte_equilibrium_error)
+plot(monte_improved_equilibrium_error)
+plot(monte_worsened_equilibrium_error,'k')
+grid on;grid minor;
+legend('Normal','Improved','Worsened')
+title('Error Evolution','Interpreter','Latex')
+xlabel('Time','Interpreter','Latex')
+ylabel('Error','Interpreter','Latex')
+
+%%
+% We can clearly see that if we change the transition probability to a worst case scenario, the
+% error will be much greater. By improving the circulation through all the
+% anchors we can also notice a slightly accurate estimate. In
+% the begining we get those spikes because with few estimates of the
+% anchors we cant get a good estimate.
+end
 
 %% External Functions
+%
+
+%% Markov Equation
 % 
+
+%%
+% This is simply the theoretical equation to give us the final Pi matrix
+function Pi = MarkovEquation(Pi,P,time)
+    for j=2:length(time)
+        Pi(j,:)=Pi(j-1,:)*P;
+    end
+end
+
+%% Error Calculation
+% 
+
+%%
+% In here we add each trial to an array in order to preform an incremental
+% error calculation like we did in 2.b). We chose to go by the root square
+% mean error.
+function MonteS=error_calc(point,n_run,RlsPar,all_norms,curr_anchor,real_pos,P0,QP,stdev,Mfile,MonteS)
+       distance = all_norms(1,3:end);			% Source-anchor distances -> ||x-ai||^2
+       anch_norm = all_norms(2,3:end);      
+       
+       anchors=[Mfile.nodePos(curr_anchor,2) ;Mfile.nodePos(curr_anchor,3)];
+       
+       ai=anch_norm(curr_anchor);
+       di=distance(curr_anchor);
+       %same method as in 2.b)
+       %we need to add values to the array in order to preform the error
+       %calculation through time (adding each trial).
+       if point==1
+           MonteS.di=di;
+           MonteS.a=anchors;
+           MonteS.an=ai;
+       else 
+           MonteS.di=horzcat(MonteS.di,di);
+           MonteS.a=horzcat(MonteS.a,anchors);
+           MonteS.an=horzcat(MonteS.an,ai);
+       end
+       
+       Pot=P0./MonteS.di.^2;
+       Pot = Pot.*exp(stdev*randn);
+       Pot = QP*round(Pot/QP);
+                 
+       A = [-2*repmat(Pot,[2 1]).*MonteS.a; -ones(size(Pot)); Pot]';
+       b = (-Pot.*(MonteS.an.^2))';
+       
+       [e,w,RlsPar] = qrrls(A,b,RlsPar);
+       
+       %error is given by -> error = [rea_x1 real_x2]T - [m_x1 m_x2]T then sqrt(error(1)^2 - error(2)^2)
+       
+       error_aux=[real_pos(1)-w(1);real_pos(2)-w(2)];
+       error=sqrt(error_aux(1).^2 + error_aux(2).^2);
+       MonteS.get_error(n_run,point)= error;
+end
+%% Monte Run
+% 
+
+%%
+% In here we preform a Monte Run, we go through each point of time and
+% calculate wich is the next anchor it's going, we save it an then add it
+% to the monte error calculation. Anchor database is the array we need to
+% then plot the probability evolution. It also give us the error matrix
+% that we then need to plot the error evolution.
+function MonteS=MonteRun(MChain_struct,time,init_p,anchor_database,all_norms,n_run,RlsPar,get_error,QP,stdev,P0,P)
+    real_pos=MChain_struct.sourcePos'; %for error estimation
+    MonteS.di=[];
+    MonteS.a=[];
+    MonteS.an=[];
+    MonteS.get_error=get_error;
+    for i=1:time
+        if i==1
+            first_anchor=find(cumsum(init_p)>rand,1,'first'); %define first anchor
+            current_anchor=first_anchor;  %current anchor (defined to simplify code reading)
+        else
+            next_anchor=find(cumsum(P(current_anchor,:)')>rand,1,'first');
+            current_anchor=next_anchor;
+        end
+        %update database
+        anchor_database(i,current_anchor)=anchor_database(i,current_anchor)+1;
+        %calculate error
+        MonteS=error_calc(i,n_run,RlsPar,all_norms,current_anchor,real_pos,P0,QP,stdev,MChain_struct,MonteS);
+        
+    end
+    
+    MonteS.anchor_database=anchor_database;
+    
+end
+
+
 
 %code generated using 'Generate Code' option of figure
 function createfigure(X1, Y1)

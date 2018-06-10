@@ -45,6 +45,7 @@ norm(z-w)
 % RLS formulation (incremental)
 RlsPar = struct('lam',1);
 for i = 1:size(A,1)
-  [e,w,RlsPar] = qrrls(A(i,:),b(i),RlsPar);
+  [e,w,RlsPar] = qrrls(A(i,:),b(i),RlsPar); %meter no ciclo interior
 end
+w
 norm(z-w)
